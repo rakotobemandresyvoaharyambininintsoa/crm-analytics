@@ -386,7 +386,6 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Produit: 'Produit',
   Mouvement: 'Mouvement',
-  Inventaire: 'Inventaire',
   Fournisseur: 'Fournisseur',
   Categorie: 'Categorie',
   Client: 'Client',
@@ -417,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "produit" | "mouvement" | "inventaire" | "fournisseur" | "categorie" | "client" | "activite" | "opportunite" | "facture" | "factureLigne" | "user" | "entrepot" | "inventaireSession" | "inventaireLigne" | "inventaireComptage" | "inventaireAjustement" | "inventaireAudit" | "inventaireParametres"
+    modelProps: "produit" | "mouvement" | "fournisseur" | "categorie" | "client" | "activite" | "opportunite" | "facture" | "factureLigne" | "user" | "entrepot" | "inventaireSession" | "inventaireLigne" | "inventaireComptage" | "inventaireAjustement" | "inventaireAudit" | "inventaireParametres"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -566,80 +565,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.MouvementCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.MouvementCountAggregateOutputType> | number
-        }
-      }
-    }
-    Inventaire: {
-      payload: Prisma.$InventairePayload<ExtArgs>
-      fields: Prisma.InventaireFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.InventaireFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventairePayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.InventaireFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventairePayload>
-        }
-        findFirst: {
-          args: Prisma.InventaireFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventairePayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.InventaireFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventairePayload>
-        }
-        findMany: {
-          args: Prisma.InventaireFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventairePayload>[]
-        }
-        create: {
-          args: Prisma.InventaireCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventairePayload>
-        }
-        createMany: {
-          args: Prisma.InventaireCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.InventaireCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventairePayload>[]
-        }
-        delete: {
-          args: Prisma.InventaireDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventairePayload>
-        }
-        update: {
-          args: Prisma.InventaireUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventairePayload>
-        }
-        deleteMany: {
-          args: Prisma.InventaireDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.InventaireUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.InventaireUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventairePayload>[]
-        }
-        upsert: {
-          args: Prisma.InventaireUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventairePayload>
-        }
-        aggregate: {
-          args: Prisma.InventaireAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateInventaire>
-        }
-        groupBy: {
-          args: Prisma.InventaireGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.InventaireGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.InventaireCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.InventaireCountAggregateOutputType> | number
         }
       }
     }
@@ -1821,18 +1746,6 @@ export const MouvementScalarFieldEnum = {
 export type MouvementScalarFieldEnum = (typeof MouvementScalarFieldEnum)[keyof typeof MouvementScalarFieldEnum]
 
 
-export const InventaireScalarFieldEnum = {
-  id: 'id',
-  produitId: 'produitId',
-  stockSysteme: 'stockSysteme',
-  stockReel: 'stockReel',
-  ecart: 'ecart',
-  date: 'date'
-} as const
-
-export type InventaireScalarFieldEnum = (typeof InventaireScalarFieldEnum)[keyof typeof InventaireScalarFieldEnum]
-
-
 export const FournisseurScalarFieldEnum = {
   id: 'id',
   nom: 'nom',
@@ -2231,7 +2144,6 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   produit?: Prisma.ProduitOmit
   mouvement?: Prisma.MouvementOmit
-  inventaire?: Prisma.InventaireOmit
   fournisseur?: Prisma.FournisseurOmit
   categorie?: Prisma.CategorieOmit
   client?: Prisma.ClientOmit

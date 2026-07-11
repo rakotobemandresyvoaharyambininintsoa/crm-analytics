@@ -1,11 +1,18 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { requireRole } from "@/lib/auth";
 
 // GET /api/inventaires/[id]/lignes — lignes de comptage pour l'écran de comptage
 export async function GET(
   req: Request,
   { params }: { params: { id: string } }
 ) {
+  try {
+    await requireRole(["ADMIN", "MAGASINIER"]);
+  } catch {
+    return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
+  }
+
   try {
     const lignes = await prisma.inventaireLigne.findMany({
       where: { sessionId: Number(params.id) },
@@ -39,6 +46,12 @@ export async function PUT(
   req: Request,
   { params }: { params: { id: string } }
 ) {
+  try {
+    await requireRole(["ADMIN", "MAGASINIER"]);
+  } catch {
+    return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
+  }
+
   try {
     const body = await req.json();
     const sessionId = Number(params.id);

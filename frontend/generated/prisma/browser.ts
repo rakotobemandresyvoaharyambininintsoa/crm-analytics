@@ -28,11 +28,6 @@ export type Produit = Prisma.ProduitModel
  */
 export type Mouvement = Prisma.MouvementModel
 /**
- * Model Inventaire
- * 
- */
-export type Inventaire = Prisma.InventaireModel
-/**
  * Model Fournisseur
  * 
  */

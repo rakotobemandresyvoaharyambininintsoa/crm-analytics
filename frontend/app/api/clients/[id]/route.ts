@@ -1,6 +1,7 @@
 
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { requireRole } from "@/lib/auth";
 
 
 
@@ -12,6 +13,11 @@ export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
+  try {
+    await requireRole(["ADMIN", "COMMERCIAL"]);
+  } catch {
+    return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
+  }
 
   try {
 
@@ -72,6 +78,11 @@ export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
 ) {
+  try {
+    await requireRole(["ADMIN", "COMMERCIAL"]);
+  } catch {
+    return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
+  }
 
   try {
 
@@ -134,6 +145,11 @@ export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
 ) {
+  try {
+    await requireRole(["ADMIN"]);
+  } catch {
+    return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
+  }
 
   try {
 

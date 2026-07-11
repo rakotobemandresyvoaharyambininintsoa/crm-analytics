@@ -1,11 +1,17 @@
 import { SignJWT, jwtVerify } from "jose";
 
 import { cookies } from "next/headers";
-// ⚠️ Mets une vraie valeur secrète dans ton .env :
-// JWT_SECRET="une-longue-chaine-aleatoire-et-privee"
-const secret = new TextEncoder().encode(
-  process.env.JWT_SECRET || "change-moi-en-production"
-);
+
+// Aucune valeur par défaut ici : un secret JWT prévisible dans le code
+// permettrait à n'importe qui de forger une session admin. L'app doit
+// refuser de démarrer plutôt que de tourner avec un secret connu.
+if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 16) {
+  throw new Error(
+    "JWT_SECRET manquant ou trop court. Définissez une valeur aléatoire d'au moins 16 caractères dans .env (voir .env.example)."
+  );
+}
+
+const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
 export interface SessionPayload {
   id: number;

@@ -58,9 +58,12 @@ export default function StatCard({
   valeur,
   icone,
 
-  evolution = 12,
-  objectif = 75,
-  insight = "Performance stable",
+  // Pas de valeurs par défaut inventées : si le parent ne fournit pas de
+  // données réelles, on l'affiche clairement plutôt que d'afficher un chiffre
+  // qui a l'air vrai mais qui ne l'est pas.
+  evolution,
+  objectif,
+  insight,
 
   color = "purple",
 }: StatCardProps) {
@@ -102,68 +105,57 @@ export default function StatCard({
 
         </div>
 
-        <div className="mt-6 flex items-center gap-2">
+        {evolution !== undefined && (
+          <div className="mt-6 flex items-center gap-2">
+            {evolution >= 0 ? (
+              <TrendingUp className="h-4 w-4 text-emerald-400" />
+            ) : (
+              <TrendingDown className="h-4 w-4 text-red-400" />
+            )}
 
-          {evolution >= 0 ? (
-            <TrendingUp className="h-4 w-4 text-emerald-400" />
-          ) : (
-            <TrendingDown className="h-4 w-4 text-red-400" />
-          )}
-
-          <span
-            className={`font-semibold ${
-              evolution >= 0
-                ? "text-emerald-400"
-                : "text-red-400"
-            }`}
-          >
-            {evolution >= 0 ? "+" : ""}
-            {evolution}%
-          </span>
-
-          <span className="text-white/40 text-sm">
-            ce mois
-          </span>
-
-        </div>
-
-        <div className="mt-5">
-
-          <div className="flex justify-between text-xs text-white/40 mb-2">
-            <span>Objectif</span>
-            <span>{objectif}%</span>
-          </div>
-
-          <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-
-            <div
-              className={`h-full rounded-full bg-gradient-to-r ${c.progress}`}
-              style={{
-                width: `${objectif}%`,
-              }}
-            />
-
-          </div>
-
-        </div>
-
-        <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.04] p-3">
-
-          <div className="flex items-center gap-2">
-
-            <Sparkles className="h-4 w-4 text-violet-300" />
-
-            <span className="text-xs uppercase tracking-wide text-violet-300">
-              IA Insight
+            <span
+              className={`font-semibold ${
+                evolution >= 0 ? "text-emerald-400" : "text-red-400"
+              }`}
+            >
+              {evolution >= 0 ? "+" : ""}
+              {evolution}%
             </span>
 
+            <span className="text-white/40 text-sm">ce mois</span>
           </div>
+        )}
 
-          <p className="mt-2 text-sm text-white/70">
-            {insight}
-          </p>
+        {objectif !== undefined && (
+          <div className="mt-5">
+            <div className="flex justify-between text-xs text-white/40 mb-2">
+              <span>Objectif</span>
+              <span>{objectif}%</span>
+            </div>
 
-        </div>
+            <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+              <div
+                className={`h-full rounded-full bg-gradient-to-r ${c.progress}`}
+                style={{
+                  width: `${Math.min(100, Math.max(0, objectif))}%`,
+                }}
+              />
+            </div>
+          </div>
+        )}
+
+        {insight && (
+          <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.04] p-3">
+            <div className="flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-violet-300" />
+              <span className="text-xs uppercase tracking-wide text-violet-300">
+                Insight
+              </span>
+            </div>
+
+            <p className="mt-2 text-sm text-white/70">{insight}</p>
+          </div>
+        )}
 
       </div>
     </motion.div>

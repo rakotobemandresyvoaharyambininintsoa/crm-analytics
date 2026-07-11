@@ -10,7 +10,6 @@
  */
 export type * from './models/Produit'
 export type * from './models/Mouvement'
-export type * from './models/Inventaire'
 export type * from './models/Fournisseur'
 export type * from './models/Categorie'
 export type * from './models/Client'

@@ -317,7 +317,6 @@ export type ProduitWhereInput = {
   lignesInventaire?: Prisma.InventaireLigneListRelationFilter
   ajustementsInventaire?: Prisma.InventaireAjustementListRelationFilter
   mouvements?: Prisma.MouvementListRelationFilter
-  inventaires?: Prisma.InventaireListRelationFilter
   lignesFacture?: Prisma.FactureLigneListRelationFilter
 }
 
@@ -341,7 +340,6 @@ export type ProduitOrderByWithRelationInput = {
   lignesInventaire?: Prisma.InventaireLigneOrderByRelationAggregateInput
   ajustementsInventaire?: Prisma.InventaireAjustementOrderByRelationAggregateInput
   mouvements?: Prisma.MouvementOrderByRelationAggregateInput
-  inventaires?: Prisma.InventaireOrderByRelationAggregateInput
   lignesFacture?: Prisma.FactureLigneOrderByRelationAggregateInput
 }
 
@@ -368,7 +366,6 @@ export type ProduitWhereUniqueInput = Prisma.AtLeast<{
   lignesInventaire?: Prisma.InventaireLigneListRelationFilter
   ajustementsInventaire?: Prisma.InventaireAjustementListRelationFilter
   mouvements?: Prisma.MouvementListRelationFilter
-  inventaires?: Prisma.InventaireListRelationFilter
   lignesFacture?: Prisma.FactureLigneListRelationFilter
 }, "id" | "reference">
 
@@ -431,7 +428,6 @@ export type ProduitCreateInput = {
   lignesInventaire?: Prisma.InventaireLigneCreateNestedManyWithoutProduitInput
   ajustementsInventaire?: Prisma.InventaireAjustementCreateNestedManyWithoutProduitInput
   mouvements?: Prisma.MouvementCreateNestedManyWithoutProduitInput
-  inventaires?: Prisma.InventaireCreateNestedManyWithoutProduitInput
   lignesFacture?: Prisma.FactureLigneCreateNestedManyWithoutProduitInput
 }
 
@@ -453,7 +449,6 @@ export type ProduitUncheckedCreateInput = {
   lignesInventaire?: Prisma.InventaireLigneUncheckedCreateNestedManyWithoutProduitInput
   ajustementsInventaire?: Prisma.InventaireAjustementUncheckedCreateNestedManyWithoutProduitInput
   mouvements?: Prisma.MouvementUncheckedCreateNestedManyWithoutProduitInput
-  inventaires?: Prisma.InventaireUncheckedCreateNestedManyWithoutProduitInput
   lignesFacture?: Prisma.FactureLigneUncheckedCreateNestedManyWithoutProduitInput
 }
 
@@ -474,7 +469,6 @@ export type ProduitUpdateInput = {
   lignesInventaire?: Prisma.InventaireLigneUpdateManyWithoutProduitNestedInput
   ajustementsInventaire?: Prisma.InventaireAjustementUpdateManyWithoutProduitNestedInput
   mouvements?: Prisma.MouvementUpdateManyWithoutProduitNestedInput
-  inventaires?: Prisma.InventaireUpdateManyWithoutProduitNestedInput
   lignesFacture?: Prisma.FactureLigneUpdateManyWithoutProduitNestedInput
 }
 
@@ -496,7 +490,6 @@ export type ProduitUncheckedUpdateInput = {
   lignesInventaire?: Prisma.InventaireLigneUncheckedUpdateManyWithoutProduitNestedInput
   ajustementsInventaire?: Prisma.InventaireAjustementUncheckedUpdateManyWithoutProduitNestedInput
   mouvements?: Prisma.MouvementUncheckedUpdateManyWithoutProduitNestedInput
-  inventaires?: Prisma.InventaireUncheckedUpdateManyWithoutProduitNestedInput
   lignesFacture?: Prisma.FactureLigneUncheckedUpdateManyWithoutProduitNestedInput
 }
 
@@ -684,20 +677,6 @@ export type ProduitUpdateOneRequiredWithoutMouvementsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProduitUpdateToOneWithWhereWithoutMouvementsInput, Prisma.ProduitUpdateWithoutMouvementsInput>, Prisma.ProduitUncheckedUpdateWithoutMouvementsInput>
 }
 
-export type ProduitCreateNestedOneWithoutInventairesInput = {
-  create?: Prisma.XOR<Prisma.ProduitCreateWithoutInventairesInput, Prisma.ProduitUncheckedCreateWithoutInventairesInput>
-  connectOrCreate?: Prisma.ProduitCreateOrConnectWithoutInventairesInput
-  connect?: Prisma.ProduitWhereUniqueInput
-}
-
-export type ProduitUpdateOneRequiredWithoutInventairesNestedInput = {
-  create?: Prisma.XOR<Prisma.ProduitCreateWithoutInventairesInput, Prisma.ProduitUncheckedCreateWithoutInventairesInput>
-  connectOrCreate?: Prisma.ProduitCreateOrConnectWithoutInventairesInput
-  upsert?: Prisma.ProduitUpsertWithoutInventairesInput
-  connect?: Prisma.ProduitWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ProduitUpdateToOneWithWhereWithoutInventairesInput, Prisma.ProduitUpdateWithoutInventairesInput>, Prisma.ProduitUncheckedUpdateWithoutInventairesInput>
-}
-
 export type ProduitCreateNestedManyWithoutFournisseurInput = {
   create?: Prisma.XOR<Prisma.ProduitCreateWithoutFournisseurInput, Prisma.ProduitUncheckedCreateWithoutFournisseurInput> | Prisma.ProduitCreateWithoutFournisseurInput[] | Prisma.ProduitUncheckedCreateWithoutFournisseurInput[]
   connectOrCreate?: Prisma.ProduitCreateOrConnectWithoutFournisseurInput | Prisma.ProduitCreateOrConnectWithoutFournisseurInput[]
@@ -840,7 +819,6 @@ export type ProduitCreateWithoutMouvementsInput = {
   fournisseur?: Prisma.FournisseurCreateNestedOneWithoutProduitsInput
   lignesInventaire?: Prisma.InventaireLigneCreateNestedManyWithoutProduitInput
   ajustementsInventaire?: Prisma.InventaireAjustementCreateNestedManyWithoutProduitInput
-  inventaires?: Prisma.InventaireCreateNestedManyWithoutProduitInput
   lignesFacture?: Prisma.FactureLigneCreateNestedManyWithoutProduitInput
 }
 
@@ -861,7 +839,6 @@ export type ProduitUncheckedCreateWithoutMouvementsInput = {
   updatedAt?: Date | string
   lignesInventaire?: Prisma.InventaireLigneUncheckedCreateNestedManyWithoutProduitInput
   ajustementsInventaire?: Prisma.InventaireAjustementUncheckedCreateNestedManyWithoutProduitInput
-  inventaires?: Prisma.InventaireUncheckedCreateNestedManyWithoutProduitInput
   lignesFacture?: Prisma.FactureLigneUncheckedCreateNestedManyWithoutProduitInput
 }
 
@@ -897,7 +874,6 @@ export type ProduitUpdateWithoutMouvementsInput = {
   fournisseur?: Prisma.FournisseurUpdateOneWithoutProduitsNestedInput
   lignesInventaire?: Prisma.InventaireLigneUpdateManyWithoutProduitNestedInput
   ajustementsInventaire?: Prisma.InventaireAjustementUpdateManyWithoutProduitNestedInput
-  inventaires?: Prisma.InventaireUpdateManyWithoutProduitNestedInput
   lignesFacture?: Prisma.FactureLigneUpdateManyWithoutProduitNestedInput
 }
 
@@ -918,105 +894,6 @@ export type ProduitUncheckedUpdateWithoutMouvementsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lignesInventaire?: Prisma.InventaireLigneUncheckedUpdateManyWithoutProduitNestedInput
   ajustementsInventaire?: Prisma.InventaireAjustementUncheckedUpdateManyWithoutProduitNestedInput
-  inventaires?: Prisma.InventaireUncheckedUpdateManyWithoutProduitNestedInput
-  lignesFacture?: Prisma.FactureLigneUncheckedUpdateManyWithoutProduitNestedInput
-}
-
-export type ProduitCreateWithoutInventairesInput = {
-  reference: string
-  codeBarre?: string | null
-  nom: string
-  marque?: string | null
-  emplacement?: string | null
-  prixAchat?: number
-  prixVente?: number
-  quantite?: number
-  seuilAlerte?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  categorie?: Prisma.CategorieCreateNestedOneWithoutProduitsInput
-  fournisseur?: Prisma.FournisseurCreateNestedOneWithoutProduitsInput
-  lignesInventaire?: Prisma.InventaireLigneCreateNestedManyWithoutProduitInput
-  ajustementsInventaire?: Prisma.InventaireAjustementCreateNestedManyWithoutProduitInput
-  mouvements?: Prisma.MouvementCreateNestedManyWithoutProduitInput
-  lignesFacture?: Prisma.FactureLigneCreateNestedManyWithoutProduitInput
-}
-
-export type ProduitUncheckedCreateWithoutInventairesInput = {
-  id?: number
-  reference: string
-  codeBarre?: string | null
-  nom: string
-  categorieId?: number | null
-  fournisseurId?: number | null
-  marque?: string | null
-  emplacement?: string | null
-  prixAchat?: number
-  prixVente?: number
-  quantite?: number
-  seuilAlerte?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  lignesInventaire?: Prisma.InventaireLigneUncheckedCreateNestedManyWithoutProduitInput
-  ajustementsInventaire?: Prisma.InventaireAjustementUncheckedCreateNestedManyWithoutProduitInput
-  mouvements?: Prisma.MouvementUncheckedCreateNestedManyWithoutProduitInput
-  lignesFacture?: Prisma.FactureLigneUncheckedCreateNestedManyWithoutProduitInput
-}
-
-export type ProduitCreateOrConnectWithoutInventairesInput = {
-  where: Prisma.ProduitWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProduitCreateWithoutInventairesInput, Prisma.ProduitUncheckedCreateWithoutInventairesInput>
-}
-
-export type ProduitUpsertWithoutInventairesInput = {
-  update: Prisma.XOR<Prisma.ProduitUpdateWithoutInventairesInput, Prisma.ProduitUncheckedUpdateWithoutInventairesInput>
-  create: Prisma.XOR<Prisma.ProduitCreateWithoutInventairesInput, Prisma.ProduitUncheckedCreateWithoutInventairesInput>
-  where?: Prisma.ProduitWhereInput
-}
-
-export type ProduitUpdateToOneWithWhereWithoutInventairesInput = {
-  where?: Prisma.ProduitWhereInput
-  data: Prisma.XOR<Prisma.ProduitUpdateWithoutInventairesInput, Prisma.ProduitUncheckedUpdateWithoutInventairesInput>
-}
-
-export type ProduitUpdateWithoutInventairesInput = {
-  reference?: Prisma.StringFieldUpdateOperationsInput | string
-  codeBarre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nom?: Prisma.StringFieldUpdateOperationsInput | string
-  marque?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emplacement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  prixAchat?: Prisma.FloatFieldUpdateOperationsInput | number
-  prixVente?: Prisma.FloatFieldUpdateOperationsInput | number
-  quantite?: Prisma.IntFieldUpdateOperationsInput | number
-  seuilAlerte?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  categorie?: Prisma.CategorieUpdateOneWithoutProduitsNestedInput
-  fournisseur?: Prisma.FournisseurUpdateOneWithoutProduitsNestedInput
-  lignesInventaire?: Prisma.InventaireLigneUpdateManyWithoutProduitNestedInput
-  ajustementsInventaire?: Prisma.InventaireAjustementUpdateManyWithoutProduitNestedInput
-  mouvements?: Prisma.MouvementUpdateManyWithoutProduitNestedInput
-  lignesFacture?: Prisma.FactureLigneUpdateManyWithoutProduitNestedInput
-}
-
-export type ProduitUncheckedUpdateWithoutInventairesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  reference?: Prisma.StringFieldUpdateOperationsInput | string
-  codeBarre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nom?: Prisma.StringFieldUpdateOperationsInput | string
-  categorieId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  fournisseurId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  marque?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emplacement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  prixAchat?: Prisma.FloatFieldUpdateOperationsInput | number
-  prixVente?: Prisma.FloatFieldUpdateOperationsInput | number
-  quantite?: Prisma.IntFieldUpdateOperationsInput | number
-  seuilAlerte?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lignesInventaire?: Prisma.InventaireLigneUncheckedUpdateManyWithoutProduitNestedInput
-  ajustementsInventaire?: Prisma.InventaireAjustementUncheckedUpdateManyWithoutProduitNestedInput
-  mouvements?: Prisma.MouvementUncheckedUpdateManyWithoutProduitNestedInput
   lignesFacture?: Prisma.FactureLigneUncheckedUpdateManyWithoutProduitNestedInput
 }
 
@@ -1036,7 +913,6 @@ export type ProduitCreateWithoutFournisseurInput = {
   lignesInventaire?: Prisma.InventaireLigneCreateNestedManyWithoutProduitInput
   ajustementsInventaire?: Prisma.InventaireAjustementCreateNestedManyWithoutProduitInput
   mouvements?: Prisma.MouvementCreateNestedManyWithoutProduitInput
-  inventaires?: Prisma.InventaireCreateNestedManyWithoutProduitInput
   lignesFacture?: Prisma.FactureLigneCreateNestedManyWithoutProduitInput
 }
 
@@ -1057,7 +933,6 @@ export type ProduitUncheckedCreateWithoutFournisseurInput = {
   lignesInventaire?: Prisma.InventaireLigneUncheckedCreateNestedManyWithoutProduitInput
   ajustementsInventaire?: Prisma.InventaireAjustementUncheckedCreateNestedManyWithoutProduitInput
   mouvements?: Prisma.MouvementUncheckedCreateNestedManyWithoutProduitInput
-  inventaires?: Prisma.InventaireUncheckedCreateNestedManyWithoutProduitInput
   lignesFacture?: Prisma.FactureLigneUncheckedCreateNestedManyWithoutProduitInput
 }
 
@@ -1122,7 +997,6 @@ export type ProduitCreateWithoutCategorieInput = {
   lignesInventaire?: Prisma.InventaireLigneCreateNestedManyWithoutProduitInput
   ajustementsInventaire?: Prisma.InventaireAjustementCreateNestedManyWithoutProduitInput
   mouvements?: Prisma.MouvementCreateNestedManyWithoutProduitInput
-  inventaires?: Prisma.InventaireCreateNestedManyWithoutProduitInput
   lignesFacture?: Prisma.FactureLigneCreateNestedManyWithoutProduitInput
 }
 
@@ -1143,7 +1017,6 @@ export type ProduitUncheckedCreateWithoutCategorieInput = {
   lignesInventaire?: Prisma.InventaireLigneUncheckedCreateNestedManyWithoutProduitInput
   ajustementsInventaire?: Prisma.InventaireAjustementUncheckedCreateNestedManyWithoutProduitInput
   mouvements?: Prisma.MouvementUncheckedCreateNestedManyWithoutProduitInput
-  inventaires?: Prisma.InventaireUncheckedCreateNestedManyWithoutProduitInput
   lignesFacture?: Prisma.FactureLigneUncheckedCreateNestedManyWithoutProduitInput
 }
 
@@ -1189,7 +1062,6 @@ export type ProduitCreateWithoutLignesFactureInput = {
   lignesInventaire?: Prisma.InventaireLigneCreateNestedManyWithoutProduitInput
   ajustementsInventaire?: Prisma.InventaireAjustementCreateNestedManyWithoutProduitInput
   mouvements?: Prisma.MouvementCreateNestedManyWithoutProduitInput
-  inventaires?: Prisma.InventaireCreateNestedManyWithoutProduitInput
 }
 
 export type ProduitUncheckedCreateWithoutLignesFactureInput = {
@@ -1210,7 +1082,6 @@ export type ProduitUncheckedCreateWithoutLignesFactureInput = {
   lignesInventaire?: Prisma.InventaireLigneUncheckedCreateNestedManyWithoutProduitInput
   ajustementsInventaire?: Prisma.InventaireAjustementUncheckedCreateNestedManyWithoutProduitInput
   mouvements?: Prisma.MouvementUncheckedCreateNestedManyWithoutProduitInput
-  inventaires?: Prisma.InventaireUncheckedCreateNestedManyWithoutProduitInput
 }
 
 export type ProduitCreateOrConnectWithoutLignesFactureInput = {
@@ -1246,7 +1117,6 @@ export type ProduitUpdateWithoutLignesFactureInput = {
   lignesInventaire?: Prisma.InventaireLigneUpdateManyWithoutProduitNestedInput
   ajustementsInventaire?: Prisma.InventaireAjustementUpdateManyWithoutProduitNestedInput
   mouvements?: Prisma.MouvementUpdateManyWithoutProduitNestedInput
-  inventaires?: Prisma.InventaireUpdateManyWithoutProduitNestedInput
 }
 
 export type ProduitUncheckedUpdateWithoutLignesFactureInput = {
@@ -1267,7 +1137,6 @@ export type ProduitUncheckedUpdateWithoutLignesFactureInput = {
   lignesInventaire?: Prisma.InventaireLigneUncheckedUpdateManyWithoutProduitNestedInput
   ajustementsInventaire?: Prisma.InventaireAjustementUncheckedUpdateManyWithoutProduitNestedInput
   mouvements?: Prisma.MouvementUncheckedUpdateManyWithoutProduitNestedInput
-  inventaires?: Prisma.InventaireUncheckedUpdateManyWithoutProduitNestedInput
 }
 
 export type ProduitCreateWithoutLignesInventaireInput = {
@@ -1286,7 +1155,6 @@ export type ProduitCreateWithoutLignesInventaireInput = {
   fournisseur?: Prisma.FournisseurCreateNestedOneWithoutProduitsInput
   ajustementsInventaire?: Prisma.InventaireAjustementCreateNestedManyWithoutProduitInput
   mouvements?: Prisma.MouvementCreateNestedManyWithoutProduitInput
-  inventaires?: Prisma.InventaireCreateNestedManyWithoutProduitInput
   lignesFacture?: Prisma.FactureLigneCreateNestedManyWithoutProduitInput
 }
 
@@ -1307,7 +1175,6 @@ export type ProduitUncheckedCreateWithoutLignesInventaireInput = {
   updatedAt?: Date | string
   ajustementsInventaire?: Prisma.InventaireAjustementUncheckedCreateNestedManyWithoutProduitInput
   mouvements?: Prisma.MouvementUncheckedCreateNestedManyWithoutProduitInput
-  inventaires?: Prisma.InventaireUncheckedCreateNestedManyWithoutProduitInput
   lignesFacture?: Prisma.FactureLigneUncheckedCreateNestedManyWithoutProduitInput
 }
 
@@ -1343,7 +1210,6 @@ export type ProduitUpdateWithoutLignesInventaireInput = {
   fournisseur?: Prisma.FournisseurUpdateOneWithoutProduitsNestedInput
   ajustementsInventaire?: Prisma.InventaireAjustementUpdateManyWithoutProduitNestedInput
   mouvements?: Prisma.MouvementUpdateManyWithoutProduitNestedInput
-  inventaires?: Prisma.InventaireUpdateManyWithoutProduitNestedInput
   lignesFacture?: Prisma.FactureLigneUpdateManyWithoutProduitNestedInput
 }
 
@@ -1364,7 +1230,6 @@ export type ProduitUncheckedUpdateWithoutLignesInventaireInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ajustementsInventaire?: Prisma.InventaireAjustementUncheckedUpdateManyWithoutProduitNestedInput
   mouvements?: Prisma.MouvementUncheckedUpdateManyWithoutProduitNestedInput
-  inventaires?: Prisma.InventaireUncheckedUpdateManyWithoutProduitNestedInput
   lignesFacture?: Prisma.FactureLigneUncheckedUpdateManyWithoutProduitNestedInput
 }
 
@@ -1384,7 +1249,6 @@ export type ProduitCreateWithoutAjustementsInventaireInput = {
   fournisseur?: Prisma.FournisseurCreateNestedOneWithoutProduitsInput
   lignesInventaire?: Prisma.InventaireLigneCreateNestedManyWithoutProduitInput
   mouvements?: Prisma.MouvementCreateNestedManyWithoutProduitInput
-  inventaires?: Prisma.InventaireCreateNestedManyWithoutProduitInput
   lignesFacture?: Prisma.FactureLigneCreateNestedManyWithoutProduitInput
 }
 
@@ -1405,7 +1269,6 @@ export type ProduitUncheckedCreateWithoutAjustementsInventaireInput = {
   updatedAt?: Date | string
   lignesInventaire?: Prisma.InventaireLigneUncheckedCreateNestedManyWithoutProduitInput
   mouvements?: Prisma.MouvementUncheckedCreateNestedManyWithoutProduitInput
-  inventaires?: Prisma.InventaireUncheckedCreateNestedManyWithoutProduitInput
   lignesFacture?: Prisma.FactureLigneUncheckedCreateNestedManyWithoutProduitInput
 }
 
@@ -1441,7 +1304,6 @@ export type ProduitUpdateWithoutAjustementsInventaireInput = {
   fournisseur?: Prisma.FournisseurUpdateOneWithoutProduitsNestedInput
   lignesInventaire?: Prisma.InventaireLigneUpdateManyWithoutProduitNestedInput
   mouvements?: Prisma.MouvementUpdateManyWithoutProduitNestedInput
-  inventaires?: Prisma.InventaireUpdateManyWithoutProduitNestedInput
   lignesFacture?: Prisma.FactureLigneUpdateManyWithoutProduitNestedInput
 }
 
@@ -1462,7 +1324,6 @@ export type ProduitUncheckedUpdateWithoutAjustementsInventaireInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lignesInventaire?: Prisma.InventaireLigneUncheckedUpdateManyWithoutProduitNestedInput
   mouvements?: Prisma.MouvementUncheckedUpdateManyWithoutProduitNestedInput
-  inventaires?: Prisma.InventaireUncheckedUpdateManyWithoutProduitNestedInput
   lignesFacture?: Prisma.FactureLigneUncheckedUpdateManyWithoutProduitNestedInput
 }
 
@@ -1498,7 +1359,6 @@ export type ProduitUpdateWithoutFournisseurInput = {
   lignesInventaire?: Prisma.InventaireLigneUpdateManyWithoutProduitNestedInput
   ajustementsInventaire?: Prisma.InventaireAjustementUpdateManyWithoutProduitNestedInput
   mouvements?: Prisma.MouvementUpdateManyWithoutProduitNestedInput
-  inventaires?: Prisma.InventaireUpdateManyWithoutProduitNestedInput
   lignesFacture?: Prisma.FactureLigneUpdateManyWithoutProduitNestedInput
 }
 
@@ -1519,7 +1379,6 @@ export type ProduitUncheckedUpdateWithoutFournisseurInput = {
   lignesInventaire?: Prisma.InventaireLigneUncheckedUpdateManyWithoutProduitNestedInput
   ajustementsInventaire?: Prisma.InventaireAjustementUncheckedUpdateManyWithoutProduitNestedInput
   mouvements?: Prisma.MouvementUncheckedUpdateManyWithoutProduitNestedInput
-  inventaires?: Prisma.InventaireUncheckedUpdateManyWithoutProduitNestedInput
   lignesFacture?: Prisma.FactureLigneUncheckedUpdateManyWithoutProduitNestedInput
 }
 
@@ -1571,7 +1430,6 @@ export type ProduitUpdateWithoutCategorieInput = {
   lignesInventaire?: Prisma.InventaireLigneUpdateManyWithoutProduitNestedInput
   ajustementsInventaire?: Prisma.InventaireAjustementUpdateManyWithoutProduitNestedInput
   mouvements?: Prisma.MouvementUpdateManyWithoutProduitNestedInput
-  inventaires?: Prisma.InventaireUpdateManyWithoutProduitNestedInput
   lignesFacture?: Prisma.FactureLigneUpdateManyWithoutProduitNestedInput
 }
 
@@ -1592,7 +1450,6 @@ export type ProduitUncheckedUpdateWithoutCategorieInput = {
   lignesInventaire?: Prisma.InventaireLigneUncheckedUpdateManyWithoutProduitNestedInput
   ajustementsInventaire?: Prisma.InventaireAjustementUncheckedUpdateManyWithoutProduitNestedInput
   mouvements?: Prisma.MouvementUncheckedUpdateManyWithoutProduitNestedInput
-  inventaires?: Prisma.InventaireUncheckedUpdateManyWithoutProduitNestedInput
   lignesFacture?: Prisma.FactureLigneUncheckedUpdateManyWithoutProduitNestedInput
 }
 
@@ -1621,7 +1478,6 @@ export type ProduitCountOutputType = {
   lignesInventaire: number
   ajustementsInventaire: number
   mouvements: number
-  inventaires: number
   lignesFacture: number
 }
 
@@ -1629,7 +1485,6 @@ export type ProduitCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   lignesInventaire?: boolean | ProduitCountOutputTypeCountLignesInventaireArgs
   ajustementsInventaire?: boolean | ProduitCountOutputTypeCountAjustementsInventaireArgs
   mouvements?: boolean | ProduitCountOutputTypeCountMouvementsArgs
-  inventaires?: boolean | ProduitCountOutputTypeCountInventairesArgs
   lignesFacture?: boolean | ProduitCountOutputTypeCountLignesFactureArgs
 }
 
@@ -1667,13 +1522,6 @@ export type ProduitCountOutputTypeCountMouvementsArgs<ExtArgs extends runtime.Ty
 /**
  * ProduitCountOutputType without action
  */
-export type ProduitCountOutputTypeCountInventairesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.InventaireWhereInput
-}
-
-/**
- * ProduitCountOutputType without action
- */
 export type ProduitCountOutputTypeCountLignesFactureArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FactureLigneWhereInput
 }
@@ -1699,7 +1547,6 @@ export type ProduitSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   lignesInventaire?: boolean | Prisma.Produit$lignesInventaireArgs<ExtArgs>
   ajustementsInventaire?: boolean | Prisma.Produit$ajustementsInventaireArgs<ExtArgs>
   mouvements?: boolean | Prisma.Produit$mouvementsArgs<ExtArgs>
-  inventaires?: boolean | Prisma.Produit$inventairesArgs<ExtArgs>
   lignesFacture?: boolean | Prisma.Produit$lignesFactureArgs<ExtArgs>
   _count?: boolean | Prisma.ProduitCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["produit"]>
@@ -1766,7 +1613,6 @@ export type ProduitInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   lignesInventaire?: boolean | Prisma.Produit$lignesInventaireArgs<ExtArgs>
   ajustementsInventaire?: boolean | Prisma.Produit$ajustementsInventaireArgs<ExtArgs>
   mouvements?: boolean | Prisma.Produit$mouvementsArgs<ExtArgs>
-  inventaires?: boolean | Prisma.Produit$inventairesArgs<ExtArgs>
   lignesFacture?: boolean | Prisma.Produit$lignesFactureArgs<ExtArgs>
   _count?: boolean | Prisma.ProduitCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1787,7 +1633,6 @@ export type $ProduitPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     lignesInventaire: Prisma.$InventaireLignePayload<ExtArgs>[]
     ajustementsInventaire: Prisma.$InventaireAjustementPayload<ExtArgs>[]
     mouvements: Prisma.$MouvementPayload<ExtArgs>[]
-    inventaires: Prisma.$InventairePayload<ExtArgs>[]
     lignesFacture: Prisma.$FactureLignePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -2204,7 +2049,6 @@ export interface Prisma__ProduitClient<T, Null = never, ExtArgs extends runtime.
   lignesInventaire<T extends Prisma.Produit$lignesInventaireArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Produit$lignesInventaireArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventaireLignePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ajustementsInventaire<T extends Prisma.Produit$ajustementsInventaireArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Produit$ajustementsInventaireArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventaireAjustementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   mouvements<T extends Prisma.Produit$mouvementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Produit$mouvementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MouvementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  inventaires<T extends Prisma.Produit$inventairesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Produit$inventairesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventairePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   lignesFacture<T extends Prisma.Produit$lignesFactureArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Produit$lignesFactureArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FactureLignePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2755,30 +2599,6 @@ export type Produit$mouvementsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.MouvementScalarFieldEnum | Prisma.MouvementScalarFieldEnum[]
-}
-
-/**
- * Produit.inventaires
- */
-export type Produit$inventairesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Inventaire
-   */
-  select?: Prisma.InventaireSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Inventaire
-   */
-  omit?: Prisma.InventaireOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.InventaireInclude<ExtArgs> | null
-  where?: Prisma.InventaireWhereInput
-  orderBy?: Prisma.InventaireOrderByWithRelationInput | Prisma.InventaireOrderByWithRelationInput[]
-  cursor?: Prisma.InventaireWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.InventaireScalarFieldEnum | Prisma.InventaireScalarFieldEnum[]
 }
 
 /**

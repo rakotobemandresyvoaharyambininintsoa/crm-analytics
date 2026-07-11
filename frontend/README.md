@@ -1,39 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CRM PRO AI — Setup & Development
 
-## Getting Started
+A Next.js (App Router) CRM with a Prisma/SQLite database, JWT session auth,
+and mock/live Fireworks AI features.
 
-First, run the development server:
+## Prerequisites
+
+- Node.js 20+
+- No external database needed — SQLite lives at `prisma/crm.db`.
+
+## Environment variables
+
+Create a `.env` file (see `.env.example`):
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+DATABASE_URL="file:./prisma/crm.db"
+JWT_SECRET="<random string, at least 32 chars>"   # required — the app refuses to start without it
+NODE_ENV="development"
+FIREWORKS_MODE="mock"   # "mock" (no external calls) or "live" (requires FIREWORKS_API_KEY)
+FIREWORKS_API_KEY=""
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Generate a strong `JWT_SECRET` with:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Install, migrate, seed
 
-## Learn More
+```bash
+npm install
+npx prisma generate
+npx prisma migrate deploy
+npx prisma db seed   # creates the admin user + demo data (500 clients, 300 products, ...)
+```
 
-To learn more about Next.js, take a look at the following resources:
+Default seeded admin login: `admin@crm.com` / `admin123` — **change this password
+immediately if you deploy this anywhere real.** Override before seeding with
+`SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` env vars.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Run
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run dev     # http://localhost:5000
+```
 
-## Deploy on Vercel
+## Known limitations & security notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See [`AUDIT.md`](./AUDIT.md) for the full security/quality audit, including
+what was fixed in this pass (missing auth on ~20 API routes, fabricated
+"AI" dashboard numbers, hardcoded JWT secret fallback, no login rate
+limiting, a wrong `bcrypt`/`bcryptjs` import) and what remains open.
 
 
 

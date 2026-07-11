@@ -29,6 +29,10 @@ interface RevenueData {
 interface RevenueChartProps {
   data: RevenueData[];
   objectif?: number;
+  // Résumé texte calculé côté serveur à partir de l'historique réel de
+  // facturation (voir /api/dashboard). Pas de valeur par défaut ici : si le
+  // parent n'en fournit pas, on affiche un message honnête plutôt qu'une
+  // phrase générique qui ferait croire à une analyse IA inexistante.
   aiSummary?: string;
 }
 
@@ -142,10 +146,10 @@ export default function RevenueChart({
 
  data,
 
- objectif = 10000000,
+ objectif,
 
  aiSummary =
- "L'IA analyse vos ventes et prévoit une évolution positive."
+ "Pas encore assez de données pour générer une analyse."
 
 }:RevenueChartProps){
 
@@ -154,18 +158,21 @@ const lastRevenue =
 data[data.length - 1]?.ca ?? 0;
 
 
+// Pas de fallback "*1.1" inventé : si le backend n'a pas fourni de
+// prédiction réelle, on n'en affiche pas plutôt que de simuler une
+// croissance de 10% qui n'existe pas.
 const lastPrediction =
-data[data.length - 1]?.prediction 
-?? lastRevenue * 1.1;
+data[data.length - 1]?.prediction;
 
+const hasPrediction = lastPrediction !== undefined;
 
 
 const growth =
-lastRevenue > 0
+hasPrediction && lastRevenue > 0
 ?
 Math.round(
 (
-(lastPrediction - lastRevenue)
+(lastPrediction! - lastRevenue)
 / lastRevenue
 )
 *100
@@ -182,10 +189,6 @@ data.map(item=>({
 
  prediction:
  item.prediction
- ??
- Math.round(
- item.ca * 1.1
- )
 
 }));
 
@@ -274,6 +277,7 @@ Analyse et prévision automatique
 
 
 
+{hasPrediction && (
 <div
 className="
 flex
@@ -291,11 +295,12 @@ text-sm
 font-medium
 "
 >
-+{growth}%
+{growth >= 0 ? "+" : ""}{growth}%
 </span>
 
 
 </div>
+)}
 
 
 </div>
@@ -370,7 +375,7 @@ text-xs
 text-gray-400
 "
 >
-Prévision IA
+Prévision
 </p>
 
 
@@ -380,7 +385,7 @@ text-violet-300
 font-bold
 "
 >
-{formatMoney(lastPrediction)}
+{hasPrediction ? formatMoney(lastPrediction!) : "—"}
 </p>
 
 
@@ -418,7 +423,7 @@ text-blue-300
 font-bold
 "
 >
-{formatMoney(objectif)}
+{objectif !== undefined ? formatMoney(objectif) : "—"}
 </p>
 
 

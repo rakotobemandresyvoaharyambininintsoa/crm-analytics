@@ -1,8 +1,15 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { requireRole } from "@/lib/auth";
 
 // GET /api/inventaires — liste toutes les sessions
 export async function GET() {
+  try {
+    await requireRole(["ADMIN", "MAGASINIER"]);
+  } catch {
+    return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
+  }
+
   try {
     const sessions = await prisma.inventaireSession.findMany({
       include: {
@@ -24,6 +31,12 @@ export async function GET() {
 
 // POST /api/inventaires — crée une nouvelle session (voir inventaire/nouveau)
 export async function POST(req: Request) {
+  try {
+    await requireRole(["ADMIN", "MAGASINIER"]);
+  } catch {
+    return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
+  }
+
   try {
     const body = await req.json();
 

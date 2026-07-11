@@ -69,21 +69,55 @@ export default function Dashboard() {
 
       {/* KPI */}
       <div className="grid md:grid-cols-4 gap-4 mb-8">
-        <StatCard titre="Clients" valeur={data.clients ?? 0} icone={<Users size={18} />} />
-        <StatCard titre="Produits" valeur={data.produits ?? 0} icone={<Package size={18} />} />
-        <StatCard titre="Opportunités" valeur={data.opportunites ?? 0} icone={<Target size={18} />} />
-        <StatCard titre="Factures" valeur={data.factures ?? 0} icone={<Receipt size={18} />} />
-        <StatCard titre="Stock" valeur={`${data.stock ?? 0} unités`} icone={<Boxes size={18} />} />
+        <StatCard
+          titre="Clients"
+          valeur={data.clients ?? 0}
+          icone={<Users size={18} />}
+          evolution={data.evolutions?.clients}
+          insight={data.insights?.clients}
+        />
+        <StatCard
+          titre="Produits"
+          valeur={data.produits ?? 0}
+          icone={<Package size={18} />}
+          insight={data.insights?.produits}
+        />
+        <StatCard
+          titre="Opportunités"
+          valeur={data.opportunites ?? 0}
+          icone={<Target size={18} />}
+          evolution={data.evolutions?.opportunites}
+          insight={data.insights?.opportunites}
+        />
+        <StatCard
+          titre="Factures"
+          valeur={data.factures ?? 0}
+          icone={<Receipt size={18} />}
+          evolution={data.evolutions?.factures}
+          insight={data.insights?.factures}
+        />
+        <StatCard
+          titre="Stock"
+          valeur={`${data.stock ?? 0} unités`}
+          icone={<Boxes size={18} />}
+          evolution={data.evolutions?.stock}
+          insight={data.insights?.stock}
+        />
         <StatCard
           titre="Valeur stock"
           valeur={`${(data.valeurStock ?? 0).toLocaleString()} Ar`}
           icone={<Gem size={18} />}
+          insight={data.insights?.valeurStock}
         />
       </div>
 
       {/* REVENUE + AI — AIInsights se charge tout seul, plus besoin de lui passer de données */}
       <div className="grid md:grid-cols-2 gap-6 mb-8">
-        <RevenueChart data={data.ventes ?? []} objectif={data.objectifCA} />
+        <RevenueChart
+          data={data.ventes ?? []}
+          objectif={data.objectifCA}
+          aiSummary={data.revenueInsight}
+        />
         <AIInsights />
       </div>
 

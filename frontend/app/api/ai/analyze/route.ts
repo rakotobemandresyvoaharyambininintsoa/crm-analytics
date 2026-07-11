@@ -1,9 +1,16 @@
 import { NextResponse } from "next/server";
+import { requireRole } from "@/lib/auth";
 
 
 export async function POST(
   request: Request
 ) {
+  try {
+    await requireRole(["ADMIN", "COMMERCIAL", "MAGASINIER"]);
+  } catch {
+    return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
+  }
+
 
   try {
 

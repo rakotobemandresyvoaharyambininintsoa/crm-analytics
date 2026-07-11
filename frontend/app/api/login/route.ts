@@ -2,9 +2,32 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { signSession } from "@/lib/auth";
+import { checkRateLimit, getClientKey } from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
+  // Anti-bruteforce : 5 tentatives par minute par IP, blocage 5 minutes
+  // au-delà. Empêche un script de tester des mots de passe en boucle.
+  const clientKey = getClientKey(request);
+  const rateLimit = checkRateLimit(`login:${clientKey}`, 5, 60_000, 5 * 60_000);
+
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { error: "Trop de tentatives. Réessayez plus tard." },
+      {
+        status: 429,
+        headers: { "Retry-After": String(rateLimit.retryAfterSeconds ?? 300) },
+      }
+    );
+  }
+
   const body = await request.json();
+
+  if (!body.email || !body.password) {
+    return NextResponse.json(
+      { error: "Email et mot de passe requis" },
+      { status: 400 }
+    );
+  }
 
   const user = await prisma.user.findUnique({
     where: { email: body.email },

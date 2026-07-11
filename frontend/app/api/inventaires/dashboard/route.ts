@@ -1,8 +1,15 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { requireRole } from "@/lib/auth";
 
 // GET /api/inventaires/dashboard — statistiques du tableau de bord
 export async function GET() {
+  try {
+    await requireRole(["ADMIN", "MAGASINIER"]);
+  } catch {
+    return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
+  }
+
   try {
     const [enCours, termines, dernierInventaire, sessions] = await Promise.all([
       prisma.inventaireSession.count({ where: { statut: "EN_COURS" } }),

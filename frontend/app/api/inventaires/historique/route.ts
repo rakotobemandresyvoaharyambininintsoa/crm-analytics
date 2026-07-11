@@ -1,8 +1,15 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { requireRole } from "@/lib/auth";
 
 // GET /api/inventaires/historique — toutes les sessions avec compteurs
 export async function GET() {
+  try {
+    await requireRole(["ADMIN", "MAGASINIER"]);
+  } catch {
+    return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
+  }
+
   try {
     const sessions = await prisma.inventaireSession.findMany({
       include: {

@@ -1,8 +1,15 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { requireRole } from "@/lib/auth";
 
 // GET /api/inventaires/parametres — récupère les paramètres (singleton)
 export async function GET() {
+  try {
+    await requireRole(["ADMIN"]);
+  } catch {
+    return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
+  }
+
   try {
     let params = await prisma.inventaireParametres.findFirst();
 
@@ -22,6 +29,12 @@ export async function GET() {
 
 // PUT /api/inventaires/parametres — met à jour les paramètres
 export async function PUT(req: Request) {
+  try {
+    await requireRole(["ADMIN"]);
+  } catch {
+    return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
+  }
+
   try {
     const body = await req.json();
 
