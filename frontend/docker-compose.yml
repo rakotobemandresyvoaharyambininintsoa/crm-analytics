@@ -1,0 +1,15 @@
+services:
+  crm-pro-ai:
+
+    build: .
+
+    container_name: crm-pro-ai
+
+    ports:
+      - "3000:3000"
+
+    volumes:
+      - ./prisma:/app/prisma
+
+    environment:
+      NODE_ENV: production

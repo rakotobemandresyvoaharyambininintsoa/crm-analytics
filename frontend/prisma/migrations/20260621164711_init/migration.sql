@@ -1,0 +1,19 @@
+-- CreateTable
+CREATE TABLE "Produit" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "nom" TEXT NOT NULL,
+    "categorie" TEXT NOT NULL,
+    "fournisseur" TEXT NOT NULL,
+    "quantite" INTEGER NOT NULL,
+    "prix" INTEGER NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
+CREATE TABLE "Mouvement" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "produit" TEXT NOT NULL,
+    "action" TEXT NOT NULL,
+    "quantite" INTEGER NOT NULL,
+    "date" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
