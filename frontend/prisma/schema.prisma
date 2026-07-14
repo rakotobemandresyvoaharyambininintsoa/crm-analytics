@@ -370,6 +370,19 @@ model InventaireAudit {
   createdAt      DateTime @default(now())
 }
 
+
+model Parametre {
+  id            Int      @id @default(autoincrement())
+  nomEntreprise String?
+  email         String?
+  telephone     String?
+  adresse       String?
+  devise        String   @default("Ar")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+
 model InventaireParametres {
   id                    Int      @id @default(autoincrement())
   frequence             String   @default("Mensuelle")

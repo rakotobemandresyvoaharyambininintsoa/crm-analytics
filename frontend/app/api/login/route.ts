@@ -35,7 +35,7 @@ export async function POST(request: Request) {
 
   if (!user) {
     return NextResponse.json(
-      { error: "Utilisateur introuvable" },
+      { error: "email ou mot de passe incorrect" },
       { status: 401 }
     );
   }
@@ -51,7 +51,7 @@ export async function POST(request: Request) {
 
   if (!valid) {
     return NextResponse.json(
-      { error: "Mot de passe incorrect" },
+      { error: "email ou mot de passe incorrect" },
       { status: 401 }
     );
   }
