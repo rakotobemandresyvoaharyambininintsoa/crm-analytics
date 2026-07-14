@@ -1,9 +1,52 @@
-import { askGemini } from "./gemini";
-
 export type ChatMessage = {
   role: "system" | "user" | "assistant";
   content: string;
 };
+
+async function askFireworks(
+  messages: readonly ChatMessage[],
+  opts?: {
+    temperature?: number;
+    maxTokens?: number;
+  }
+): Promise<string> {
+  const apiKey = process.env.FIREWORKS_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("FIREWORKS_API_KEY manquante dans .env.local");
+  }
+
+  const model =
+    process.env.FIREWORKS_MODEL ||
+    "accounts/fireworks/models/llama-v3p3-70b-instruct";
+
+  const response = await fetch(
+    "https://api.fireworks.ai/inference/v1/chat/completions",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model,
+        messages,
+        temperature: opts?.temperature ?? 0.4,
+        max_tokens: opts?.maxTokens ?? 700,
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(
+      `Erreur Fireworks (${response.status}): ${errorBody}`
+    );
+  }
+
+  const data = await response.json();
+  return data.choices?.[0]?.message?.content ?? "";
+}
 
 function reponseMock(messages: readonly ChatMessage[]): string {
   const systemMsg = messages.find((m) => m.role === "system")?.content ?? "";
@@ -14,7 +57,7 @@ function reponseMock(messages: readonly ChatMessage[]): string {
     const mockData: Record<string, string> = {};
 
     ids.forEach((id, i) => {
-      mockData[id] = `[MOCK] Commentaire simulé n°${i + 1} en attendant l'activation de Gemini.`;
+      mockData[id] = `[MOCK] Commentaire simulé n°${i + 1} en attendant l'activation de Fireworks.`;
     });
 
     return JSON.stringify(mockData);
@@ -52,7 +95,7 @@ Bonjour,
 
 Ceci est un email de démonstration généré en mode MOCK.
 
-Lorsque GEMINI sera actif, ce texte sera généré automatiquement par l'IA.
+Lorsque Fireworks sera actif, ce texte sera généré automatiquement par l'IA.
 
 Cordialement,
 Votre équipe CRM`;
@@ -62,7 +105,7 @@ Votre équipe CRM`;
     return "[MOCK] Diagnostic simulé : ce client présente une activité normale.";
   }
 
-  return "[MOCK] Réponse simulée. Activez Gemini pour obtenir une réponse réelle.";
+  return "[MOCK] Réponse simulée. Activez Fireworks pour obtenir une réponse réelle.";
 }
 
 export async function askGemma(
@@ -78,9 +121,9 @@ export async function askGemma(
   }
 
   try {
-    return await askGemini(messages, opts);
+    return await askFireworks(messages, opts);
   } catch (error) {
-    console.error("Erreur Gemini :", error);
+    console.error("Erreur Fireworks :", error);
 
     return reponseMock(messages);
   }
