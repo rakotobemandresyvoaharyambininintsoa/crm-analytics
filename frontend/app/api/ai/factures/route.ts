@@ -1,10 +1,19 @@
 import { NextResponse } from "next/server";
 import { analyserSituationFinanciere } from "@/lib/ai/factures";
 import { requireRole } from "@/lib/auth";
+import { checkRateLimit, getClientKey } from "@/lib/rate-limit";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     await requireRole(["ADMIN", "COMMERCIAL", "MAGASINIER"]);
+
+    const rateLimit = checkRateLimit(`ai:factures:${getClientKey(request)}`, 20, 60_000, 2 * 60_000);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: { code: "TOO_MANY_REQUESTS", message: "Trop de requêtes. Réessayez plus tard." } },
+        { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds ?? 120) } }
+      );
+    }
 
     const analyseFinance = await analyserSituationFinanciere();
 

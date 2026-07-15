@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { analyserRisquePaiement } from "@/lib/ai/factures";
 import { requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { checkRateLimit, getClientKey } from "@/lib/rate-limit";
 
 // ✅ CORRIGÉ : GET ne fait plus que de la LECTURE (analyse de risque).
 // La génération d'email de relance reste une action volontaire, déclenchée
@@ -13,6 +14,16 @@ export async function GET(
 ) {
   try {
     await requireRole(["ADMIN", "COMMERCIAL", "MAGASINIER"]);
+
+    // Limite plus haute que les autres : peut etre appele une fois par
+    // ligne dans un tableau de factures (plusieurs facturesId a la fois).
+    const rateLimit = checkRateLimit(`ai:facture-detail:${getClientKey(request)}`, 40, 60_000, 2 * 60_000);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: "Trop de requêtes. Réessayez plus tard." },
+        { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds ?? 120) } }
+      );
+    }
 
     const { id } = await context.params;
     const factureId = Number(id);

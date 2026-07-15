@@ -3,6 +3,30 @@ export type ChatMessage = {
   content: string;
 };
 
+/**
+ * Cache court en mémoire pour éviter de repayer un appel Fireworks
+ * identique (ex: dashboard rechargé plusieurs fois en quelques minutes).
+ * Limitation: par process, pas partagé entre plusieurs instances —
+ * suffisant ici car l'app tourne en un seul process (voir rate-limit.ts).
+ */
+type CacheEntry = { value: string; expiresAt: number };
+const cache = new Map<string, CacheEntry>();
+const CACHE_TTL_MS = 3 * 60_000; // 3 minutes
+
+function cacheKey(messages: readonly ChatMessage[]): string {
+  return JSON.stringify(messages);
+}
+
+setInterval(
+  () => {
+    const now = Date.now();
+    for (const [key, entry] of cache.entries()) {
+      if (entry.expiresAt <= now) cache.delete(key);
+    }
+  },
+  10 * 60_000
+).unref?.();
+
 async function askFireworks(
   messages: readonly ChatMessage[],
   opts?: {
@@ -20,22 +44,36 @@ async function askFireworks(
     process.env.FIREWORKS_MODEL ||
     "accounts/fireworks/models/llama-v3p3-70b-instruct";
 
-  const response = await fetch(
-    "https://api.fireworks.ai/inference/v1/chat/completions",
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model,
-        messages,
-        temperature: opts?.temperature ?? 0.4,
-        max_tokens: opts?.maxTokens ?? 700,
-      }),
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 25_000);
+
+  let response: Response;
+  try {
+    response = await fetch(
+      "https://api.fireworks.ai/inference/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model,
+          messages,
+          temperature: opts?.temperature ?? 0.4,
+          max_tokens: opts?.maxTokens ?? 700,
+        }),
+        signal: controller.signal,
+      }
+    );
+  } catch (err) {
+    if (err instanceof Error && err.name === "AbortError") {
+      throw new Error("Timeout: Fireworks n'a pas repondu en 25s.");
     }
-  );
+    throw err;
+  } finally {
+    clearTimeout(timeoutId);
+  }
 
   if (!response.ok) {
     const errorBody = await response.text();
@@ -120,8 +158,16 @@ export async function askGemma(
     return reponseMock(messages);
   }
 
+  const key = cacheKey(messages);
+  const cached = cache.get(key);
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.value;
+  }
+
   try {
-    return await askFireworks(messages, opts);
+    const result = await askFireworks(messages, opts);
+    cache.set(key, { value: result, expiresAt: Date.now() + CACHE_TTL_MS });
+    return result;
   } catch (error) {
     console.error("Erreur Fireworks :", error);
 

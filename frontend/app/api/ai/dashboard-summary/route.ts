@@ -9,9 +9,10 @@ import {
 } from "@/lib/ai/dashboard";
 
 import { requireRole } from "@/lib/auth";
+import { checkRateLimit, getClientKey } from "@/lib/rate-limit";
 
 
-export async function GET() {
+export async function GET(request: Request) {
 
   try {
 
@@ -20,6 +21,14 @@ export async function GET() {
       "COMMERCIAL",
       "MAGASINIER",
     ]);
+
+    const rateLimit = checkRateLimit(`ai:dashboard-summary:${getClientKey(request)}`, 20, 60_000, 2 * 60_000);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: "Trop de requêtes. Réessayez plus tard." },
+        { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds ?? 120) } }
+      );
+    }
 
 
 

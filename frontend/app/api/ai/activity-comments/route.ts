@@ -1,10 +1,19 @@
 import { NextResponse } from "next/server";
 import { genererCommentairesActivites } from "@/lib/ai/dashboard";
 import { requireRole } from "@/lib/auth";
+import { checkRateLimit, getClientKey } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
   try {
     await requireRole(["ADMIN", "COMMERCIAL", "MAGASINIER"]);
+
+    const rateLimit = checkRateLimit(`ai:activity-comments:${getClientKey(req)}`, 20, 60_000, 2 * 60_000);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: "Trop de requêtes IA. Réessayez plus tard." },
+        { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds ?? 120) } }
+      );
+    }
 
     const { activites } = await req.json();
     if (!Array.isArray(activites)) {
