@@ -400,6 +400,7 @@ export const ModelName = {
   InventaireComptage: 'InventaireComptage',
   InventaireAjustement: 'InventaireAjustement',
   InventaireAudit: 'InventaireAudit',
+  Parametre: 'Parametre',
   InventaireParametres: 'InventaireParametres'
 } as const
 
@@ -416,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "produit" | "mouvement" | "fournisseur" | "categorie" | "client" | "activite" | "opportunite" | "facture" | "factureLigne" | "user" | "entrepot" | "inventaireSession" | "inventaireLigne" | "inventaireComptage" | "inventaireAjustement" | "inventaireAudit" | "inventaireParametres"
+    modelProps: "produit" | "mouvement" | "fournisseur" | "categorie" | "client" | "activite" | "opportunite" | "facture" | "factureLigne" | "user" | "entrepot" | "inventaireSession" | "inventaireLigne" | "inventaireComptage" | "inventaireAjustement" | "inventaireAudit" | "parametre" | "inventaireParametres"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1604,6 +1605,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Parametre: {
+      payload: Prisma.$ParametrePayload<ExtArgs>
+      fields: Prisma.ParametreFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ParametreFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParametrePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ParametreFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParametrePayload>
+        }
+        findFirst: {
+          args: Prisma.ParametreFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParametrePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ParametreFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParametrePayload>
+        }
+        findMany: {
+          args: Prisma.ParametreFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParametrePayload>[]
+        }
+        create: {
+          args: Prisma.ParametreCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParametrePayload>
+        }
+        createMany: {
+          args: Prisma.ParametreCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ParametreCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParametrePayload>[]
+        }
+        delete: {
+          args: Prisma.ParametreDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParametrePayload>
+        }
+        update: {
+          args: Prisma.ParametreUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParametrePayload>
+        }
+        deleteMany: {
+          args: Prisma.ParametreDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ParametreUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ParametreUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParametrePayload>[]
+        }
+        upsert: {
+          args: Prisma.ParametreUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ParametrePayload>
+        }
+        aggregate: {
+          args: Prisma.ParametreAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateParametre>
+        }
+        groupBy: {
+          args: Prisma.ParametreGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ParametreGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ParametreCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ParametreCountAggregateOutputType> | number
+        }
+      }
+    }
     InventaireParametres: {
       payload: Prisma.$InventaireParametresPayload<ExtArgs>
       fields: Prisma.InventaireParametresFieldRefs
@@ -1954,6 +2029,20 @@ export const InventaireAuditScalarFieldEnum = {
 export type InventaireAuditScalarFieldEnum = (typeof InventaireAuditScalarFieldEnum)[keyof typeof InventaireAuditScalarFieldEnum]
 
 
+export const ParametreScalarFieldEnum = {
+  id: 'id',
+  nomEntreprise: 'nomEntreprise',
+  email: 'email',
+  telephone: 'telephone',
+  adresse: 'adresse',
+  devise: 'devise',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ParametreScalarFieldEnum = (typeof ParametreScalarFieldEnum)[keyof typeof ParametreScalarFieldEnum]
+
+
 export const InventaireParametresScalarFieldEnum = {
   id: 'id',
   frequence: 'frequence',
@@ -2158,6 +2247,7 @@ export type GlobalOmitConfig = {
   inventaireComptage?: Prisma.InventaireComptageOmit
   inventaireAjustement?: Prisma.InventaireAjustementOmit
   inventaireAudit?: Prisma.InventaireAuditOmit
+  parametre?: Prisma.ParametreOmit
   inventaireParametres?: Prisma.InventaireParametresOmit
 }
 

@@ -6,7 +6,7 @@ import { requireRole } from "@/lib/auth";
 // body: { signature }
 export async function POST(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await requireRole(["ADMIN", "MAGASINIER"]);
@@ -15,7 +15,8 @@ export async function POST(
   }
 
   try {
-    const sessionId = Number(params.id);
+    const { id } = await params;
+    const sessionId = Number(id);
     const body = await req.json();
 
     if (!body.signature) {

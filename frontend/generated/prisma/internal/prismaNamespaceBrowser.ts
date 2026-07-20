@@ -67,6 +67,7 @@ export const ModelName = {
   InventaireComptage: 'InventaireComptage',
   InventaireAjustement: 'InventaireAjustement',
   InventaireAudit: 'InventaireAudit',
+  Parametre: 'Parametre',
   InventaireParametres: 'InventaireParametres'
 } as const
 
@@ -321,6 +322,20 @@ export const InventaireAuditScalarFieldEnum = {
 } as const
 
 export type InventaireAuditScalarFieldEnum = (typeof InventaireAuditScalarFieldEnum)[keyof typeof InventaireAuditScalarFieldEnum]
+
+
+export const ParametreScalarFieldEnum = {
+  id: 'id',
+  nomEntreprise: 'nomEntreprise',
+  email: 'email',
+  telephone: 'telephone',
+  adresse: 'adresse',
+  devise: 'devise',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ParametreScalarFieldEnum = (typeof ParametreScalarFieldEnum)[keyof typeof ParametreScalarFieldEnum]
 
 
 export const InventaireParametresScalarFieldEnum = {

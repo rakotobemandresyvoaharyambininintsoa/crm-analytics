@@ -11,7 +11,7 @@ import { requireRole } from "@/lib/auth";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await requireRole(["ADMIN", "COMMERCIAL"]);
@@ -21,11 +21,13 @@ export async function GET(
 
   try {
 
+    const { id } = await params;
+
     const client =
       await prisma.client.findUnique({
 
         where: {
-          id: Number(params.id)
+          id: Number(id)
         },
 
         include: {
@@ -76,7 +78,7 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await requireRole(["ADMIN", "COMMERCIAL"]);
@@ -86,6 +88,8 @@ export async function PUT(
 
   try {
 
+    const { id } = await params;
+
     const body =
       await request.json();
 
@@ -93,7 +97,7 @@ export async function PUT(
       await prisma.client.update({
 
         where: {
-          id: Number(params.id)
+          id: Number(id)
         },
 
         data: {
@@ -143,7 +147,7 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await requireRole(["ADMIN"]);
@@ -153,10 +157,12 @@ export async function DELETE(
 
   try {
 
+    const { id } = await params;
+
     await prisma.client.delete({
 
       where: {
-        id: Number(params.id)
+        id: Number(id)
       }
 
     });

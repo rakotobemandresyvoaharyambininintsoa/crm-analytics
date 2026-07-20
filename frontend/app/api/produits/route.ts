@@ -544,7 +544,7 @@ produitId:id
 
 
 
-await tx.inventaire.deleteMany({
+await tx.inventaireLigne.deleteMany({
 
 
 where:{

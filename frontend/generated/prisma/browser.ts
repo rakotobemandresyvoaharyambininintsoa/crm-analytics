@@ -98,6 +98,11 @@ export type InventaireAjustement = Prisma.InventaireAjustementModel
  */
 export type InventaireAudit = Prisma.InventaireAuditModel
 /**
+ * Model Parametre
+ * 
+ */
+export type Parametre = Prisma.ParametreModel
+/**
  * Model InventaireParametres
  * 
  */

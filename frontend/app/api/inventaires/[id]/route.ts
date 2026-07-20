@@ -5,7 +5,7 @@ import { requireRole } from "@/lib/auth";
 // GET /api/inventaires/[id] — détail d'une session avec ses lignes
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await requireRole(["ADMIN", "MAGASINIER"]);
@@ -14,8 +14,9 @@ export async function GET(
   }
 
   try {
+    const { id } = await params;
     const session = await prisma.inventaireSession.findUnique({
-      where: { id: Number(params.id) },
+      where: { id: Number(id) },
       include: {
         entrepot: true,
         responsable: true,

@@ -5,7 +5,7 @@ import { requireRole } from "@/lib/auth";
 // GET /api/inventaires/[id]/lignes — lignes de comptage pour l'écran de comptage
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await requireRole(["ADMIN", "MAGASINIER"]);
@@ -14,8 +14,9 @@ export async function GET(
   }
 
   try {
+    const { id } = await params;
     const lignes = await prisma.inventaireLigne.findMany({
-      where: { sessionId: Number(params.id) },
+      where: { sessionId: Number(id) },
       include: { produit: true },
       orderBy: { id: "asc" },
     });
@@ -44,7 +45,7 @@ export async function GET(
 // body: { lignes: [{ ligneId, stockCompte, commentaire }] }
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await requireRole(["ADMIN", "MAGASINIER"]);
@@ -54,7 +55,8 @@ export async function PUT(
 
   try {
     const body = await req.json();
-    const sessionId = Number(params.id);
+    const { id } = await params;
+    const sessionId = Number(id);
 
     for (const l of body.lignes || []) {
       const ligne = await prisma.inventaireLigne.findUnique({
