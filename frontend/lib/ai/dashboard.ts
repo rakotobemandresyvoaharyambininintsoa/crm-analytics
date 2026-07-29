@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma"; // ⚠️ Ajustez si nécessaire
-import { askGemma } from "./fireworks";
+import { askGemma, askGemmaSafe } from "./fireworks";
 
 const JOUR_MS = 1000 * 60 * 60 * 24;
 
@@ -53,6 +53,7 @@ export async function calculerBusinessScore(): Promise<number> {
 // ============================================================
 export async function genererResumeExecutif(): Promise<{
   resume: string;
+  resumeDegraded: boolean;
   ventesCe30j: number;
   nouveauxClientsCe30j: number;
   facturesEnRetard: number;
@@ -79,7 +80,7 @@ export async function genererResumeExecutif(): Promise<{
 - Produits sous le seuil d'alerte de stock: ${produitsSousAlerte}
 `.trim();
 
-  const resume = await askGemma(
+  const { text: resume, degraded: resumeDegraded } = await askGemmaSafe(
     [
       {
         role: "system",
@@ -93,7 +94,7 @@ export async function genererResumeExecutif(): Promise<{
     { maxTokens: 250 }
   );
 
-  return { resume, ventesCe30j, nouveauxClientsCe30j: nouveauxClients, facturesEnRetard, produitsSousAlerte };
+  return { resume, resumeDegraded, ventesCe30j, nouveauxClientsCe30j: nouveauxClients, facturesEnRetard, produitsSousAlerte };
 }
 
 

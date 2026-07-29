@@ -153,24 +153,50 @@ export async function askGemma(
     maxTokens?: number;
   }
 ): Promise<string> {
+  const { text } = await askGemmaSafe(messages, opts);
+  return text;
+}
+
+/**
+ * Same behaviour as askGemma, but also reports whether the response is a
+ * genuine model output or a silent fallback caused by a real API failure
+ * (as opposed to intentional FIREWORKS_MODE=mock).
+ *
+ * Why this matters: on error, we still want the app to keep working (a
+ * flaky AI provider shouldn't take down a whole dashboard), but silently
+ * returning mock-looking text as if it were real is exactly the kind of
+ * "fake AI" inconsistency this project was audited for once already.
+ * Call sites that surface AI output prominently to the user (e.g. the
+ * executive summary) should use this and display a visible notice when
+ * `degraded` is true. Lower-visibility call sites can keep using the
+ * plain `askGemma(...)` string wrapper unchanged.
+ */
+export async function askGemmaSafe(
+  messages: readonly ChatMessage[],
+  opts?: {
+    temperature?: number;
+    maxTokens?: number;
+  }
+): Promise<{ text: string; degraded: boolean }> {
   if (process.env.FIREWORKS_MODE === "mock") {
     await new Promise((resolve) => setTimeout(resolve, 600));
-    return reponseMock(messages);
+    // Intentional mock mode (e.g. local dev without an API key) is not
+    // "degraded" — it's the expected, documented behaviour.
+    return { text: reponseMock(messages), degraded: false };
   }
 
   const key = cacheKey(messages);
   const cached = cache.get(key);
   if (cached && cached.expiresAt > Date.now()) {
-    return cached.value;
+    return { text: cached.value, degraded: false };
   }
 
   try {
     const result = await askFireworks(messages, opts);
     cache.set(key, { value: result, expiresAt: Date.now() + CACHE_TTL_MS });
-    return result;
+    return { text: result, degraded: false };
   } catch (error) {
     console.error("Erreur Fireworks :", error);
-
-    return reponseMock(messages);
+    return { text: reponseMock(messages), degraded: true };
   }
 }

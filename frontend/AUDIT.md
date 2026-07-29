@@ -240,3 +240,101 @@ Overall: this analysis is well-targeted and every specific claim checked out. It
 | Empty component stubs (item 13, cut off) | **Accurate, and fixed** — same files identified and removed as in Analysis 1. |
 
 Overall: Analysis 2 is the more security-focused and more actionable of the two — every specific route, bug, and line of code it names checked out against the real source, and all of the security-critical items (privilege escalation, missing auth, the bcrypt bug, the JWT fallback in this codebase) have been fixed. Its only imprecision is describing the missing-auth routes as exposed to "any connected user" when several (including `/api/users`) had no auth check at all, meaning even unauthenticated requests could reach them — the actual severity was higher, not lower, than stated.
+
+---
+
+## Part 3 — Second pass (2026-07-29): remaining items closed
+
+Everything below was verified against the actual code and, where possible,
+actually run — not just reasoned about. `npm install`, `npx tsc --noEmit`,
+and `npx vitest run` were all executed in this pass; `npm run build` could
+not be, because `prisma generate` needs to fetch its engine binary from
+`binaries.prisma.sh`, which this sandboxed environment doesn't have network
+access to (unrelated to the code — a real CI runner has no such restriction;
+see `.github/workflows/ci.yml`, added in this pass, which runs the full
+`generate → typecheck → lint → test → migrate → build` sequence).
+
+### 1. Silent AI degradation (new finding, not in Part 1/2)
+
+`askGemma()` caught any real Fireworks failure and silently returned
+`reponseMock()` — indistinguishable from an intentional `FIREWORKS_MODE=mock`
+response. In production, a Fireworks outage or expired API key would make the
+app quietly show fabricated-looking AI output with no indication anything
+was wrong — the same class of problem as the fake dashboard KPIs fixed in
+Part 1, just relocated.
+
+**Fixed:** added `askGemmaSafe()`, returning `{ text, degraded }`. Kept the
+original `askGemma()` string-returning function as a thin wrapper (zero
+behavior change for its other ~11 call sites) and switched the
+highest-visibility caller — the executive summary shown at the top of the
+dashboard (`genererResumeExecutif` → `/api/ai/dashboard-summary` →
+`AISummary.tsx`) — to use the safe variant. The UI now shows a visible amber
+warning ("IA temporairement indisponible — ce résumé est une réponse de
+secours, pas une analyse réelle.") instead of presenting a fallback as real
+analysis. Lower-visibility call sites (email drafts, per-client diagnostics)
+were left on the plain wrapper — same reasoning as Part 1's prioritization:
+fix what could visibly mislead a user first.
+
+### 2. Missing `.env.example`
+
+The README referenced `.env.example` but the file didn't exist — a fresh
+`git clone` had no template to work from. **Fixed:** added, matching every
+variable actually read by the app (`DATABASE_URL`, `JWT_SECRET`,
+`FIREWORKS_MODE`/`FIREWORKS_API_KEY`/`FIREWORKS_MODEL`, seed admin
+credentials).
+
+### 3. Dependency vulnerabilities
+
+Ran `npm install` + `npm audit` for the first time against this codebase.
+
+- **Next.js 16.2.9 → 16.2.12**: closed several real advisories, including an
+  unauthenticated disclosure of internal Server Function endpoints and an
+  SSRF in rewrites via attacker-controlled hostname. Verified the app still
+  type-checks after the bump.
+- `npm audit fix` applied for the remaining auto-fixable issues.
+- Remaining flagged packages, reviewed individually rather than force-fixed:
+  - `brace-expansion`, transitive dev-only dependency of the ESLint tooling
+    — not shipped to production, low real risk; fixing requires an ESLint
+    major bump untested here, left as a follow-up.
+  - `postcss`/`sharp` flagged inside `next`'s own internal tooling; `npm
+    audit fix --force` wanted to *downgrade* Next to `9.3.3` to "fix" this,
+    which is npm's resolver getting confused, not a real fix — ignored.
+  - `xlsx` (SheetJS): no patched version exists upstream for its known ReDoS
+    /prototype-pollution advisories. Checked actual usage: the only call in
+    this codebase is `XLSX.write()` in `app/api/exports/excel/route.ts`,
+    generating a file from trusted internal data — `XLSX.read()` (the
+    vulnerable code path, triggered by parsing an attacker-supplied file) is
+    never called anywhere. Real exploitability here is very low; documented
+    rather than swapped, since replacing the export library is a larger,
+    separate piece of work.
+
+### 4. No automated tests (Part 1 §8 item, now partially closed)
+
+Added `vitest` + `lib/__tests__/auth.test.ts`, covering the core of the
+session system: valid sign/verify round-trip, rejection of a token signed
+with a different secret (i.e. confirms the old hardcoded-fallback-secret bug
+from Part 1 §2 can't recur unnoticed), rejection of an expired token, and
+rejection of a malformed token. **Run and passing**: 5/5. `npm test` and a
+`CI` GitHub Actions workflow were added so this runs on every push. Broader
+coverage (API route handlers, `requireRole` itself, the dashboard
+computations) is still open — this pass prioritized the session/JWT logic
+specifically because that's the mechanism the two pasted security analyses
+were most concerned with.
+
+### 5. No centralized design tokens (Part 1/2, cosmetic — now closed)
+
+Checked first: the specific duplication described in Part 1/2 (`COLORS` map
+copy-pasted across multiple dashboard components) no longer existed by the
+time of this pass — only `StatCard.tsx` still declared it locally. Extracted
+it anyway to `lib/design/colorScheme.ts` (`DASHBOARD_COLORS` +
+`DashboardColor` type) so future dashboard components import a single source
+instead of re-declaring their own copy. `app/globals.css` still has no
+broader design-token layer (spacing/typography scale) — left as-is; this was
+the narrow, actionable part of the original finding.
+
+### Still open (unchanged from Part 1 §8)
+
+- No caching/streaming beyond what Part 1 already added to the Fireworks
+  client itself (response cache + timeout) — no token-level streaming.
+- Test coverage is now non-zero but still narrow (auth/session only).
+- No E2E tests.

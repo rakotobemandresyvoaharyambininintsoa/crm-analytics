@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 type ResumeData = {
   businessScore: number;
   resume: string;
+  resumeDegraded?: boolean;
   ventesCe30j: number;
   nouveauxClientsCe30j: number;
   facturesEnRetard: number;
@@ -53,6 +54,12 @@ export default function AISummary() {
         </div>
       ) : (
         <>
+          {data.resumeDegraded && (
+            <div className="mb-4 flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
+              <AlertTriangle className="h-4 w-4 shrink-0" />
+              IA temporairement indisponible — ce résumé est une réponse de secours, pas une analyse réelle.
+            </div>
+          )}
           <p className="text-white/80 leading-8 text-[15px]">{data.resume}</p>
 
           <div className="grid md:grid-cols-3 gap-4 mt-8">
