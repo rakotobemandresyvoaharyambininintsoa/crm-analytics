@@ -123,7 +123,7 @@ export default function AIInsights() {
             href="/ai-command-center"
             className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-violet-300 hover:text-violet-200"
           >
-            Voir l'analyse complète →
+            Voir l&apos;analyse complète →
           </Link>
         </>
       )}

@@ -5,7 +5,6 @@ import {
   CheckCircle2,
   Package,
   Brain,
-  TrendingDown,
   Sparkles
 } from "lucide-react";
 
@@ -282,7 +281,7 @@ className="
 text-xs
 "
 >
-L'IA ne détecte aucune anomalie.
+L&apos;IA ne détecte aucune anomalie.
 </p>
 
 

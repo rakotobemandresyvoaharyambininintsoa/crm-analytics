@@ -6,14 +6,12 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Users,
-  CalendarDays,
   Target,
   Receipt,
   BarChart3,
    BrainCircuit,
   Package,
   ClipboardList,
-  UserCog,
   Settings,
 } from "lucide-react";
 import LogoutButton from "@/components/LogoutButton";

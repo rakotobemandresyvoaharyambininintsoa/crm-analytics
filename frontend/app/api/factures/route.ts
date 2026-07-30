@@ -59,7 +59,7 @@ factures
 
 
 
-}catch(error){
+}catch{
 
 
 return NextResponse.json(

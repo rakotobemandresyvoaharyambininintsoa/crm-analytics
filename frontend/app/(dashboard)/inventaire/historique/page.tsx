@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Link from "next/link";
 import { History, ChevronRight, Loader2 } from "lucide-react";
 import SearchBox from "@/components/SearchBox";
@@ -23,11 +23,10 @@ export default function Historique() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    charger();
-  }, []);
+  
 
-  async function charger() {
+  useEffect(() => {
+    async function charger() {
     try {
       const res = await fetch("/api/inventaires/historique", { cache: "no-store" });
       const data = await res.json();
@@ -38,6 +37,11 @@ export default function Historique() {
 
     setLoading(false);
   }
+
+    charger();
+  }, []);
+
+  
 
   const liste = sessions.filter(
     (s) =>

@@ -244,7 +244,7 @@ export default function AICommandCenterPage() {
       <div className="rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden">
         <div className="p-4 border-b border-white/10">
           <p className="text-sm font-semibold">Interroger vos données</p>
-          <p className="text-xs text-white/40">Ex: "Quels clients n'ont pas commandé depuis 2 mois ?"</p>
+          <p className="text-xs text-white/40">Ex: &quot;Quels clients n&apos;ont pas commandé depuis 2 mois ?&quot;</p>
         </div>
 
         <div className="max-h-80 overflow-y-auto p-4 space-y-3">

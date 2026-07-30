@@ -50,7 +50,7 @@ opportunites
 
 
 
-}catch(error){
+}catch{
 
 
 return NextResponse.json(

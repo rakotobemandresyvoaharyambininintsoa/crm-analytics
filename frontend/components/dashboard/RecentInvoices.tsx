@@ -128,7 +128,7 @@ export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
                   className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 ring-1 ring-violet-500/30 px-4 py-2 text-xs font-medium text-violet-300 transition-colors"
                 >
                   <Mail className="h-3.5 w-3.5" />
-                  Générer l'email de relance (IA)
+                  Générer l&apos;email de relance (IA)
                 </button>
               )}
             </div>
@@ -143,7 +143,7 @@ export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-violet-400" />
-                Email de relance généré par l'IA
+                Email de relance généré par l&apos;IA
               </h3>
               <button onClick={() => setPanneauOuvert(false)} className="text-white/40 hover:text-white">
                 <X className="h-4 w-4" />

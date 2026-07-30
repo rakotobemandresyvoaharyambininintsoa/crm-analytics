@@ -4,7 +4,6 @@ import React, { useMemo, useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
-  MoreHorizontal,
   ArrowUpDown,
 } from "lucide-react";
 

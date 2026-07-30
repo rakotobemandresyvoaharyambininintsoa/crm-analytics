@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import {
   BarChart,
   Bar,
@@ -38,11 +38,10 @@ export default function Rapports() {
   });
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    charger();
-  }, []);
+  
 
-  async function charger() {
+  useEffect(() => {
+    async function charger() {
     try {
       const res = await fetch("/api/inventaires/rapports", { cache: "no-store" });
       const data = await res.json();
@@ -53,6 +52,11 @@ export default function Rapports() {
 
     setLoading(false);
   }
+
+    charger();
+  }, []);
+
+  
 
   if (loading) {
     return (
@@ -76,7 +80,7 @@ export default function Rapports() {
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-                Rapports d'inventaire
+                Rapports d&apos;inventaire
               </h1>
               <p className="text-sm text-white/40">
                 Analyse de la précision et des écarts de stock

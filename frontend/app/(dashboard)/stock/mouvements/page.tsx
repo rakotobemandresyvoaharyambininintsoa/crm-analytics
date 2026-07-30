@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import { History, Search, ArrowDownToLine, ArrowUpFromLine, RefreshCw } from "lucide-react";
 
 const TYPE_STYLES: Record<string, { badge: string; icon: any }> = {
@@ -12,15 +12,19 @@ export default function Mouvements() {
   const [mouvements, setMouvements] = useState<any[]>([]);
   const [recherche, setRecherche] = useState("");
 
-  useEffect(() => {
-    charger();
-  }, []);
+  
 
-  async function charger() {
+  useEffect(() => {
+    async function charger() {
     const res = await fetch("/api/mouvements");
     const data = await res.json();
     setMouvements(data);
   }
+
+    charger();
+  }, []);
+
+  
 
   const liste = mouvements.filter((m) =>
     m.produit?.nom?.toLowerCase().includes(recherche.toLowerCase())

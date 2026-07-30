@@ -50,7 +50,7 @@ return NextResponse.json(produits);
 
 
 
-}catch(error){
+}catch{
 
 
 return NextResponse.json(
@@ -446,7 +446,7 @@ return NextResponse.json(produit);
 
 
 
-}catch(error){
+}catch{
 
 
 
@@ -597,7 +597,7 @@ success:true
 
 
 
-}catch(error){
+}catch{
 
 
 

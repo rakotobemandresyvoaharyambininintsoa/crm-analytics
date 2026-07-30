@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import { useRouter } from "next/navigation";
 import {
   ClipboardList,
@@ -35,11 +35,10 @@ export default function NouvelleSession() {
     doubleComptage: false,
   });
 
-  useEffect(() => {
-    chargerReferences();
-  }, []);
+  
 
-  async function chargerReferences() {
+  useEffect(() => {
+    async function chargerReferences() {
     try {
       const [resEntrepots, resUtilisateurs] = await Promise.all([
         fetch("/api/entrepots"),
@@ -52,6 +51,9 @@ export default function NouvelleSession() {
       console.error(error);
     }
   }
+
+    chargerReferences();
+  }, []);
 
   function changer(e: any) {
     const { name, value, type, checked } = e.target;
@@ -106,7 +108,7 @@ export default function NouvelleSession() {
           </div>
           <div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-              Nouvelle session d'inventaire
+              Nouvelle session d&apos;inventaire
             </h1>
             <p className="text-sm text-white/40">
               Renseignez les informations de la session à lancer

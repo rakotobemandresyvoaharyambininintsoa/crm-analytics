@@ -35,17 +35,6 @@ interface TopProductsProps {
 
 
 
-function formatMoney(value:number){
-
-return new Intl.NumberFormat(
-"fr-FR",
-{
-notation:"compact"
-}
-).format(value)+" Ar";
-
-}
-
 
 
 

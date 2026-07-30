@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   ScanLine,
@@ -27,11 +27,10 @@ export default function Comptage() {
   const [enregistrement, setEnregistrement] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    charger();
-  }, []);
+  
 
-  async function charger() {
+  useEffect(() => {
+    async function charger() {
     try {
       const res = await fetch(`/api/inventaires/${id}/lignes`, { cache: "no-store" });
       const data = await res.json();
@@ -42,6 +41,11 @@ export default function Comptage() {
 
     setLoading(false);
   }
+
+    charger();
+  }, []);
+
+  
 
   function changerCompte(ligneId: number, value: string) {
     setComptes({

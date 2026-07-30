@@ -14,7 +14,6 @@ import {
 import {
   TrendingUp,
   Brain,
-  Target,
   Sparkles,
 } from "lucide-react";
 
@@ -256,7 +255,7 @@ font-semibold
 text-white
 "
 >
-Chiffre d'affaires IA
+Chiffre d&apos;affaires IA
 </h2>
 
 

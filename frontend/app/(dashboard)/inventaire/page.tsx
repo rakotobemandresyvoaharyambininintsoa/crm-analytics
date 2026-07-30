@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Link from "next/link";
 import {
   BarChart,
@@ -42,11 +42,10 @@ export default function InventaireDashboard() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    charger();
-  }, []);
+  
 
-  async function charger() {
+  useEffect(() => {
+    async function charger() {
     try {
       const res = await fetch("/api/inventaires/dashboard", {
         cache: "no-store",
@@ -76,12 +75,17 @@ export default function InventaireDashboard() {
     setLoading(false);
   }
 
+    charger();
+  }, []);
+
+  
+
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
         <div className="flex items-center gap-3 text-white/50 font-medium text-sm">
           <Loader2 className="h-5 w-5 animate-spin text-violet-400" />
-          Chargement de l'inventaire...
+          Chargement de l&apos;inventaire...
         </div>
       </div>
     );

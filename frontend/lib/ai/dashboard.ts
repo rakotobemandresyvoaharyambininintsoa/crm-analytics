@@ -8,26 +8,16 @@ const JOUR_MS = 1000 * 60 * 60 * 24;
 // sur vos vraies données ; transparent et vérifiable)
 // ============================================================
 export async function calculerBusinessScore(): Promise<number> {
-  const [
-    facturesImpayees,
-    facturesEnRetard,
-    produitsSousAlerte,
-    totalProduits,
-    clientsSansContact,
-    totalClients,
-  ] = await Promise.all([
+  const [facturesImpayees, facturesEnRetard] = await Promise.all([
     prisma.facture.count({ where: { statut: { notIn: ["Payée", "Annulée"] } } }),
     prisma.facture.count({
       where: { statut: { notIn: ["Payée", "Annulée"] }, dateEcheance: { lt: new Date() } },
     }),
-    prisma.produit.count(), // recalculé ci-dessous avec le vrai seuil
-    prisma.produit.count(),
-    prisma.client.count(), // recalculé ci-dessous
-    prisma.client.count(),
   ]);
 
   const produits = await prisma.produit.findMany();
   const nbSousAlerte = produits.filter((p) => p.quantite <= p.seuilAlerte).length;
+  const totalProduits = produits.length;
 
   const clients = await prisma.client.findMany({
     include: { activites: { orderBy: { date: "desc" }, take: 1 } },
@@ -37,6 +27,7 @@ export async function calculerBusinessScore(): Promise<number> {
     const jours = derniere ? (Date.now() - new Date(derniere).getTime()) / JOUR_MS : 999;
     return jours >= 30;
   }).length;
+  const totalClients = clients.length;
 
   // Score de départ 100, on retire des points selon la gravité des signaux
   let score = 100;

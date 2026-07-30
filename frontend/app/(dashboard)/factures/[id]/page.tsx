@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import { useParams } from "next/navigation";
 import jsPDF from "jspdf";
 import {
@@ -26,15 +26,19 @@ export default function FactureDetail() {
 
   const [facture, setFacture] = useState<any>(null);
 
-  useEffect(() => {
-    charger();
-  }, []);
+  
 
-  async function charger() {
+  useEffect(() => {
+    async function charger() {
     const res = await fetch(`/api/factures/${id}`);
     const data = await res.json();
     setFacture(data);
   }
+
+    charger();
+  }, []);
+
+  
 
   function genererPDF() {
     const doc = new jsPDF();

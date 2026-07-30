@@ -1,20 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import { AlertTriangle, ShoppingCart, CheckCircle2 } from "lucide-react";
 
 export default function Alertes() {
   const [produits, setProduits] = useState<any[]>([]);
 
-  useEffect(() => {
-    charger();
-  }, []);
+  
 
-  async function charger() {
+  useEffect(() => {
+    async function charger() {
     const res = await fetch("/api/produits");
     const data = await res.json();
     setProduits(data);
   }
+
+    charger();
+  }, []);
+
+  
 
   const alertes = produits
     .filter((p) => p.quantite <= p.seuilAlerte)

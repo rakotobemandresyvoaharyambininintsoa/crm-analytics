@@ -97,7 +97,7 @@ export default async function AnalyticsPage() {
       </div>
 
       <p className="text-xs text-white/30 mt-8">
-        💡 Pour une analyse interprétée et des recommandations d'action, direction le{" "}
+        💡 Pour une analyse interprétée et des recommandations d&apos;action, direction le{" "}
         <span className="text-violet-300">AI Command Center</span>.
       </p>
     </div>

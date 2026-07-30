@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import jsPDF from "jspdf";
@@ -20,7 +20,6 @@ import {
   ScanLine,
   ShieldCheck,
   Download,
-  ChevronRight,
   Loader2,
 } from "lucide-react";
 
@@ -40,11 +39,10 @@ export default function InventaireSession() {
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    charger();
-  }, []);
+  
 
-  async function charger() {
+  useEffect(() => {
+    async function charger() {
     try {
       const res = await fetch(`/api/inventaires/${id}`, { cache: "no-store" });
       const data = await res.json();
@@ -55,6 +53,11 @@ export default function InventaireSession() {
 
     setLoading(false);
   }
+
+    charger();
+  }, []);
+
+  
 
   function genererPDF() {
     if (!session) return;

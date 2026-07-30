@@ -11,7 +11,7 @@ import {
   Loader2,
 } from "lucide-react";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 import StatCard from "@/components/dashboard/StatCard";
 import RevenueChart from "@/components/dashboard/RevenueChart";
@@ -25,11 +25,10 @@ export default function Dashboard() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    charger();
-  }, []);
+  
 
-  async function charger() {
+  useEffect(() => {
+    async function charger() {
     try {
       const res = await fetch("/api/dashboard", { cache: "no-store" });
       const json = await res.json();
@@ -40,6 +39,11 @@ export default function Dashboard() {
       setLoading(false);
     }
   }
+
+    charger();
+  }, []);
+
+  
 
   if (loading) {
     return (

@@ -40,8 +40,8 @@ export default function DashboardHeader({
           </h1>
 
           <p className="mt-3 max-w-2xl text-white/60 leading-7">
-            Votre entreprise est en bonne santé aujourd'hui.
-            L'intelligence artificielle a analysé les ventes,
+            Votre entreprise est en bonne santé aujourd&apos;hui.
+            L&apos;intelligence artificielle a analysé les ventes,
             les clients et le stock afin de vous proposer
             les meilleures décisions.
           </p>
@@ -95,7 +95,7 @@ export default function DashboardHeader({
               <CalendarDays className="mb-3 h-5 w-5 text-cyan-400" />
 
               <p className="text-xs text-white/40">
-                Aujourd'hui
+                Aujourd&apos;hui
               </p>
 
               <p className="mt-1 font-semibold text-white">

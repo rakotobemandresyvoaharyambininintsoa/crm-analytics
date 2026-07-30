@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Link from "next/link";
 import {
   Package,
@@ -19,11 +19,10 @@ export default function StockDashboard() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    charger();
-  }, []);
+  
 
-  async function charger() {
+  useEffect(() => {
+    async function charger() {
     try {
       const res = await fetch("/api/stock/dashboard", {
         cache: "no-store",
@@ -52,6 +51,11 @@ export default function StockDashboard() {
     }
   }
 
+    charger();
+  }, []);
+
+  
+
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -76,7 +80,7 @@ export default function StockDashboard() {
               Stock
             </h1>
             <p className="text-sm text-white/40">
-              Vue d'ensemble de votre inventaire
+              Vue d&apos;ensemble de votre inventaire
             </p>
           </div>
         </div>

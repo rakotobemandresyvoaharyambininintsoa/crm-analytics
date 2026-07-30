@@ -178,7 +178,7 @@ success:true
 
 
 
-}catch(error){
+}catch{
 
 
 return NextResponse.json(

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import { SlidersHorizontal, Save, Loader2 } from "lucide-react";
 
 export default function Parametres() {
@@ -17,11 +17,10 @@ export default function Parametres() {
     rappelsAutomatiques: false,
   });
 
-  useEffect(() => {
-    charger();
-  }, []);
+  
 
-  async function charger() {
+  useEffect(() => {
+    async function charger() {
     try {
       const res = await fetch("/api/inventaires/parametres");
 
@@ -34,6 +33,11 @@ export default function Parametres() {
 
     setLoading(false);
   }
+
+    charger();
+  }, []);
+
+  
 
   function changer(e: any) {
     const { name, value, type, checked } = e.target;
@@ -81,7 +85,7 @@ export default function Parametres() {
           </div>
           <div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-              Paramètres de l'inventaire
+              Paramètres de l&apos;inventaire
             </h1>
             <p className="text-sm text-white/40">
               Configurez les règles de contrôle de stock

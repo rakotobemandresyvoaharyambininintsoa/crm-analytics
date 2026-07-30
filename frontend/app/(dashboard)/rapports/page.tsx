@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import dynamic from "next/dynamic";
 import {
   BarChart3,
@@ -25,15 +25,19 @@ export default function Rapports() {
     produits: [],
   });
 
-  useEffect(() => {
-    charger();
-  }, []);
+  
 
-  async function charger() {
+  useEffect(() => {
+    async function charger() {
     const res = await fetch("/api/rapports");
     const data = await res.json();
     setRapport(data);
   }
+
+    charger();
+  }, []);
+
+  
 
   return (
     <div className="max-w-7xl mx-auto">

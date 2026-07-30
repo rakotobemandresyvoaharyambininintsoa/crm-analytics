@@ -92,7 +92,7 @@ export default function Entrees() {
             className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-500 shadow-lg shadow-emerald-500/20 px-6 py-3 rounded-xl mt-5 text-sm font-semibold hover:opacity-90 transition-opacity"
           >
             <CheckCircle2 className="h-4 w-4" />
-            Valider l'entrée
+            Valider l&apos;entrée
           </button>
         </div>
       </div>

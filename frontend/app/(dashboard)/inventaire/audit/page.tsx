@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import { ShieldCheck, Loader2 } from "lucide-react";
 import SearchBox from "@/components/SearchBox";
 import EmptyState from "@/components/EmptyState";
@@ -14,11 +14,10 @@ export default function Audit() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    charger();
-  }, []);
+  
 
-  async function charger() {
+  useEffect(() => {
+    async function charger() {
     try {
       const res = await fetch("/api/inventaires/audit", { cache: "no-store" });
       const data = await res.json();
@@ -29,6 +28,11 @@ export default function Audit() {
 
     setLoading(false);
   }
+
+    charger();
+  }, []);
+
+  
 
   const liste = logs.filter(
     (l) =>
@@ -49,10 +53,10 @@ export default function Audit() {
           </div>
           <div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-              Journal d'audit
+              Journal d&apos;audit
             </h1>
             <p className="text-sm text-white/40">
-              Traçabilité complète des actions sur l'inventaire
+              Traçabilité complète des actions sur l&apos;inventaire
             </p>
           </div>
         </div>

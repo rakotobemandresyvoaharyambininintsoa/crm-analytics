@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import { Target } from "lucide-react";
 
 import OpportunityStats from "@/components/opportunites/OpportunityStats";
@@ -9,14 +9,21 @@ import Pipeline from "@/components/opportunites/Pipeline";
 export default function Opportunites() {
   const [data, setData] = useState<any[]>([]);
 
-  useEffect(() => {
-    charger();
-  }, []);
+  
 
-  async function charger() {
+  async function rechargerApresAction() {
     const res = await fetch("/api/opportunites");
     setData(await res.json());
   }
+
+  useEffect(() => {
+    async function charger() {
+      const res = await fetch("/api/opportunites");
+      setData(await res.json());
+    }
+
+    charger();
+  }, []);
 
   async function changerStatut(id: number, statut: string) {
     await fetch("/api/opportunites/" + id, {
@@ -29,7 +36,7 @@ export default function Opportunites() {
       }),
     });
 
-    charger();
+    rechargerApresAction();
   }
 
   return (

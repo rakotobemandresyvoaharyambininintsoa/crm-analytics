@@ -43,7 +43,8 @@ export default function ActivityTimeline({ activities }: ActivityTimelineProps) 
 
   useEffect(() => {
     if (!activities || activities.length === 0) {
-      setChargement(false);
+      // `chargement` is only ever read inside the activities.map(...) branch below,
+      // which doesn't render when there are no activities — no need to update it here.
       return;
     }
 
@@ -74,7 +75,7 @@ export default function ActivityTimeline({ activities }: ActivityTimelineProps) 
           </div>
           <div>
             <h2 className="text-lg font-semibold text-white">Activités récentes</h2>
-            <p className="text-xs text-white/40">Historique intelligent de l'entreprise</p>
+            <p className="text-xs text-white/40">Historique intelligent de l&apos;entreprise</p>
           </div>
         </div>
         <Brain size={20} className="text-violet-400" />

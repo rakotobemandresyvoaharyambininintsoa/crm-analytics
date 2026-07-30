@@ -115,6 +115,7 @@ export default function ClientAI() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Used by the manual "retry" button: resets loading/error state before refetching.
   async function charger(signal?: AbortSignal) {
     setLoading(true);
     setError(null);
@@ -139,7 +140,30 @@ export default function ClientAI() {
 
   useEffect(() => {
     const controller = new AbortController();
-    charger(controller.signal);
+
+    // Inlined rather than reusing charger(): loading/error are already correctly
+    // initialized (true/null) on mount, so resetting them synchronously here would
+    // just be redundant work inside the effect.
+    async function chargerInitial() {
+      try {
+        const res = await fetch("/api/ai/clients", { cache: "no-store", signal: controller.signal });
+        const json = await res.json();
+
+        if (!res.ok) {
+          throw new Error(json?.error?.message || json?.error || "Erreur API");
+        }
+
+        setData(json);
+      } catch (err) {
+        if (err instanceof DOMException && err.name === "AbortError") return;
+        setError(err instanceof Error ? err.message : "Erreur inconnue");
+        setData(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    chargerInitial();
     return () => controller.abort();
   }, []);
 
@@ -157,7 +181,7 @@ export default function ClientAI() {
       <div className="rounded-2xl border border-red-500/20 bg-red-500/10 p-6 text-red-100">
         <div className="flex items-center gap-2">
           <AlertTriangle size={18} />
-          <p className="font-semibold">Impossible de charger l'analyse.</p>
+          <p className="font-semibold">Impossible de charger l&apos;analyse.</p>
         </div>
         <p className="mt-2 text-sm text-red-100/80">{error}</p>
         <button
@@ -244,7 +268,7 @@ export default function ClientAI() {
       <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
         <h3 className="mb-5 font-semibold text-white">Top clients (CA réellement encaissé)</h3>
         {data.topClients.length === 0 ? (
-          <p className="text-sm text-white/40">Aucun client avec facture payée pour l'instant.</p>
+          <p className="text-sm text-white/40">Aucun client avec facture payée pour l&apos;instant.</p>
         ) : (
           <div className="space-y-3">
             {data.topClients.map((client) => (
