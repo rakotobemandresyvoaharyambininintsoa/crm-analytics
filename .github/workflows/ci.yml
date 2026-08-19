@@ -34,7 +34,7 @@ jobs:
         run: npx --yes --ignore-scripts prisma@7.8.0 generate
 
       - name: Type-check
-        run: npx --yes --ignore-scripts typescript@5.9.3 tsc --noEmit
+        run: npx --yes --ignore-scripts -p typescript@5.9.3 tsc --noEmit
 
       - name: Lint
         run: npm run lint
