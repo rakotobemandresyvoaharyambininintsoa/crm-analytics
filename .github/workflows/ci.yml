@@ -12,13 +12,11 @@ jobs:
     defaults:
       run:
         working-directory: ./frontend
-
     env:
       DATABASE_URL: "file:./prisma/crm.db"
       JWT_SECRET: "ci-only-secret-not-used-in-production-1234567890"
       NODE_ENV: "test"
       FIREWORKS_MODE: "mock"
-
     steps:
       - uses: actions/checkout@v4
 
@@ -30,13 +28,13 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Generate Prisma client
-        run: npx prisma generate
+        run: npx --yes --ignore-scripts prisma@7.8.0 generate
 
       - name: Type-check
-        run: npx tsc --noEmit
+        run: npx --yes --ignore-scripts typescript@5.9.3 tsc --noEmit
 
       - name: Lint
         run: npm run lint
@@ -45,7 +43,7 @@ jobs:
         run: npm test
 
       - name: Run DB migrations
-        run: npx prisma migrate deploy
+        run: npx --yes --ignore-scripts prisma@7.8.0 migrate deploy
 
       - name: Build
         run: npm run build

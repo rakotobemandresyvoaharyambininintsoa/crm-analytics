@@ -2,13 +2,31 @@ node_modules
 .next
 .git
 .gitignore
-
 .vscode
-
 coverage
-
 npm-debug.log
-
 Dockerfile
-
+.dockerignore
 README.md
+
+# Secrets et configuration sensible
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+
+# Certificats et clés
+*.pem
+*.key
+*.crt
+
+# Base de données locale
+*.sqlite
+*.sqlite3
+prisma/*.db
+
+# Tests (optionnel, allège l'image)
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
