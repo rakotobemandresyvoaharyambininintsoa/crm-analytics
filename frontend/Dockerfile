@@ -11,11 +11,23 @@ COPY package.json package-lock.json ./
 # Installer avec les versions exactes du lockfile, sans exécuter de scripts non désirés
 RUN npm ci --ignore-scripts
 
-# Copier le reste du code source (le .dockerignore exclut les fichiers sensibles)
-COPY . .
+# Copier explicitement uniquement le code nécessaire au build
+# (exclut volontairement .env, .env.example, README.md, AUDIT.md,
+#  docker-compose.yml, export.py, scripts/, node_modules, .next, etc.)
+COPY app ./app
+COPY components ./components
+COPY lib ./lib
+COPY public ./public
+COPY prisma ./prisma
+COPY utils ./utils
+COPY middleware.ts ./
+COPY next.config.ts ./
+COPY next-env.d.ts ./
+COPY tsconfig.json ./
+COPY postcss.config.mjs ./
+COPY prisma.config.ts ./
 
 # Générer le client Prisma avec une version figée
-# ⚠️ Remplacez "5.20.0" par la version exacte de "prisma" dans votre package.json
 RUN npx --yes --ignore-scripts prisma@7.8.0 generate
 
 RUN npm run build
