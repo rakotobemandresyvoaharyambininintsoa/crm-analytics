@@ -254,7 +254,7 @@ export default function NouvelleSession() {
                 onChange={changer}
                 className="h-4 w-4 accent-violet-500"
               />
-              Activer le double comptage
+              <span>Activer le double comptage</span>
             </label>
           </div>
 

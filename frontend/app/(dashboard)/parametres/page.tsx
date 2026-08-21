@@ -62,17 +62,17 @@ export default function Parametres() {
             <div className="space-y-4">
               <label className="flex items-center gap-3 text-sm text-white/70 cursor-pointer">
                 <input type="checkbox" className="h-4 w-4 accent-violet-500" />
-                Notifications email
+                <span>Notifications email</span>
               </label>
 
               <label className="flex items-center gap-3 text-sm text-white/70 cursor-pointer">
                 <input type="checkbox" className="h-4 w-4 accent-violet-500" />
-                Alertes stock faible
+                <span>Alertes stock faible</span>
               </label>
 
               <label className="flex items-center gap-3 text-sm text-white/70 cursor-pointer">
                 <input type="checkbox" className="h-4 w-4 accent-violet-500" />
-                Rapport automatique
+                <span>Rapport automatique</span>
               </label>
             </div>
           </div>
@@ -89,22 +89,22 @@ export default function Parametres() {
             <div className="grid md:grid-cols-2 gap-4">
               <label className="flex items-center gap-3 text-sm text-white/70 cursor-pointer">
                 <input type="checkbox" className="h-4 w-4 accent-violet-500" />
-                Mode sombre
+                <span>Mode sombre</span>
               </label>
 
               <label className="flex items-center gap-3 text-sm text-white/70 cursor-pointer">
                 <input type="checkbox" className="h-4 w-4 accent-violet-500" />
-                Sauvegarde automatique
+                <span>Sauvegarde automatique</span>
               </label>
 
               <label className="flex items-center gap-3 text-sm text-white/70 cursor-pointer">
                 <input type="checkbox" className="h-4 w-4 accent-violet-500" />
-                Synchronisation donnÃ©es
+                <span>Synchronisation donnÃ©es</span>
               </label>
 
               <label className="flex items-center gap-3 text-sm text-white/70 cursor-pointer">
                 <input type="checkbox" className="h-4 w-4 accent-violet-500" />
-                Protection suppression
+                <span>Protection suppression</span>
               </label>
             </div>
           </div>
