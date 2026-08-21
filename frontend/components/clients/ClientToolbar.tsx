@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { Plus } from "lucide-react";
 import Input from "@/components/ui/Input";
@@ -13,10 +13,9 @@ export default function ClientToolbar({ recherche, setRecherche, ouvrir }: any) 
         onChange={(e: any) => setRecherche(e.target.value)}
       />
 
-      <button type="button" onClick={ouvrir} icon={<Plus className="h-4 w-4" />}>
+      <Button onClick={ouvrir} icon={<Plus className="h-4 w-4" />}>
         Ajouter
       </Button>
     </div>
   );
 }
-
