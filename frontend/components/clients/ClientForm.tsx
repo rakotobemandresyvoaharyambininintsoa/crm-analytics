@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Plus } from "lucide-react";
 import Input from "@/components/ui/Input";
@@ -28,7 +28,7 @@ export default function ClientForm({ form, changer, ajouter }: any) {
           name="telephone"
           value={form.telephone}
           onChange={changer}
-          placeholder="Téléphone"
+          placeholder="TÃ©lÃ©phone"
         />
 
         <Input name="ville" value={form.ville} onChange={changer} placeholder="Ville" />
@@ -36,9 +36,10 @@ export default function ClientForm({ form, changer, ajouter }: any) {
         <Input name="pays" value={form.pays} onChange={changer} placeholder="Pays" />
       </div>
 
-      <Button onClick={ajouter} className="mt-5" icon={<Plus className="h-4 w-4" />}>
+      <button type="button" onClick={ajouter} className="mt-5" icon={<Plus className="h-4 w-4" />}>
         Enregistrer
       </Button>
     </div>
   );
 }
+

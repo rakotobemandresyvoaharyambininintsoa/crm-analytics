@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {useEffect, useState} from "react";
 import { SlidersHorizontal, Save, Loader2 } from "lucide-react";
@@ -69,7 +69,7 @@ export default function Parametres() {
       <div className="flex items-center justify-center py-20">
         <div className="flex items-center gap-3 text-white/50 font-medium text-sm">
           <Loader2 className="h-5 w-5 animate-spin text-violet-400" />
-          Chargement des paramètres...
+          Chargement des paramÃ¨tres...
         </div>
       </div>
     );
@@ -85,25 +85,25 @@ export default function Parametres() {
           </div>
           <div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-              Paramètres de l&apos;inventaire
+              ParamÃ¨tres de l&apos;inventaire
             </h1>
             <p className="text-sm text-white/40">
-              Configurez les règles de contrôle de stock
+              Configurez les rÃ¨gles de contrÃ´le de stock
             </p>
           </div>
         </div>
 
         <div className="space-y-6">
-          {/* Fréquence & tolérance */}
+          {/* FrÃ©quence & tolÃ©rance */}
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
             <h2 className="text-lg font-semibold text-white mb-5">
-              Fréquence et tolérance
+              FrÃ©quence et tolÃ©rance
             </h2>
 
             <div className="grid md:grid-cols-2 gap-3">
               <div>
                 <label className="text-xs text-white/50 mb-1.5 block">
-                  Fréquence des inventaires
+                  FrÃ©quence des inventaires
                 </label>
                 <select
                   name="frequence"
@@ -120,7 +120,7 @@ export default function Parametres() {
 
               <div>
                 <label className="text-xs text-white/50 mb-1.5 block">
-                  Tolérance des écarts (%)
+                  TolÃ©rance des Ã©carts (%)
                 </label>
                 <input
                   type="number"
@@ -133,10 +133,10 @@ export default function Parametres() {
             </div>
           </div>
 
-          {/* Contrôles */}
+          {/* ContrÃ´les */}
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
             <h2 className="text-lg font-semibold text-white mb-5">
-              Contrôles de qualité
+              ContrÃ´les de qualitÃ©
             </h2>
 
             <div className="space-y-4">
@@ -156,7 +156,7 @@ export default function Parametres() {
                 name="signatureObligatoire"
                 checked={params.signatureObligatoire}
                 onChange={changer}
-                label="Signature électronique obligatoire"
+                label="Signature Ã©lectronique obligatoire"
               />
             </div>
           </div>
@@ -172,7 +172,7 @@ export default function Parametres() {
                 name="notifications"
                 checked={params.notifications}
                 onChange={changer}
-                label="Notifications lors des écarts détectés"
+                label="Notifications lors des Ã©carts dÃ©tectÃ©s"
               />
               <Toggle
                 name="rappelsAutomatiques"
@@ -184,7 +184,7 @@ export default function Parametres() {
           </div>
 
           <div className="flex justify-end">
-            <button
+            <button type="button"
               onClick={enregistrer}
               disabled={enregistrement}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-blue-600 shadow-lg shadow-violet-500/20 px-6 py-3 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
@@ -217,3 +217,4 @@ function Toggle({ name, checked, onChange, label }: any) {
     </label>
   );
 }
+

@@ -132,6 +132,7 @@ export default function InventaireSession() {
 
           <div className="flex gap-3">
             <button
+              type="button"
               onClick={genererPDF}
               className="inline-flex items-center gap-2 bg-white/[0.03] border border-white/10 px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-white/[0.05] transition-colors"
             >
@@ -288,3 +289,4 @@ function InfoLigne({ icon: Icon, label, valeur }: any) {
     </div>
   );
 }
+

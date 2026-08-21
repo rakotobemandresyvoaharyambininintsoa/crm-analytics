@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 
 export default function ProduitModal({
@@ -46,7 +46,7 @@ w-[500px]
 
 
 
-<button
+<button type="button"
 
 onClick={fermer}
 
@@ -76,3 +76,4 @@ Fermer
 
 
 }
+

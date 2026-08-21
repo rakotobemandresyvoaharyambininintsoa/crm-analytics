@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 
 import Input from "@/components/ui/Input";
@@ -34,7 +34,7 @@ font-bold
 mb-5
 ">
 
-➕ Ajouter produit
+âž• Ajouter produit
 
 </h2>
 
@@ -52,7 +52,7 @@ gap-3
 name="reference"
 value={form.reference}
 onChange={changer}
-placeholder="Référence"
+placeholder="RÃ©fÃ©rence"
 />
 
 
@@ -71,7 +71,7 @@ placeholder="Nom"
 name="categorie"
 value={form.categorie}
 onChange={changer}
-placeholder="Catégorie"
+placeholder="CatÃ©gorie"
 />
 
 
@@ -115,7 +115,7 @@ placeholder="Prix vente"
 name="quantite"
 value={form.quantite}
 onChange={changer}
-placeholder="Quantité"
+placeholder="QuantitÃ©"
 />
 
 
@@ -128,11 +128,11 @@ placeholder="Quantité"
 
 
 
-<Button
+<button type="button"
 
 onClick={ajouter}
 
-icon="💾"
+icon="ðŸ’¾"
 
 className="mt-5"
 
@@ -151,3 +151,4 @@ Enregistrer
 
 
 }
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useMemo, useState } from "react";
 import {
@@ -43,7 +43,7 @@ export default function DataTable<T>({
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortAsc, setSortAsc] = useState(true);
 
-  // 🔎 SEARCH
+  // ðŸ”Ž SEARCH
   const filteredData = useMemo(() => {
     if (!search) return data;
 
@@ -52,7 +52,7 @@ export default function DataTable<T>({
     );
   }, [data, search]);
 
-  // ↕ SORT
+  // â†• SORT
   const sortedData = useMemo(() => {
     if (!sortKey) return filteredData;
 
@@ -66,7 +66,7 @@ export default function DataTable<T>({
     });
   }, [filteredData, sortKey, sortAsc]);
 
-  // 📄 PAGINATION
+  // ðŸ“„ PAGINATION
   const totalPages = Math.ceil(sortedData.length / pageSize);
 
   const paginatedData = useMemo(() => {
@@ -94,7 +94,7 @@ export default function DataTable<T>({
   return (
     <div className="w-full space-y-3">
 
-      {/* 🔎 SEARCH BAR */}
+      {/* ðŸ”Ž SEARCH BAR */}
       {searchable && (
         <input
           type="text"
@@ -142,7 +142,7 @@ export default function DataTable<T>({
                   colSpan={columns.length + (actions ? 1 : 0)}
                   className="text-center py-10 text-gray-500"
                 >
-                  📭 Aucune donnée trouvée
+                  ðŸ“­ Aucune donnÃ©e trouvÃ©e
                 </td>
               </tr>
             ) : (
@@ -172,21 +172,21 @@ export default function DataTable<T>({
         </table>
       </div>
 
-      {/* 📄 PAGINATION */}
+      {/* ðŸ“„ PAGINATION */}
       <div className="flex items-center justify-between text-sm">
         <span>
           Page {page} / {totalPages || 1}
         </span>
 
         <div className="flex gap-2">
-          <button
+          <button type="button"
             onClick={() => setPage((p) => Math.max(p - 1, 1))}
             className="px-3 py-1 border rounded flex items-center gap-1"
           >
             <ChevronLeft size={16} /> Prev
           </button>
 
-          <button
+          <button type="button"
             onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
             className="px-3 py-1 border rounded flex items-center gap-1"
           >
@@ -197,3 +197,4 @@ export default function DataTable<T>({
     </div>
   );
 }
+

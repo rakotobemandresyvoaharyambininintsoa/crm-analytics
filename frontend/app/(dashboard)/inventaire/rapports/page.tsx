@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {useEffect, useState} from "react";
 import {
@@ -83,13 +83,13 @@ export default function Rapports() {
                 Rapports d&apos;inventaire
               </h1>
               <p className="text-sm text-white/40">
-                Analyse de la précision et des écarts de stock
+                Analyse de la prÃ©cision et des Ã©carts de stock
               </p>
             </div>
           </div>
 
           <div className="flex gap-3">
-            <button
+            <button type="button"
               onClick={() => (window.location.href = "/api/inventaires/export/excel")}
               className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-emerald-500/20 transition-colors"
             >
@@ -97,7 +97,7 @@ export default function Rapports() {
               Excel
             </button>
 
-            <button
+            <button type="button"
               onClick={() => (window.location.href = "/api/inventaires/export/pdf")}
               className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 text-red-300 px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-red-500/20 transition-colors"
             >
@@ -105,7 +105,7 @@ export default function Rapports() {
               PDF
             </button>
 
-            <button
+            <button type="button"
               onClick={() => (window.location.href = "/api/inventaires/export/csv")}
               className="inline-flex items-center gap-2 bg-white/[0.03] border border-white/10 px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-white/[0.05] transition-colors"
             >
@@ -130,7 +130,7 @@ export default function Rapports() {
             accent="emerald"
           />
           <Card
-            titre="Taux de précision"
+            titre="Taux de prÃ©cision"
             valeur={rapport.tauxPrecision + " %"}
             icon={Target}
             accent="violet"
@@ -138,17 +138,17 @@ export default function Rapports() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          {/* Evolution des écarts */}
+          {/* Evolution des Ã©carts */}
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
             <h2 className="text-lg font-semibold text-white mb-6">
-              Évolution mensuelle des écarts
+              Ã‰volution mensuelle des Ã©carts
             </h2>
 
             {rapport.evolution.length === 0 ? (
               <EmptyState
                 icon={BarChart3}
-                titre="Aucune donnée disponible"
-                description="L'évolution apparaîtra après quelques sessions d'inventaire."
+                titre="Aucune donnÃ©e disponible"
+                description="L'Ã©volution apparaÃ®tra aprÃ¨s quelques sessions d'inventaire."
               />
             ) : (
               <ResponsiveContainer width="100%" height={260}>
@@ -188,17 +188,17 @@ export default function Rapports() {
             )}
           </div>
 
-          {/* Répartition des écarts */}
+          {/* RÃ©partition des Ã©carts */}
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
             <h2 className="text-lg font-semibold text-white mb-6">
-              Répartition des écarts
+              RÃ©partition des Ã©carts
             </h2>
 
             {rapport.repartitionEcarts.length === 0 ? (
               <EmptyState
                 icon={Target}
-                titre="Aucune donnée disponible"
-                description="La répartition des écarts apparaîtra après quelques sessions."
+                titre="Aucune donnÃ©e disponible"
+                description="La rÃ©partition des Ã©carts apparaÃ®tra aprÃ¨s quelques sessions."
               />
             ) : (
               <ResponsiveContainer width="100%" height={260}>
@@ -229,16 +229,16 @@ export default function Rapports() {
           </div>
         </div>
 
-        {/* Performance des équipes */}
+        {/* Performance des Ã©quipes */}
         <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
           <h2 className="text-lg font-semibold text-white mb-5">
-            Performance des équipes
+            Performance des Ã©quipes
           </h2>
 
           {rapport.performanceEquipes.length === 0 ? (
             <EmptyState
-              titre="Aucune donnée disponible"
-              description="La performance par équipe apparaîtra après quelques sessions comptées."
+              titre="Aucune donnÃ©e disponible"
+              description="La performance par Ã©quipe apparaÃ®tra aprÃ¨s quelques sessions comptÃ©es."
             />
           ) : (
             <div className="space-y-3">
@@ -249,7 +249,7 @@ export default function Rapports() {
                 >
                   <span className="font-medium text-white">{e.nom}</span>
                   <span className="text-sm text-white/60">
-                    Précision : <span className="text-emerald-400 font-semibold">{e.precision}%</span>
+                    PrÃ©cision : <span className="text-emerald-400 font-semibold">{e.precision}%</span>
                   </span>
                 </div>
               ))}
@@ -280,3 +280,4 @@ function Card({ titre, valeur, icon: Icon, accent }: any) {
     </div>
   );
 }
+

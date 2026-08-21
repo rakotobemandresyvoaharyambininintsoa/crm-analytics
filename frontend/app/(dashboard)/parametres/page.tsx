@@ -1,4 +1,4 @@
-import { Building2, Bell, SlidersHorizontal, Save } from "lucide-react";
+﻿import { Building2, Bell, SlidersHorizontal, Save } from "lucide-react";
 
 export default function Parametres() {
   return (
@@ -11,7 +11,7 @@ export default function Parametres() {
           </div>
           <div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-              Paramètres
+              ParamÃ¨tres
             </h1>
             <p className="text-sm text-white/40">
               Configurez votre espace de travail
@@ -42,11 +42,11 @@ export default function Parametres() {
 
               <input
                 className="w-full bg-white/[0.03] border border-white/10 p-3 rounded-lg text-sm placeholder:text-white/30 outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/30 transition-colors"
-                placeholder="Téléphone"
+                placeholder="TÃ©lÃ©phone"
               />
             </div>
 
-            <button className="inline-flex items-center gap-2 mt-5 bg-gradient-to-r from-violet-600 to-blue-600 shadow-lg shadow-violet-500/20 px-5 py-3 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity">
+            <button type="button" className="inline-flex items-center gap-2 mt-5 bg-gradient-to-r from-violet-600 to-blue-600 shadow-lg shadow-violet-500/20 px-5 py-3 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity">
               <Save className="h-4 w-4" />
               Enregistrer
             </button>
@@ -56,7 +56,7 @@ export default function Parametres() {
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-5">
               <Bell className="h-5 w-5 text-violet-400" />
-              <h2 className="text-lg font-semibold text-white">Préférences</h2>
+              <h2 className="text-lg font-semibold text-white">PrÃ©fÃ©rences</h2>
             </div>
 
             <div className="space-y-4">
@@ -82,7 +82,7 @@ export default function Parametres() {
             <div className="flex items-center gap-2 mb-5">
               <SlidersHorizontal className="h-5 w-5 text-violet-400" />
               <h2 className="text-lg font-semibold text-white">
-                Système CRM
+                SystÃ¨me CRM
               </h2>
             </div>
 
@@ -99,7 +99,7 @@ export default function Parametres() {
 
               <label className="flex items-center gap-3 text-sm text-white/70 cursor-pointer">
                 <input type="checkbox" className="h-4 w-4 accent-violet-500" />
-                Synchronisation données
+                Synchronisation donnÃ©es
               </label>
 
               <label className="flex items-center gap-3 text-sm text-white/70 cursor-pointer">
@@ -113,4 +113,5 @@ export default function Parametres() {
     </div>
   );
 }
+
 

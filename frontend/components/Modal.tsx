@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { X } from "lucide-react";
 import { type ReactNode } from "react";
@@ -31,7 +31,7 @@ export default function Modal({
       >
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-xl font-bold text-white">{title}</h2>
-          <button
+          <button type="button"
             onClick={onClose}
             className="flex items-center justify-center h-8 w-8 rounded-lg text-white/40 hover:bg-white/[0.05] hover:text-white transition-colors"
           >
@@ -44,3 +44,4 @@ export default function Modal({
     </div>
   );
 }
+

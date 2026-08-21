@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -26,7 +26,7 @@ export default function Pagination({
       </p>
 
       <div className="flex items-center gap-1">
-        <button
+        <button type="button"
           onClick={() => onPageChange(page - 1)}
           disabled={page === 1}
           className="flex items-center justify-center h-8 w-8 rounded-lg bg-white/[0.03] border border-white/10 text-white/50 hover:bg-white/[0.05] hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
@@ -40,8 +40,8 @@ export default function Pagination({
 
           return (
             <div key={p} className="flex items-center">
-              {gap && <span className="px-1 text-white/30 text-xs">…</span>}
-              <button
+              {gap && <span className="px-1 text-white/30 text-xs">â€¦</span>}
+              <button type="button"
                 onClick={() => onPageChange(p)}
                 className={`h-8 w-8 rounded-lg text-xs font-semibold transition-colors ${
                   p === page
@@ -55,7 +55,7 @@ export default function Pagination({
           );
         })}
 
-        <button
+        <button type="button"
           onClick={() => onPageChange(page + 1)}
           disabled={page === totalPages}
           className="flex items-center justify-center h-8 w-8 rounded-lg bg-white/[0.03] border border-white/10 text-white/50 hover:bg-white/[0.05] hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
@@ -66,3 +66,4 @@ export default function Pagination({
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -103,7 +103,7 @@ export default function Clients() {
               Clients
             </h1>
             <p className="text-sm text-white/40">
-              Gérez votre portefeuille clients
+              GÃ©rez votre portefeuille clients
             </p>
           </div>
         </div>
@@ -149,7 +149,7 @@ export default function Clients() {
             ))}
           </div>
 
-          <button
+          <button type="button"
             onClick={ajouter}
             className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-blue-600 shadow-lg shadow-violet-500/20 px-6 py-3 rounded-xl mt-5 text-sm font-semibold hover:opacity-90 transition-opacity"
           >
@@ -177,7 +177,7 @@ export default function Clients() {
                 <th className="text-left font-medium pb-3">Nom</th>
                 <th className="text-left font-medium pb-3">Entreprise</th>
                 <th className="text-left font-medium pb-3">Email</th>
-                <th className="text-left font-medium pb-3">Téléphone</th>
+                <th className="text-left font-medium pb-3">TÃ©lÃ©phone</th>
                 <th className="text-left font-medium pb-3">Actions</th>
               </tr>
             </thead>
@@ -195,7 +195,7 @@ export default function Clients() {
 
                   <td>
                     <div className="flex gap-2 py-1">
-                      <button
+                      <button type="button"
                         onClick={() => router.push("/clients/" + client.id)}
                         className="flex items-center justify-center h-8 w-8 rounded-lg bg-blue-500/10 ring-1 ring-blue-500/20 text-blue-400 hover:bg-blue-500/20 transition-colors"
                         title="Voir"
@@ -203,7 +203,7 @@ export default function Clients() {
                         <Eye className="h-4 w-4" />
                       </button>
 
-                      <button
+                      <button type="button"
                         onClick={() => setSelection(client)}
                         className="flex items-center justify-center h-8 w-8 rounded-lg bg-amber-500/10 ring-1 ring-amber-500/20 text-amber-400 hover:bg-amber-500/20 transition-colors"
                         title="Modifier"
@@ -211,7 +211,7 @@ export default function Clients() {
                         <Pencil className="h-4 w-4" />
                       </button>
 
-                      <button
+                      <button type="button"
                         onClick={() => supprimer(client.id)}
                         className="flex items-center justify-center h-8 w-8 rounded-lg bg-red-500/10 ring-1 ring-red-500/20 text-red-400 hover:bg-red-500/20 transition-colors"
                         title="Supprimer"
@@ -232,7 +232,7 @@ export default function Clients() {
             <div className="bg-slate-950 border border-white/10 p-8 rounded-xl w-full max-w-md">
               <div className="flex items-center justify-between mb-5">
                 <h2 className="text-xl font-bold text-white">Modifier le client</h2>
-                <button
+                <button type="button"
                   onClick={() => setSelection(null)}
                   className="flex items-center justify-center h-8 w-8 rounded-lg text-white/40 hover:bg-white/[0.05] hover:text-white transition-colors"
                 >
@@ -260,7 +260,7 @@ export default function Clients() {
               </div>
 
               <div className="flex gap-3 mt-6">
-                <button
+                <button type="button"
                   onClick={modifier}
                   className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-500 shadow-lg shadow-emerald-500/20 px-5 py-3 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity"
                 >
@@ -268,7 +268,7 @@ export default function Clients() {
                   Sauvegarder
                 </button>
 
-                <button
+                <button type="button"
                   onClick={() => setSelection(null)}
                   className="px-5 py-3 rounded-xl text-sm font-semibold text-white/60 bg-white/[0.03] border border-white/10 hover:bg-white/[0.05] hover:text-white transition-colors"
                 >
@@ -312,4 +312,5 @@ function Card({
     </div>
   );
 }
+
 

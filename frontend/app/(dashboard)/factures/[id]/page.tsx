@@ -127,6 +127,7 @@ export default function FactureDetail() {
           </div>
 
           <button
+            type="button"
             onClick={genererPDF}
             className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-blue-600 shadow-lg shadow-violet-500/20 px-6 py-3 rounded-xl mt-8 text-sm font-semibold hover:opacity-90 transition-opacity"
           >
@@ -158,3 +159,5 @@ function Ligne({
     </div>
   );
 }
+
+

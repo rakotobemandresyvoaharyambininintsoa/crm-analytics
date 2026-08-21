@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { ArrowUpFromLine, CheckCircle2 } from "lucide-react";
@@ -39,7 +39,7 @@ export default function Sorties() {
       return;
     }
 
-    alert("Sortie enregistrée");
+    alert("Sortie enregistrÃ©e");
 
     setQuantite("");
     setMotif("");
@@ -82,7 +82,7 @@ export default function Sorties() {
 
             <input
               className="bg-white/[0.03] border border-white/10 p-3 rounded-lg w-full text-sm placeholder:text-white/30 outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/30 transition-colors"
-              placeholder="Quantité"
+              placeholder="QuantitÃ©"
               value={quantite}
               onChange={(e) => setQuantite(e.target.value)}
             />
@@ -100,7 +100,7 @@ export default function Sorties() {
             </select>
           </div>
 
-          <button
+          <button type="button"
             onClick={sortie}
             className="inline-flex items-center gap-2 bg-gradient-to-r from-red-600 to-red-500 shadow-lg shadow-red-500/20 px-6 py-3 rounded-xl mt-5 text-sm font-semibold hover:opacity-90 transition-opacity"
           >
@@ -112,4 +112,5 @@ export default function Sorties() {
     </div>
   );
 }
+
 

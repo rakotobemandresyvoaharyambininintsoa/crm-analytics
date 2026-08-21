@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import {
@@ -139,12 +139,12 @@ export default function StockAI() {
           <AlertTriangle className="h-4 w-4" />
           <span>{error}</span>
         </div>
-        <button
+        <button type="button"
           onClick={() => charger()}
           className="mt-3 inline-flex items-center gap-2 text-sm text-red-200 hover:text-white"
         >
           <RefreshCw className="h-4 w-4" />
-          Réessayer
+          RÃ©essayer
         </button>
       </div>
     );
@@ -153,7 +153,7 @@ export default function StockAI() {
   if (!data) {
     return (
       <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6 text-white/50">
-        Aucune donnée disponible.
+        Aucune donnÃ©e disponible.
       </div>
     );
   }
@@ -206,11 +206,11 @@ export default function StockAI() {
           {data.analyse.degraded && (
             <div className="mb-3 flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
               <AlertTriangle className="h-4 w-4 shrink-0" />
-              IA temporairement indisponible — analyse de secours, pas une évaluation réelle.
+              IA temporairement indisponible â€” analyse de secours, pas une Ã©valuation rÃ©elle.
             </div>
           )}
           <p className="whitespace-pre-wrap leading-7 text-white/70 text-sm">
-            {data.analyse.resume || "Aucun résumé disponible."}
+            {data.analyse.resume || "Aucun rÃ©sumÃ© disponible."}
           </p>
         </div>
 
@@ -228,7 +228,7 @@ export default function StockAI() {
             accent="violet"
           />
           <ListeAvecPuces
-            titre="Opportunités"
+            titre="OpportunitÃ©s"
             items={data.analyse.opportunites}
             icon={<Lightbulb size={16} />}
             accent="emerald"
@@ -238,3 +238,4 @@ export default function StockAI() {
     </div>
   );
 }
+

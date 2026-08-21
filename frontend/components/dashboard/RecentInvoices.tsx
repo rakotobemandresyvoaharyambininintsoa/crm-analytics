@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import {
@@ -18,7 +18,7 @@ interface Invoice {
   id: number;
   client: string;
   montant: number;
-  statut: "Payée" | "En attente" | "Retard";
+  statut: "PayÃ©e" | "En attente" | "Retard";
   date: string;
 }
 
@@ -31,10 +31,10 @@ function formatMoney(value: number) {
 }
 
 function StatusBadge({ statut }: { statut: Invoice["statut"] }) {
-  if (statut === "Payée")
+  if (statut === "PayÃ©e")
     return (
       <span className="flex items-center gap-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-xs text-emerald-300">
-        <CheckCircle2 size={13} /> Payée
+        <CheckCircle2 size={13} /> PayÃ©e
       </span>
     );
   if (statut === "En attente")
@@ -70,11 +70,11 @@ export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
       });
       const data = await res.json();
       setEmail(
-        (data.degraded ? "⚠️ IA indisponible — texte de secours ci-dessous.\n\n" : "") +
+        (data.degraded ? "âš ï¸ IA indisponible â€” texte de secours ci-dessous.\n\n" : "") +
         (data.error ?? data.email)
       );
     } catch {
-      setEmail("Erreur lors de la génération. Réessayez.");
+      setEmail("Erreur lors de la gÃ©nÃ©ration. RÃ©essayez.");
     } finally {
       setChargement(false);
     }
@@ -94,7 +94,7 @@ export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
             <FileText size={20} className="text-blue-400" />
           </div>
           <div>
-            <h2 className="text-lg font-semibold text-white">Factures récentes</h2>
+            <h2 className="text-lg font-semibold text-white">Factures rÃ©centes</h2>
             <p className="text-xs text-white/40">Suivi des paiements</p>
           </div>
         </div>
@@ -124,14 +124,14 @@ export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
                 </div>
               </div>
 
-              {/* Action réelle uniquement pour les factures en retard */}
+              {/* Action rÃ©elle uniquement pour les factures en retard */}
               {invoice.statut === "Retard" && (
-                <button
+                <button type="button"
                   onClick={() => genererRelance(invoice.id)}
                   className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 ring-1 ring-violet-500/30 px-4 py-2 text-xs font-medium text-violet-300 transition-colors"
                 >
                   <Mail className="h-3.5 w-3.5" />
-                  Générer l&apos;email de relance (IA)
+                  GÃ©nÃ©rer l&apos;email de relance (IA)
                 </button>
               )}
             </div>
@@ -146,9 +146,9 @@ export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-violet-400" />
-                Email de relance généré par l&apos;IA
+                Email de relance gÃ©nÃ©rÃ© par l&apos;IA
               </h3>
-              <button onClick={() => setPanneauOuvert(false)} className="text-white/40 hover:text-white">
+              <button type="button" onClick={() => setPanneauOuvert(false)} className="text-white/40 hover:text-white">
                 <X className="h-4 w-4" />
               </button>
             </div>
@@ -156,7 +156,7 @@ export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
             <div className="rounded-xl bg-white/[0.03] border border-white/10 p-4 max-h-96 overflow-y-auto">
               {chargement ? (
                 <div className="flex items-center gap-2 text-white/50 text-sm py-6 justify-center">
-                  <Loader2 className="h-4 w-4 animate-spin" /> Génération en cours...
+                  <Loader2 className="h-4 w-4 animate-spin" /> GÃ©nÃ©ration en cours...
                 </div>
               ) : (
                 <p className="text-sm text-white/80 whitespace-pre-line">{email}</p>
@@ -164,12 +164,12 @@ export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
             </div>
 
             {!chargement && email && (
-              <button
+              <button type="button"
                 onClick={copier}
                 className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 ring-1 ring-violet-500/30 px-4 py-2.5 text-sm font-medium text-violet-300 transition-colors"
               >
                 {copie ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                {copie ? "Copié !" : "Copier le texte"}
+                {copie ? "CopiÃ© !" : "Copier le texte"}
               </button>
             )}
           </div>
@@ -178,3 +178,4 @@ export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
     </div>
   );
 }
+

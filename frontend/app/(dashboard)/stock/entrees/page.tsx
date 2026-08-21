@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { ArrowDownToLine, CheckCircle2 } from "lucide-react";
@@ -31,7 +31,7 @@ export default function Entrees() {
       }),
     });
 
-    alert("Entrée enregistrée");
+    alert("EntrÃ©e enregistrÃ©e");
 
     setQuantite("");
     setCommentaire("");
@@ -49,10 +49,10 @@ export default function Entrees() {
           </div>
           <div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-              Entrée stock
+              EntrÃ©e stock
             </h1>
             <p className="text-sm text-white/40">
-              Enregistrez une réception de marchandise
+              Enregistrez une rÃ©ception de marchandise
             </p>
           </div>
         </div>
@@ -74,7 +74,7 @@ export default function Entrees() {
 
             <input
               className="bg-white/[0.03] border border-white/10 p-3 rounded-lg w-full text-sm placeholder:text-white/30 outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/30 transition-colors"
-              placeholder="Quantité"
+              placeholder="QuantitÃ©"
               value={quantite}
               onChange={(e) => setQuantite(e.target.value)}
             />
@@ -87,16 +87,17 @@ export default function Entrees() {
             />
           </div>
 
-          <button
+          <button type="button"
             onClick={ajouterEntree}
             className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-500 shadow-lg shadow-emerald-500/20 px-6 py-3 rounded-xl mt-5 text-sm font-semibold hover:opacity-90 transition-opacity"
           >
             <CheckCircle2 className="h-4 w-4" />
-            Valider l&apos;entrée
+            Valider l&apos;entrÃ©e
           </button>
         </div>
       </div>
     </div>
   );
 }
+
 

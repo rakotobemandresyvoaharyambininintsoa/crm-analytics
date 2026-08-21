@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
@@ -49,7 +49,7 @@ justify-between
 
 <Input
 
-placeholder="🔎 Rechercher un produit..."
+placeholder="ðŸ”Ž Rechercher un produit..."
 
 value={recherche}
 
@@ -66,11 +66,11 @@ e=>setRecherche(e.target.value)
 
 
 
-<Button
+<button type="button"
 
 variant="primary"
 
-icon="➕"
+icon="âž•"
 
 onClick={ouvrirForm}
 
@@ -89,3 +89,4 @@ Nouveau produit
 )
 
 }
+

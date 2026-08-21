@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Plus } from "lucide-react";
 import Input from "@/components/ui/Input";
@@ -36,14 +36,15 @@ export default function FactureForm({ form, changer, creer }: any) {
           className="bg-white/[0.03] border border-white/10 p-3 rounded-lg text-sm text-white outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/30 transition-colors"
         >
           <option className="bg-slate-900">Brouillon</option>
-          <option className="bg-slate-900">Payée</option>
+          <option className="bg-slate-900">PayÃ©e</option>
           <option className="bg-slate-900">Retard</option>
         </select>
       </div>
 
-      <Button onClick={creer} className="mt-5" icon={<Plus className="h-4 w-4" />}>
-        Créer facture
+      <button type="button" onClick={creer} className="mt-5" icon={<Plus className="h-4 w-4" />}>
+        CrÃ©er facture
       </Button>
     </div>
   );
 }
+

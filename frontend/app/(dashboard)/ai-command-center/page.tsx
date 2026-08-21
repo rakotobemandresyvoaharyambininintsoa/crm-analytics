@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import {
@@ -37,10 +37,10 @@ const SEVERITE_STYLE: Record<Insight["severite"], { border: string; badge: strin
 
 const CATEGORIE_LABEL: Record<Insight["categorie"], string> = {
   client: "Client",
-  opportunite: "Opportunité",
+  opportunite: "OpportunitÃ©",
   facture: "Facture",
   stock: "Stock",
-  correlation: "Pattern détecté",
+  correlation: "Pattern dÃ©tectÃ©",
 };
 
 export default function AICommandCenterPage() {
@@ -98,7 +98,7 @@ export default function AICommandCenterPage() {
         { role: "assistant", content: data.error ?? data.reponse, degraded: Boolean(data.degraded) },
       ]);
     } catch {
-      setMessages((m) => [...m, { role: "assistant", content: "Erreur de connexion. Réessayez." }]);
+      setMessages((m) => [...m, { role: "assistant", content: "Erreur de connexion. RÃ©essayez." }]);
     } finally {
       setLoadingChat(false);
     }
@@ -114,7 +114,7 @@ export default function AICommandCenterPage() {
 
     try {
       if (insight.actionType === "relance-facture" && insight.actionData.factureId) {
-        setPanneauTitre("Email de relance généré par l'IA");
+        setPanneauTitre("Email de relance gÃ©nÃ©rÃ© par l'IA");
         const res = await fetch("/api/ai/actions/relance", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -122,7 +122,7 @@ export default function AICommandCenterPage() {
         });
         const data = await res.json();
         setPanneauContenu(
-          (data.degraded ? "⚠️ IA indisponible — texte de secours ci-dessous.\n\n" : "") +
+          (data.degraded ? "âš ï¸ IA indisponible â€” texte de secours ci-dessous.\n\n" : "") +
           (data.error ?? data.email)
         );
       } else if (insight.actionType === "diagnostic-client" && insight.actionData.clientId) {
@@ -134,12 +134,12 @@ export default function AICommandCenterPage() {
         });
         const data = await res.json();
         setPanneauContenu(
-          (data.degraded ? "⚠️ IA indisponible — texte de secours ci-dessous.\n\n" : "") +
+          (data.degraded ? "âš ï¸ IA indisponible â€” texte de secours ci-dessous.\n\n" : "") +
           (data.error ?? data.diagnostic)
         );
       }
     } catch {
-      setPanneauContenu("Erreur lors de la génération. Réessayez.");
+      setPanneauContenu("Erreur lors de la gÃ©nÃ©ration. RÃ©essayez.");
     } finally {
       setPanneauChargement(false);
     }
@@ -162,18 +162,18 @@ export default function AICommandCenterPage() {
         </div>
         <div>
           <h1 className="text-2xl font-bold tracking-tight">AI Command Center</h1>
-          <p className="text-sm text-white/40">Analyse proactive de votre activité, en continu</p>
+          <p className="text-sm text-white/40">Analyse proactive de votre activitÃ©, en continu</p>
         </div>
       </div>
 
       <div className="mb-6 rounded-2xl border border-violet-500/20 bg-gradient-to-br from-violet-500/[0.07] to-blue-500/[0.04] p-6">
         <p className="text-xs font-medium uppercase tracking-wide text-violet-300/70 mb-2">
-          Synthèse IA du jour
+          SynthÃ¨se IA du jour
         </p>
         {loadingInsights ? (
           <div className="flex items-center gap-2 text-white/50 text-sm">
             <Loader2 className="h-4 w-4 animate-spin" />
-            Analyse des données en cours...
+            Analyse des donnÃ©es en cours...
           </div>
         ) : erreur ? (
           <p className="text-sm text-red-300">{erreur}</p>
@@ -182,7 +182,7 @@ export default function AICommandCenterPage() {
             {syntheseDegraded && (
               <div className="mb-3 flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
                 <AlertTriangle className="h-4 w-4 shrink-0" />
-                IA temporairement indisponible — synthèse de secours, pas une analyse réelle.
+                IA temporairement indisponible â€” synthÃ¨se de secours, pas une analyse rÃ©elle.
               </div>
             )}
             <p className="text-sm text-white/80 leading-relaxed whitespace-pre-line">{synthese}</p>
@@ -198,12 +198,12 @@ export default function AICommandCenterPage() {
             </div>
             <div>
               <span className="inline-flex items-center rounded-full ring-1 ring-fuchsia-500/30 bg-fuchsia-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase text-fuchsia-300 mb-2">
-                Insight avancé
+                Insight avancÃ©
               </span>
               <h3 className="text-sm font-semibold mb-1">{insightsCorrelation[0].titre}</h3>
               <p className="text-sm text-white/70">{insightsCorrelation[0].message}</p>
               {insightsCorrelation[0].actionSuggeree && (
-                <p className="text-xs text-fuchsia-300/90 mt-2">→ {insightsCorrelation[0].actionSuggeree}</p>
+                <p className="text-xs text-fuchsia-300/90 mt-2">â†’ {insightsCorrelation[0].actionSuggeree}</p>
               )}
             </div>
           </div>
@@ -212,10 +212,10 @@ export default function AICommandCenterPage() {
 
       <div className="mb-10">
         <p className="text-xs font-medium uppercase tracking-wide text-white/30 mb-3 px-1">
-          Alertes détectées ({insightsStandard.length})
+          Alertes dÃ©tectÃ©es ({insightsStandard.length})
         </p>
         {!loadingInsights && insightsStandard.length === 0 && !erreur && (
-          <p className="text-sm text-white/40 px-1">Aucune alerte — tout est sous contrôle.</p>
+          <p className="text-sm text-white/40 px-1">Aucune alerte â€” tout est sous contrÃ´le.</p>
         )}
         <div className="space-y-3">
           {insightsStandard.map((insight) => {
@@ -237,7 +237,7 @@ export default function AICommandCenterPage() {
                   <p className="text-sm text-white/60">{insight.message}</p>
 
                   {insight.actionType ? (
-                    <button
+                    <button type="button"
                       onClick={() => declencherAction(insight)}
                       className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 ring-1 ring-violet-500/30 px-3 py-1.5 text-xs font-medium text-violet-300 transition-colors"
                     >
@@ -250,7 +250,7 @@ export default function AICommandCenterPage() {
                     </button>
                   ) : (
                     insight.actionSuggeree && (
-                      <p className="text-xs text-violet-300/80 mt-1.5">→ {insight.actionSuggeree}</p>
+                      <p className="text-xs text-violet-300/80 mt-1.5">â†’ {insight.actionSuggeree}</p>
                     )
                   )}
                 </div>
@@ -262,13 +262,13 @@ export default function AICommandCenterPage() {
 
       <div className="rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden">
         <div className="p-4 border-b border-white/10">
-          <p className="text-sm font-semibold">Interroger vos données</p>
-          <p className="text-xs text-white/40">Ex: &quot;Quels clients n&apos;ont pas commandé depuis 2 mois ?&quot;</p>
+          <p className="text-sm font-semibold">Interroger vos donnÃ©es</p>
+          <p className="text-xs text-white/40">Ex: &quot;Quels clients n&apos;ont pas commandÃ© depuis 2 mois ?&quot;</p>
         </div>
 
         <div className="max-h-80 overflow-y-auto p-4 space-y-3">
           {messages.length === 0 && (
-            <p className="text-xs text-white/30 italic">Posez votre première question ci-dessous.</p>
+            <p className="text-xs text-white/30 italic">Posez votre premiÃ¨re question ci-dessous.</p>
           )}
           {messages.map((m, i) => (
             <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
@@ -282,7 +282,7 @@ export default function AICommandCenterPage() {
                 {m.degraded && (
                   <div className="mb-2 flex items-center gap-1.5 text-xs text-amber-300">
                     <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
-                    IA indisponible — réponse de secours
+                    IA indisponible â€” rÃ©ponse de secours
                   </div>
                 )}
                 {m.content}
@@ -291,7 +291,7 @@ export default function AICommandCenterPage() {
           ))}
           {loadingChat && (
             <div className="flex items-center gap-2 text-white/40 text-xs">
-              <Loader2 className="h-3.5 w-3.5 animate-spin" /> Réflexion en cours...
+              <Loader2 className="h-3.5 w-3.5 animate-spin" /> RÃ©flexion en cours...
             </div>
           )}
           <div ref={chatEndRef} />
@@ -305,7 +305,7 @@ export default function AICommandCenterPage() {
             placeholder="Posez une question sur vos clients, ventes, stock..."
             className="flex-1 rounded-xl bg-white/[0.05] border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-1 focus:ring-violet-500/50"
           />
-          <button
+          <button type="button"
             onClick={envoyerQuestion}
             disabled={loadingChat || !question.trim()}
             className="flex items-center justify-center rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 px-4 py-2.5 text-white disabled:opacity-40 shadow-lg shadow-violet-500/20"
@@ -323,7 +323,7 @@ export default function AICommandCenterPage() {
                 <Sparkles className="h-4 w-4 text-violet-400" />
                 {panneauTitre}
               </h3>
-              <button
+              <button type="button"
                 onClick={() => setPanneauOuvert(false)}
                 className="text-white/40 hover:text-white transition-colors"
               >
@@ -335,7 +335,7 @@ export default function AICommandCenterPage() {
               {panneauChargement ? (
                 <div className="flex items-center gap-2 text-white/50 text-sm py-6 justify-center">
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Génération en cours...
+                  GÃ©nÃ©ration en cours...
                 </div>
               ) : (
                 <p className="text-sm text-white/80 whitespace-pre-line">{panneauContenu}</p>
@@ -343,12 +343,12 @@ export default function AICommandCenterPage() {
             </div>
 
             {!panneauChargement && panneauContenu && (
-              <button
+              <button type="button"
                 onClick={copierContenu}
                 className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 ring-1 ring-violet-500/30 px-4 py-2.5 text-sm font-medium text-violet-300 transition-colors"
               >
                 {copie ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                {copie ? "Copié !" : "Copier le texte"}
+                {copie ? "CopiÃ© !" : "Copier le texte"}
               </button>
             )}
           </div>
@@ -357,3 +357,4 @@ export default function AICommandCenterPage() {
     </div>
   );
 }
+

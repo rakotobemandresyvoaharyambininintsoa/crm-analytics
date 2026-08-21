@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {useEffect, useState} from "react";
 import { useParams, useRouter } from "next/navigation";
@@ -69,7 +69,7 @@ export default function Comptage() {
     if (ligne) {
       setRecherche(ligne.nom);
     } else {
-      alert("Aucun produit ne correspond à ce code");
+      alert("Aucun produit ne correspond Ã  ce code");
     }
 
     setCodeScan("");
@@ -122,7 +122,7 @@ export default function Comptage() {
       <div className="mx-auto max-w-6xl">
         {/* Header */}
         <div className="mb-8 flex items-center gap-4">
-          <button
+          <button type="button"
             onClick={() => router.push(`/inventaire/${id}`)}
             className="flex items-center justify-center h-11 w-11 rounded-xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.05] transition-colors"
           >
@@ -136,7 +136,7 @@ export default function Comptage() {
               Comptage
             </h1>
             <p className="text-sm text-white/40">
-              Saisissez le stock physique constaté pour chaque produit
+              Saisissez le stock physique constatÃ© pour chaque produit
             </p>
           </div>
         </div>
@@ -176,21 +176,21 @@ export default function Comptage() {
                   <div>
                     <p className="font-semibold text-white">{l.nom}</p>
                     <p className="text-xs text-white/40">
-                      Réf. {l.reference} {l.emplacement ? `— ${l.emplacement}` : ""}
+                      RÃ©f. {l.reference} {l.emplacement ? `â€” ${l.emplacement}` : ""}
                     </p>
                   </div>
 
                   <div className="flex items-center gap-6">
                     <div className="text-center">
                       <p className="text-xs text-white/40 uppercase tracking-wide">
-                        Système
+                        SystÃ¨me
                       </p>
                       <p className="font-semibold text-white">{l.stockSysteme}</p>
                     </div>
 
                     <div className="text-center">
                       <p className="text-xs text-white/40 uppercase tracking-wide mb-1">
-                        Compté
+                        ComptÃ©
                       </p>
                       <input
                         type="number"
@@ -202,7 +202,7 @@ export default function Comptage() {
 
                     <div className="text-center min-w-[3rem]">
                       <p className="text-xs text-white/40 uppercase tracking-wide">
-                        Écart
+                        Ã‰cart
                       </p>
                       <p
                         className={
@@ -219,7 +219,7 @@ export default function Comptage() {
                       </p>
                     </div>
 
-                    <button
+                    <button type="button"
                       className="flex items-center justify-center h-9 w-9 rounded-lg bg-white/[0.03] border border-white/10 text-white/40 hover:text-white hover:bg-white/[0.05] transition-colors"
                       title="Ajouter une photo"
                     >
@@ -233,7 +233,7 @@ export default function Comptage() {
                     <MessageSquare className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/30" />
                     <input
                       className="w-full bg-white/[0.03] border border-white/10 p-2.5 pl-9 rounded-lg text-sm placeholder:text-white/30 outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/30 transition-colors"
-                      placeholder="Commentaire sur l'écart (recommandé)"
+                      placeholder="Commentaire sur l'Ã©cart (recommandÃ©)"
                       value={commentaires[l.id] || ""}
                       onChange={(e) => changerCommentaire(l.id, e.target.value)}
                     />
@@ -246,14 +246,14 @@ export default function Comptage() {
           {liste.length === 0 && (
             <EmptyState
               icon={PackageSearch}
-              titre="Aucun produit ne correspond à cette recherche"
+              titre="Aucun produit ne correspond Ã  cette recherche"
               description="Essaie un autre terme, ou scanne directement un code-barres."
             />
           )}
         </div>
 
         <div className="flex justify-end">
-          <button
+          <button type="button"
             onClick={enregistrerComptage}
             disabled={enregistrement}
             className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-blue-600 shadow-lg shadow-violet-500/20 px-6 py-3 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
@@ -270,3 +270,4 @@ export default function Comptage() {
     </div>
   );
 }
+

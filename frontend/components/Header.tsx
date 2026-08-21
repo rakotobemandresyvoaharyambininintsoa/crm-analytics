@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {
   Search,
@@ -53,7 +53,7 @@ export default function Header({ user }: { user: SessionPayload | null }) {
       {/* droite */}
       <div className="flex items-center gap-4">
 
-        <button className="
+        <button type="button" className="
           relative
           bg-slate-800
           p-3
@@ -86,3 +86,4 @@ export default function Header({ user }: { user: SessionPayload | null }) {
     </header>
   );
 }
+

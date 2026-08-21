@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {useEffect, useState} from "react";
 import { useRouter } from "next/navigation";
@@ -85,7 +85,7 @@ export default function NouvelleSession() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.error || "Erreur lors de la création");
+        alert(data.error || "Erreur lors de la crÃ©ation");
         setEnregistrement(false);
         return;
       }
@@ -93,7 +93,7 @@ export default function NouvelleSession() {
       router.push(`/inventaire/${data.id}`);
     } catch (error) {
       console.error(error);
-      alert("Erreur lors de la création");
+      alert("Erreur lors de la crÃ©ation");
       setEnregistrement(false);
     }
   }
@@ -111,7 +111,7 @@ export default function NouvelleSession() {
               Nouvelle session d&apos;inventaire
             </h1>
             <p className="text-sm text-white/40">
-              Renseignez les informations de la session à lancer
+              Renseignez les informations de la session Ã  lancer
             </p>
           </div>
         </div>
@@ -129,12 +129,12 @@ export default function NouvelleSession() {
                   name="nom"
                   value={form.nom}
                   onChange={changer}
-                  placeholder="Ex : Inventaire général Q3"
+                  placeholder="Ex : Inventaire gÃ©nÃ©ral Q3"
                   className={inputClass}
                 />
               </Field>
 
-              <Field icon={Hash} label="Référence">
+              <Field icon={Hash} label="RÃ©fÃ©rence">
                 <input
                   name="reference"
                   value={form.reference}
@@ -173,7 +173,7 @@ export default function NouvelleSession() {
             </p>
 
             <div className="grid md:grid-cols-2 gap-3">
-              <Field icon={Warehouse} label="Entrepôt / Magasin">
+              <Field icon={Warehouse} label="EntrepÃ´t / Magasin">
                 <select
                   name="entrepotId"
                   value={form.entrepotId}
@@ -181,7 +181,7 @@ export default function NouvelleSession() {
                   className={inputClass}
                 >
                   <option className="bg-slate-900" value="">
-                    Choisir un entrepôt
+                    Choisir un entrepÃ´t
                   </option>
                   {entrepots.map((e) => (
                     <option key={e.id} value={e.id} className="bg-slate-900">
@@ -191,7 +191,7 @@ export default function NouvelleSession() {
                 </select>
               </Field>
 
-              <Field icon={MapPin} label="Zone concernée">
+              <Field icon={MapPin} label="Zone concernÃ©e">
                 <input
                   name="zone"
                   value={form.zone}
@@ -203,10 +203,10 @@ export default function NouvelleSession() {
             </div>
           </div>
 
-          {/* Équipe */}
+          {/* Ã‰quipe */}
           <div>
             <p className="text-xs font-medium uppercase tracking-wide text-white/40 mb-3">
-              Équipe
+              Ã‰quipe
             </p>
 
             <div className="grid md:grid-cols-2 gap-3">
@@ -228,12 +228,12 @@ export default function NouvelleSession() {
                 </select>
               </Field>
 
-              <Field icon={Users} label="Équipe de comptage">
+              <Field icon={Users} label="Ã‰quipe de comptage">
                 <input
                   name="equipe"
                   value={form.equipe}
                   onChange={changer}
-                  placeholder="Noms séparés par une virgule"
+                  placeholder="Noms sÃ©parÃ©s par une virgule"
                   className={inputClass}
                 />
               </Field>
@@ -269,7 +269,7 @@ export default function NouvelleSession() {
                 name="commentaire"
                 value={form.commentaire}
                 onChange={changer}
-                placeholder="Notes ou instructions particulières..."
+                placeholder="Notes ou instructions particuliÃ¨res..."
                 rows={3}
                 className={inputClass + " resize-none"}
               />
@@ -277,7 +277,7 @@ export default function NouvelleSession() {
           </div>
 
           <div className="flex justify-end pt-2">
-            <button
+            <button type="button"
               onClick={creerSession}
               disabled={enregistrement}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-blue-600 shadow-lg shadow-violet-500/20 px-6 py-3 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
@@ -320,3 +320,4 @@ function Field({
     </div>
   );
 }
+

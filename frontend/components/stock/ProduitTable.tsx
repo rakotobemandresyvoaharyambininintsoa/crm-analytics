@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 
 interface Produit {
@@ -82,11 +82,11 @@ text-slate-400
 ">
 
 
-<th>Référence</th>
+<th>RÃ©fÃ©rence</th>
 
 <th>Nom</th>
 
-<th>Catégorie</th>
+<th>CatÃ©gorie</th>
 
 <th>Fournisseur</th>
 
@@ -218,7 +218,7 @@ p.quantite <= p.seuilAlerte
 
 
 
-<button
+<button type="button"
 
 onClick={()=>
 mouvementStock(
@@ -244,7 +244,7 @@ rounded-xl
 
 
 
-<button
+<button type="button"
 
 onClick={()=>
 mouvementStock(
@@ -272,7 +272,7 @@ rounded-xl
 
 
 
-<button
+<button type="button"
 
 onClick={()=>
 supprimer(p.id)
@@ -328,3 +328,4 @@ X
 )
 
 }
+

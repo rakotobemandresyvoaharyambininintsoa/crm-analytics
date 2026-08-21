@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {useEffect, useState} from "react";
 import { AlertTriangle, ShoppingCart, CheckCircle2 } from "lucide-react";
@@ -61,7 +61,7 @@ export default function Alertes() {
                 Minimum : <span className="text-white/80">{p.seuilAlerte}</span>
               </p>
 
-              <button className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 text-red-300 px-4 py-2 rounded-lg mt-4 text-sm font-semibold hover:bg-red-500/20 transition-colors">
+              <button type="button" className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 text-red-300 px-4 py-2 rounded-lg mt-4 text-sm font-semibold hover:bg-red-500/20 transition-colors">
                 <ShoppingCart className="h-4 w-4" />
                 Commander
               </button>
@@ -79,4 +79,5 @@ export default function Alertes() {
     </div>
   );
 }
+
 

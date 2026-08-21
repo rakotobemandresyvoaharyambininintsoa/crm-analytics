@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Eye, Pencil, Trash2, Users } from "lucide-react";
@@ -18,7 +18,7 @@ export default function ClientTable({ clients, supprimer, modifier, voir }: any)
       <div className="bg-white/[0.03] border border-white/10 p-6 rounded-xl">
         <EmptyState
           icon={Users}
-          titre="Aucun client trouvé"
+          titre="Aucun client trouvÃ©"
           description="Ajoute un client avec le formulaire ci-dessus, ou modifie ta recherche."
         />
       </div>
@@ -49,7 +49,7 @@ export default function ClientTable({ clients, supprimer, modifier, voir }: any)
 
               <td>
                 <div className="flex gap-2 py-1">
-                  <button
+                  <button type="button"
                     onClick={() => voir(c.id)}
                     className="flex items-center justify-center h-8 w-8 rounded-lg bg-blue-500/10 ring-1 ring-blue-500/20 text-blue-400 hover:bg-blue-500/20 transition-colors"
                     title="Voir"
@@ -57,7 +57,7 @@ export default function ClientTable({ clients, supprimer, modifier, voir }: any)
                     <Eye className="h-4 w-4" />
                   </button>
 
-                  <button
+                  <button type="button"
                     onClick={() => modifier(c)}
                     className="flex items-center justify-center h-8 w-8 rounded-lg bg-amber-500/10 ring-1 ring-amber-500/20 text-amber-400 hover:bg-amber-500/20 transition-colors"
                     title="Modifier"
@@ -65,7 +65,7 @@ export default function ClientTable({ clients, supprimer, modifier, voir }: any)
                     <Pencil className="h-4 w-4" />
                   </button>
 
-                  <button
+                  <button type="button"
                     onClick={() => supprimer(c.id)}
                     className="flex items-center justify-center h-8 w-8 rounded-lg bg-red-500/10 ring-1 ring-red-500/20 text-red-400 hover:bg-red-500/20 transition-colors"
                     title="Supprimer"
@@ -83,3 +83,4 @@ export default function ClientTable({ clients, supprimer, modifier, voir }: any)
     </div>
   );
 }
+

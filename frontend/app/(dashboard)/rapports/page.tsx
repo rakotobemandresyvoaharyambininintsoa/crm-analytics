@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {useEffect, useState} from "react";
 import dynamic from "next/dynamic";
@@ -59,7 +59,7 @@ export default function Rapports() {
           </div>
 
           <div className="flex gap-3">
-            <button
+            <button type="button"
               onClick={() => {
                 window.location.href = "/api/export/excel";
               }}
@@ -69,7 +69,7 @@ export default function Rapports() {
               Export Excel
             </button>
 
-            <button
+            <button type="button"
               onClick={() => {
                 window.location.href = "/api/export/pdf";
               }}
@@ -109,7 +109,7 @@ export default function Rapports() {
             <div className="flex items-center gap-2 mb-6">
               <TrendingUp className="h-5 w-5 text-violet-400" />
               <h2 className="text-lg font-semibold text-white">
-                Évolution du CA
+                Ã‰volution du CA
               </h2>
             </div>
 
@@ -147,7 +147,7 @@ export default function Rapports() {
           <div className="bg-white/[0.03] border border-white/10 p-6 rounded-xl md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <Boxes className="h-5 w-5 text-sky-400" />
-              <h2 className="text-lg font-semibold text-white">État du stock</h2>
+              <h2 className="text-lg font-semibold text-white">Ã‰tat du stock</h2>
             </div>
 
             <div className="divide-y divide-white/10">
@@ -201,4 +201,5 @@ function Card({
     </div>
   );
 }
+
 

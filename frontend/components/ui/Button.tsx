@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { ButtonHTMLAttributes } from "react";
 
@@ -72,7 +72,7 @@ outline:
 
 return(
 
-<button
+<button type="button"
 
 {
 
@@ -127,7 +127,7 @@ loading ?
 
 <span>
 
-⏳
+â³
 
 </span>
 
@@ -158,3 +158,4 @@ children
 );
 
 }
+

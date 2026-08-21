@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import {
@@ -29,8 +29,8 @@ type ClientInactif = {
   email?: string | null;
 };
 
-// ✅ CORRIGÉ : correspond exactement à ce que retourne réellement l'API
-// (un objet structuré, pas une chaîne de texte)
+// âœ… CORRIGÃ‰ : correspond exactement Ã  ce que retourne rÃ©ellement l'API
+// (un objet structurÃ©, pas une chaÃ®ne de texte)
 type AnalyseIA = {
   resume: string;
   risques: string[];
@@ -53,7 +53,7 @@ function getScoreLabel(score: number) {
   if (score >= 80) return "Excellent";
   if (score >= 60) return "Bon";
   if (score >= 40) return "Moyen";
-  return "À améliorer";
+  return "Ã€ amÃ©liorer";
 }
 
 function Card({
@@ -185,12 +185,12 @@ export default function ClientAI() {
           <p className="font-semibold">Impossible de charger l&apos;analyse.</p>
         </div>
         <p className="mt-2 text-sm text-red-100/80">{error}</p>
-        <button
+        <button type="button"
           onClick={() => charger()}
           className="mt-4 inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/15"
         >
           <RefreshCw size={16} />
-          Réessayer
+          RÃ©essayer
         </button>
       </div>
     );
@@ -215,7 +215,7 @@ export default function ClientAI() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
-          <Card titre="Score santé" valeur={`${data.score}/100`} icon={<TrendingUp />} />
+          <Card titre="Score santÃ©" valeur={`${data.score}/100`} icon={<TrendingUp />} />
           <Card titre="Clients inactifs" valeur={data.nombreClientsInactifs} icon={<AlertTriangle />} />
           <Card titre="Nouveaux clients" valeur={data.nouveauxClients} icon={<Users />} />
         </div>
@@ -225,7 +225,7 @@ export default function ClientAI() {
         </p>
       </div>
 
-      {/* Analyse IA structurée */}
+      {/* Analyse IA structurÃ©e */}
       <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -242,12 +242,12 @@ export default function ClientAI() {
         {analyse?.degraded && (
           <div className="mb-4 flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
             <AlertTriangle className="h-4 w-4 shrink-0" />
-            IA temporairement indisponible — analyse de secours, pas une recommandation réelle.
+            IA temporairement indisponible â€” analyse de secours, pas une recommandation rÃ©elle.
           </div>
         )}
 
         <p className="mb-5 whitespace-pre-line text-sm leading-relaxed text-white/70">
-          {analyse?.resume || "Aucun résumé disponible."}
+          {analyse?.resume || "Aucun rÃ©sumÃ© disponible."}
         </p>
 
         <div className="grid gap-3 md:grid-cols-3">
@@ -264,7 +264,7 @@ export default function ClientAI() {
             accent="violet"
           />
           <ListeAvecPuces
-            titre="Opportunités"
+            titre="OpportunitÃ©s"
             items={analyse?.opportunites ?? []}
             icon={<Lightbulb size={16} />}
             accent="emerald"
@@ -274,9 +274,9 @@ export default function ClientAI() {
 
       {/* Top clients */}
       <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-        <h3 className="mb-5 font-semibold text-white">Top clients (CA réellement encaissé)</h3>
+        <h3 className="mb-5 font-semibold text-white">Top clients (CA rÃ©ellement encaissÃ©)</h3>
         {data.topClients.length === 0 ? (
-          <p className="text-sm text-white/40">Aucun client avec facture payée pour l&apos;instant.</p>
+          <p className="text-sm text-white/40">Aucun client avec facture payÃ©e pour l&apos;instant.</p>
         ) : (
           <div className="space-y-3">
             {data.topClients.map((client) => (
@@ -292,7 +292,7 @@ export default function ClientAI() {
                   <p className="font-semibold text-violet-300">
                     {client.chiffreAffaire.toLocaleString()} Ar
                   </p>
-                  <p className="text-xs text-white/40">{client.opportunites} opportunités</p>
+                  <p className="text-xs text-white/40">{client.opportunites} opportunitÃ©s</p>
                 </div>
               </div>
             ))}
@@ -302,3 +302,4 @@ export default function ClientAI() {
     </div>
   );
 }
+

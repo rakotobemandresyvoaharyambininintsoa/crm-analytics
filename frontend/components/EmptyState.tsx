@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { type LucideIcon } from "lucide-react";
 
@@ -30,7 +30,7 @@ export default function EmptyState({
       )}
 
       {action && (
-        <button
+        <button type="button"
           onClick={action.onClick}
           className="mt-4 inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-blue-600 shadow-lg shadow-violet-500/20 px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
         >
@@ -40,3 +40,4 @@ export default function EmptyState({
     </div>
   );
 }
+

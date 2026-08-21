@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import {
@@ -123,12 +123,12 @@ export default function FactureAI() {
           <AlertTriangle size={16} />
           <span>{erreur}</span>
         </div>
-        <button
+        <button type="button"
           onClick={() => window.location.reload()}
           className="mt-3 inline-flex items-center gap-2 text-xs text-red-200 hover:text-white"
         >
           <RefreshCw size={14} />
-          Réessayer
+          RÃ©essayer
         </button>
       </div>
     );
@@ -147,7 +147,7 @@ export default function FactureAI() {
           </div>
           <div>
             <h2 className="text-lg font-semibold text-white">Factures AI Assistant</h2>
-            <p className="text-xs text-white/40">Analyse financière Gemma</p>
+            <p className="text-xs text-white/40">Analyse financiÃ¨re Gemma</p>
           </div>
         </div>
 
@@ -162,13 +162,13 @@ export default function FactureAI() {
         <div className="rounded-xl bg-white/[0.02] border border-white/10 p-4">
           <div className="mb-2 flex items-center gap-2">
             <Sparkles size={16} className="text-violet-400" />
-            <span className="text-sm font-semibold text-white">Analyse financière</span>
+            <span className="text-sm font-semibold text-white">Analyse financiÃ¨re</span>
           </div>
 
           {analyseFinance.degraded && (
             <div className="mb-3 flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
               <AlertTriangle className="h-4 w-4 shrink-0" />
-              IA temporairement indisponible — analyse de secours, pas une évaluation réelle.
+              IA temporairement indisponible â€” analyse de secours, pas une Ã©valuation rÃ©elle.
             </div>
           )}
 
@@ -176,7 +176,7 @@ export default function FactureAI() {
 
           <div className="mt-3 grid grid-cols-2 gap-3 text-xs text-white/40">
             <div>Total factures: {analyseFinance.indicateurs.total_factures}</div>
-            <div>Payées: {analyseFinance.indicateurs.factures_payees}</div>
+            <div>PayÃ©es: {analyseFinance.indicateurs.factures_payees}</div>
             <div>En retard: {analyseFinance.indicateurs.factures_en_retard}</div>
             <div>Montant total: {analyseFinance.indicateurs.montant_total.toLocaleString()} MGA</div>
           </div>
@@ -198,10 +198,11 @@ export default function FactureAI() {
         </div>
 
         <p className="text-xs text-white/30 italic">
-          💡 Pour relancer une facture précise, utilisez le bouton dédié directement sur la ligne
-          concernée dans le tableau ci-dessous.
+          ðŸ’¡ Pour relancer une facture prÃ©cise, utilisez le bouton dÃ©diÃ© directement sur la ligne
+          concernÃ©e dans le tableau ci-dessous.
         </p>
       </div>
     </div>
   );
 }
+
