@@ -102,10 +102,11 @@ export default function Parametres() {
 
             <div className="grid md:grid-cols-2 gap-3">
               <div>
-                <label className="text-xs text-white/50 mb-1.5 block">
+                <label htmlFor="frequence" className="text-xs text-white/50 mb-1.5 block">
                   FrÃ©quence des inventaires
                 </label>
                 <select
+                  id="frequence"
                   name="frequence"
                   value={params.frequence}
                   onChange={changer}
@@ -119,10 +120,11 @@ export default function Parametres() {
               </div>
 
               <div>
-                <label className="text-xs text-white/50 mb-1.5 block">
+                <label htmlFor="toleranceEcart" className="text-xs text-white/50 mb-1.5 block">
                   TolÃ©rance des Ã©carts (%)
                 </label>
                 <input
+                  id="toleranceEcart"
                   type="number"
                   name="toleranceEcart"
                   value={params.toleranceEcart}
