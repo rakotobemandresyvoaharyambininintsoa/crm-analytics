@@ -22,6 +22,7 @@ type AnalyseFinanciere = {
     montant_total: number;
   };
   niveauRisqueGlobal: "faible" | "moyen" | "eleve";
+  degraded?: boolean;
 };
 
 type FactureAIResponse = {
@@ -163,6 +164,13 @@ export default function FactureAI() {
             <Sparkles size={16} className="text-violet-400" />
             <span className="text-sm font-semibold text-white">Analyse financière</span>
           </div>
+
+          {analyseFinance.degraded && (
+            <div className="mb-3 flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
+              <AlertTriangle className="h-4 w-4 shrink-0" />
+              IA temporairement indisponible — analyse de secours, pas une évaluation réelle.
+            </div>
+          )}
 
           <p className="whitespace-pre-line text-sm text-white/60">{analyseFinance.resume}</p>
 

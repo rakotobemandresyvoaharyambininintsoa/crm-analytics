@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { askGemma } from "./fireworks";
+import { askGemmaSafe } from "./fireworks";
 
 const JOUR_MS = 1000 * 60 * 60 * 24;
 const SEUIL_INACTIVITE_JOURS = 30;
@@ -29,6 +29,7 @@ export type AnalyseIA = {
   actions_prioritaires: string[];
   opportunites: string[];
   confidence: number;
+  degraded?: boolean;
 };
 
 async function recupererSyntheseClients() {
@@ -137,13 +138,13 @@ export async function genererAnalyseClientsIA(): Promise<AnalyseIA> {
     { role: "user" as const, content: JSON.stringify(contexte, null, 2) },
   ];
 
-  const raw = await askGemma(messages, { maxTokens: 500 });
+  const { text: raw, degraded } = await askGemmaSafe(messages, { maxTokens: 500 });
 
   try {
     // ✅ CORRIGÉ : nettoie les éventuelles balises markdown avant de parser,
     // car Gemma les ajoute parfois malgré la consigne explicite.
     const nettoye = raw.replace(/```json|```/g, "").trim();
-    return JSON.parse(nettoye) as AnalyseIA;
+    return { ...(JSON.parse(nettoye) as AnalyseIA), degraded };
   } catch {
     return {
       resume: raw,
@@ -151,6 +152,7 @@ export async function genererAnalyseClientsIA(): Promise<AnalyseIA> {
       actions_prioritaires: [],
       opportunites: [],
       confidence: 0,
+      degraded,
     };
   }
 }

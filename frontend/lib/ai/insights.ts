@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma"; // ⚠️ Ajustez si votre client Prisma est ailleurs
-import { askGemma } from "./fireworks";
+import { askGemma, askGemmaSafe } from "./fireworks";
 
 export type Insight = {
   id: string;
@@ -284,9 +284,12 @@ export async function genererInsightsBruts(): Promise<Insight[]> {
 // ============================================================
 // Synthèse IA (niveau 1)
 // ============================================================
-export async function genererSyntheseIA(insights: Insight[]): Promise<string> {
+export async function genererSyntheseIA(insights: Insight[]): Promise<{ texte: string; degraded: boolean }> {
   if (insights.length === 0) {
-    return "Aucune alerte critique détectée actuellement. L'activité commerciale et le stock sont sains.";
+    return {
+      texte: "Aucune alerte critique détectée actuellement. L'activité commerciale et le stock sont sains.",
+      degraded: false,
+    };
   }
 
   const contexte = insights
@@ -294,7 +297,7 @@ export async function genererSyntheseIA(insights: Insight[]): Promise<string> {
     .map((i) => `- [${i.severite.toUpperCase()}] ${i.titre} — ${i.message}`)
     .join("\n");
 
-  return askGemma([
+  const { text, degraded } = await askGemmaSafe([
     {
       role: "system",
       content:
@@ -306,12 +309,14 @@ export async function genererSyntheseIA(insights: Insight[]): Promise<string> {
     },
     { role: "user", content: `Voici les alertes détectées dans le CRM aujourd'hui:\n\n${contexte}` },
   ]);
+
+  return { texte: text, degraded };
 }
 
 // ============================================================
 // Chat conversationnel (niveau 1)
 // ============================================================
-export async function repondreQuestionCRM(question: string): Promise<string> {
+export async function repondreQuestionCRM(question: string): Promise<{ texte: string; degraded: boolean }> {
   const insights = await genererInsightsBruts();
 
   const [nbClients, nbOpportunitesOuvertes, nbFacturesImpayees, produits] = await Promise.all([
@@ -334,7 +339,7 @@ Alertes actives (${insights.length}):
 ${insights.slice(0, 20).map((i) => `- ${i.titre}: ${i.message}`).join("\n") || "Aucune"}
 `.trim();
 
-  return askGemma([
+  const { text, degraded } = await askGemmaSafe([
     {
       role: "system",
       content:
@@ -344,4 +349,6 @@ ${insights.slice(0, 20).map((i) => `- ${i.titre}: ${i.message}`).join("\n") || "
     },
     { role: "user", content: `Contexte:\n${contexte}\n\nQuestion: ${question}` },
   ]);
+
+  return { texte: text, degraded };
 }

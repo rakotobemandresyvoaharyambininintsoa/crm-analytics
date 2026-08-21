@@ -1,10 +1,10 @@
 import { prisma } from "@/lib/prisma"; // ⚠️ Ajustez si nécessaire
-import { askGemma } from "./fireworks";
+import { askGemmaSafe } from "./fireworks";
 
 // ============================================================
 // Génère un email de relance personnalisé pour une facture en retard
 // ============================================================
-export async function genererEmailRelance(factureId: number): Promise<string> {
+export async function genererEmailRelance(factureId: number): Promise<{ texte: string; degraded: boolean }> {
   const facture = await prisma.facture.findUnique({
     where: { id: factureId },
     include: { client: true },
@@ -18,7 +18,7 @@ export async function genererEmailRelance(factureId: number): Promise<string> {
     ? Math.floor((Date.now() - new Date(facture.dateEcheance).getTime()) / (1000 * 60 * 60 * 24))
     : 0;
 
-  return askGemma([
+  const { text, degraded } = await askGemmaSafe([
     {
       role: "system",
       content:
@@ -36,12 +36,14 @@ export async function genererEmailRelance(factureId: number): Promise<string> {
 - Ton souhaité: ${joursRetard >= 30 ? "ferme, mentionner les prochaines étapes possibles" : "courtois, rappel amical"}`,
     },
   ], { maxTokens: 500 });
+
+  return { texte: text, degraded };
 }
 
 // ============================================================
 // Génère un diagnostic IA complet pour un client donné
 // ============================================================
-export async function genererDiagnosticClient(clientId: number): Promise<string> {
+export async function genererDiagnosticClient(clientId: number): Promise<{ texte: string; degraded: boolean }> {
   const client = await prisma.client.findUnique({
     where: { id: clientId },
     include: {
@@ -78,7 +80,7 @@ Factures impayées: ${facturesImpayees.length}
 ${facturesImpayees.map((f) => `- ${f.numero}: ${f.montant.toLocaleString("fr-FR")} MGA`).join("\n") || "Aucune"}
 `.trim();
 
-  return askGemma([
+  const { text, degraded } = await askGemmaSafe([
     {
       role: "system",
       content:
@@ -89,4 +91,6 @@ ${facturesImpayees.map((f) => `- ${f.numero}: ${f.montant.toLocaleString("fr-FR"
     },
     { role: "user", content: contexte },
   ], { maxTokens: 500 });
+
+  return { texte: text, degraded };
 }

@@ -6,11 +6,11 @@ export function Badge({
   color?: "green" | "red" | "blue" | "gray" | "yellow";
 }) {
   const colors = {
-    green: "bg-green-100 text-green-700",
-    red: "bg-red-100 text-red-700",
-    blue: "bg-blue-100 text-blue-700",
-    gray: "bg-gray-100 text-gray-700",
-    yellow: "bg-yellow-100 text-yellow-700",
+    green: "bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-500/30",
+    red: "bg-red-500/15 text-red-300 ring-1 ring-red-500/30",
+    blue: "bg-blue-500/15 text-blue-300 ring-1 ring-blue-500/30",
+    gray: "bg-white/10 text-white/70 ring-1 ring-white/15",
+    yellow: "bg-amber-500/15 text-amber-300 ring-1 ring-amber-500/30",
   };
 
   return (

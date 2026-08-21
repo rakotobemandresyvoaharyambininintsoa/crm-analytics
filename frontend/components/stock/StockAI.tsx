@@ -20,6 +20,7 @@ type AnalyseStockIA = {
   opportunites: string[];
   actions_prioritaires: string[];
   confidence: number;
+  degraded?: boolean;
 };
 
 type StockAIResponse = {
@@ -202,6 +203,12 @@ export default function StockAI() {
               </span>
             )}
           </div>
+          {data.analyse.degraded && (
+            <div className="mb-3 flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
+              <AlertTriangle className="h-4 w-4 shrink-0" />
+              IA temporairement indisponible — analyse de secours, pas une évaluation réelle.
+            </div>
+          )}
           <p className="whitespace-pre-wrap leading-7 text-white/70 text-sm">
             {data.analyse.resume || "Aucun résumé disponible."}
           </p>

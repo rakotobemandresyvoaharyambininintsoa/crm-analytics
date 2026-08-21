@@ -25,8 +25,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Question trop longue (max 1000 caractères)." }, { status: 400 });
     }
 
-    const reponse = await repondreQuestionCRM(question.trim());
-    return NextResponse.json({ reponse });
+    const { texte: reponse, degraded } = await repondreQuestionCRM(question.trim());
+    return NextResponse.json({ reponse, degraded });
   } catch (error) {
     console.error("[AI Chat] Erreur:", error);
     const message = error instanceof Error ? error.message : "Erreur inconnue";

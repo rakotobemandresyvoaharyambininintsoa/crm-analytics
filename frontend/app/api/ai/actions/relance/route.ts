@@ -20,8 +20,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "factureId manquant ou invalide." }, { status: 400 });
     }
 
-    const email = await genererEmailRelance(factureId);
-    return NextResponse.json({ email });
+    const { texte: email, degraded } = await genererEmailRelance(factureId);
+    return NextResponse.json({ email, degraded });
   } catch (error) {
     console.error("[AI Relance] Erreur:", error);
     const message = error instanceof Error ? error.message : "Erreur inconnue";

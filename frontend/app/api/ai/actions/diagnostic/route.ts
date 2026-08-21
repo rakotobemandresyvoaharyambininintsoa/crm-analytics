@@ -20,8 +20,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "clientId manquant ou invalide." }, { status: 400 });
     }
 
-    const diagnostic = await genererDiagnosticClient(clientId);
-    return NextResponse.json({ diagnostic });
+    const { texte: diagnostic, degraded } = await genererDiagnosticClient(clientId);
+    return NextResponse.json({ diagnostic, degraded });
   } catch (error) {
     console.error("[AI Diagnostic] Erreur:", error);
     const message = error instanceof Error ? error.message : "Erreur inconnue";

@@ -69,7 +69,10 @@ export default function RecentInvoices({ invoices }: RecentInvoicesProps) {
         body: JSON.stringify({ factureId }),
       });
       const data = await res.json();
-      setEmail(data.error ?? data.email);
+      setEmail(
+        (data.degraded ? "⚠️ IA indisponible — texte de secours ci-dessous.\n\n" : "") +
+        (data.error ?? data.email)
+      );
     } catch {
       setEmail("Erreur lors de la génération. Réessayez.");
     } finally {

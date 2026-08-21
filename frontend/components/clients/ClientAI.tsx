@@ -37,6 +37,7 @@ type AnalyseIA = {
   actions_prioritaires: string[];
   opportunites: string[];
   confidence: number;
+  degraded?: boolean;
 };
 
 type ClientAIData = {
@@ -237,6 +238,13 @@ export default function ClientAI() {
             </span>
           )}
         </div>
+
+        {analyse?.degraded && (
+          <div className="mb-4 flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
+            <AlertTriangle className="h-4 w-4 shrink-0" />
+            IA temporairement indisponible — analyse de secours, pas une recommandation réelle.
+          </div>
+        )}
 
         <p className="mb-5 whitespace-pre-line text-sm leading-relaxed text-white/70">
           {analyse?.resume || "Aucun résumé disponible."}

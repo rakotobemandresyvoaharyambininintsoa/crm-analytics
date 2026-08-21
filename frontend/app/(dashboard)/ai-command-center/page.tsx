@@ -27,7 +27,7 @@ type Insight = {
   actionData?: { factureId?: number; clientId?: number };
 };
 
-type Message = { role: "user" | "assistant"; content: string };
+type Message = { role: "user" | "assistant"; content: string; degraded?: boolean };
 
 const SEVERITE_STYLE: Record<Insight["severite"], { border: string; badge: string; icon: typeof Info }> = {
   critique: { border: "border-red-500/30", badge: "bg-red-500/10 text-red-300 ring-red-500/20", icon: AlertCircle },
@@ -46,6 +46,7 @@ const CATEGORIE_LABEL: Record<Insight["categorie"], string> = {
 export default function AICommandCenterPage() {
   const [insights, setInsights] = useState<Insight[]>([]);
   const [synthese, setSynthese] = useState<string>("");
+  const [syntheseDegraded, setSyntheseDegraded] = useState(false);
   const [loadingInsights, setLoadingInsights] = useState(true);
   const [erreur, setErreur] = useState<string | null>(null);
 
@@ -67,6 +68,7 @@ export default function AICommandCenterPage() {
         if (data.error) throw new Error(data.error);
         setInsights(data.insights);
         setSynthese(data.synthese);
+        setSyntheseDegraded(Boolean(data.syntheseDegraded));
       })
       .catch((e) => setErreur(e.message))
       .finally(() => setLoadingInsights(false));
@@ -91,7 +93,10 @@ export default function AICommandCenterPage() {
         body: JSON.stringify({ question: q }),
       });
       const data = await res.json();
-      setMessages((m) => [...m, { role: "assistant", content: data.error ?? data.reponse }]);
+      setMessages((m) => [
+        ...m,
+        { role: "assistant", content: data.error ?? data.reponse, degraded: Boolean(data.degraded) },
+      ]);
     } catch {
       setMessages((m) => [...m, { role: "assistant", content: "Erreur de connexion. Réessayez." }]);
     } finally {
@@ -116,7 +121,10 @@ export default function AICommandCenterPage() {
           body: JSON.stringify({ factureId: insight.actionData.factureId }),
         });
         const data = await res.json();
-        setPanneauContenu(data.error ?? data.email);
+        setPanneauContenu(
+          (data.degraded ? "⚠️ IA indisponible — texte de secours ci-dessous.\n\n" : "") +
+          (data.error ?? data.email)
+        );
       } else if (insight.actionType === "diagnostic-client" && insight.actionData.clientId) {
         setPanneauTitre("Diagnostic IA du client");
         const res = await fetch("/api/ai/actions/diagnostic", {
@@ -125,7 +133,10 @@ export default function AICommandCenterPage() {
           body: JSON.stringify({ clientId: insight.actionData.clientId }),
         });
         const data = await res.json();
-        setPanneauContenu(data.error ?? data.diagnostic);
+        setPanneauContenu(
+          (data.degraded ? "⚠️ IA indisponible — texte de secours ci-dessous.\n\n" : "") +
+          (data.error ?? data.diagnostic)
+        );
       }
     } catch {
       setPanneauContenu("Erreur lors de la génération. Réessayez.");
@@ -167,7 +178,15 @@ export default function AICommandCenterPage() {
         ) : erreur ? (
           <p className="text-sm text-red-300">{erreur}</p>
         ) : (
-          <p className="text-sm text-white/80 leading-relaxed whitespace-pre-line">{synthese}</p>
+          <>
+            {syntheseDegraded && (
+              <div className="mb-3 flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
+                <AlertTriangle className="h-4 w-4 shrink-0" />
+                IA temporairement indisponible — synthèse de secours, pas une analyse réelle.
+              </div>
+            )}
+            <p className="text-sm text-white/80 leading-relaxed whitespace-pre-line">{synthese}</p>
+          </>
         )}
       </div>
 
@@ -260,6 +279,12 @@ export default function AICommandCenterPage() {
                     : "bg-white/[0.06] text-white/80"
                 }`}
               >
+                {m.degraded && (
+                  <div className="mb-2 flex items-center gap-1.5 text-xs text-amber-300">
+                    <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                    IA indisponible — réponse de secours
+                  </div>
+                )}
                 {m.content}
               </div>
             </div>

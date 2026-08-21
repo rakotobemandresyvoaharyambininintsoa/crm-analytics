@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { askGemma } from "./fireworks";
+import { askGemmaSafe } from "./fireworks";
 
 const JOUR_MS = 1000 * 60 * 60 * 24;
 const SEUIL_DORMANCE_JOURS = 90;
@@ -48,6 +48,7 @@ export type AnalyseStockIA = {
   opportunites: string[];
   actions_prioritaires: string[];
   confidence: number;
+  degraded?: boolean;
 };
 
 async function recupererSyntheseStock() {
@@ -151,7 +152,7 @@ export async function genererAnalyseStockIA(): Promise<AnalyseStockIA> {
     top_marges_potentielles: topMarges.map((p) => ({ nom: p.nom, marge: Math.round(p.marge) })),
   };
 
-  const raw = await askGemma(
+  const { text: raw, degraded } = await askGemmaSafe(
     [
       {
         role: "system",
@@ -169,7 +170,7 @@ export async function genererAnalyseStockIA(): Promise<AnalyseStockIA> {
   try {
     // ✅ CORRIGÉ : nettoie les balises markdown éventuelles avant de parser
     const nettoye = raw.replace(/```json|```/g, "").trim();
-    return JSON.parse(nettoye) as AnalyseStockIA;
+    return { ...(JSON.parse(nettoye) as AnalyseStockIA), degraded };
   } catch {
     return {
       resume: raw,
@@ -177,6 +178,7 @@ export async function genererAnalyseStockIA(): Promise<AnalyseStockIA> {
       opportunites: [],
       actions_prioritaires: [],
       confidence: 0,
+      degraded,
     };
   }
 }

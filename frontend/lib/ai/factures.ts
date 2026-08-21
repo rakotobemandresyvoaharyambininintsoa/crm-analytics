@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { askGemma } from "./fireworks";
+import { askGemmaSafe } from "./fireworks";
 
 type FactureAvecClient = {
   id: number;
@@ -18,6 +18,7 @@ export type AnalyseRisquePaiement = {
   niveau_risque: "faible" | "moyen" | "eleve";
   raison: string;
   action: string;
+  degraded?: boolean;
 };
 
 export type AnalyseSituationFinanciere = {
@@ -34,6 +35,7 @@ export type AnalyseSituationFinanciere = {
   // % réel de factures en retard — remplace le stub "moyen" codé en dur
   // qui existait avant dans la route.
   niveauRisqueGlobal: "faible" | "moyen" | "eleve";
+  degraded?: boolean;
 };
 
 function nettoyerJSON(raw: string): string {
@@ -69,7 +71,7 @@ export async function analyserRisquePaiement(
     date_echeance: facture.dateEcheance ?? null,
   };
 
-  const raw = await askGemma(
+  const { text: raw, degraded } = await askGemmaSafe(
     [
       {
         role: "system",
@@ -84,12 +86,13 @@ export async function analyserRisquePaiement(
   );
 
   try {
-    return JSON.parse(nettoyerJSON(raw)) as AnalyseRisquePaiement;
+    return { ...(JSON.parse(nettoyerJSON(raw)) as AnalyseRisquePaiement), degraded };
   } catch {
     return {
       niveau_risque: "moyen",
       raison: raw,
       action: "Vérifier manuellement la facture et relancer le client.",
+      degraded,
     };
   }
 }
@@ -120,7 +123,7 @@ export async function analyserSituationFinanciere(): Promise<AnalyseSituationFin
   const niveauRisqueGlobal: AnalyseSituationFinanciere["niveauRisqueGlobal"] =
     tauxRetard >= 0.25 ? "eleve" : tauxRetard >= 0.1 ? "moyen" : "faible";
 
-  const raw = await askGemma(
+  const { text: raw, degraded } = await askGemmaSafe(
     [
       {
         role: "system",
@@ -147,6 +150,7 @@ export async function analyserSituationFinanciere(): Promise<AnalyseSituationFin
       recommandations: parsed.recommandations ?? [],
       indicateurs,
       niveauRisqueGlobal,
+      degraded,
     };
   } catch {
     return {
@@ -155,6 +159,7 @@ export async function analyserSituationFinanciere(): Promise<AnalyseSituationFin
       recommandations: [],
       indicateurs,
       niveauRisqueGlobal,
+      degraded,
     };
   }
 }

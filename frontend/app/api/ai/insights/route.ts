@@ -16,9 +16,9 @@ export async function GET(request: Request) {
     }
 
     const insights = await genererInsightsBruts();
-    const synthese = await genererSyntheseIA(insights);
+    const { texte: synthese, degraded: syntheseDegraded } = await genererSyntheseIA(insights);
 
-    return NextResponse.json({ insights, synthese });
+    return NextResponse.json({ insights, synthese, syntheseDegraded });
   } catch (error) {
     console.error("[AI Insights] Erreur:", error);
     const message = error instanceof Error ? error.message : "Erreur inconnue";

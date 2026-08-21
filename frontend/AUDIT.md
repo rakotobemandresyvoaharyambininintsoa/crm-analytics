@@ -402,3 +402,61 @@ is hidden — without blocking merges on debt that predates this pass.
 
 `npm run lint`: 0 errors, 107 warnings (all `no-explicit-any` + 3
 `exhaustive-deps`). `npx vitest run`: 5/5 passing. Exit code 0.
+
+---
+
+## Part 5 — Design & IA, passe complète (2026-08-01)
+
+### IA : transparence en cas de panne généralisée à toute l'app
+
+Part 3 n'avait couvert que le résumé exécutif du dashboard. Cette passe étend
+le même principe (`askGemmaSafe`, flag `degraded`) à **tous** les points
+d'entrée IA restants :
+- Synthèse IA + chat conversationnel (`ai-command-center`)
+- Analyse IA des clients (`ClientAI.tsx`)
+- Analyse financière + risque de paiement par facture (`FactureAI.tsx`)
+- Analyse IA du stock (`StockAI.tsx`)
+- Email de relance généré par IA et diagnostic client (3 points d'entrée :
+  `ai-command-center`, `FactureTable.tsx`, `RecentInvoices.tsx`)
+
+Pour les vues avec état structuré, un badge ambre visible remplace le silence
+précédent. Pour les 3 panneaux texte-brut (email/diagnostic), l'avertissement
+est préfixé directement dans le texte affiché — plus rapide à implémenter de
+façon cohérente sur trois composants différents, au même niveau de
+transparence pour l'utilisateur final.
+
+**Trouvaille additionnelle** : `analyserRisquePaiement` (analyse de risque par
+facture individuelle) existe côté backend mais n'est consommée par aucun
+composant frontend — fonctionnalité orpheline, signalée mais non traitée
+(hors périmètre : construire l'UI manquante est une fonctionnalité à part
+entière, pas une correction).
+
+### Design : incohérences réelles corrigées
+
+- **`components/ui/StatCard.tsx` supprimé** : c'était un doublon visuel de
+  `components/dashboard/StatCard.tsx` (fond plat gris vs. dégradés animés),
+  utilisé uniquement dans `ProduitStats.tsx` (page Stock), ce qui donnait à
+  cette page un rendu visiblement différent du reste de l'app. `ProduitStats`
+  utilise maintenant le même composant que le dashboard, avec les mêmes
+  tokens de couleur (`DASHBOARD_COLORS`).
+- **`Badge.tsx` corrigé pour le thème sombre** : utilisait des couleurs
+  claires (`bg-green-100 text-green-700`, etc.) conçues pour un fond clair,
+  alors que toute l'app est en thème sombre (`bg-slate-950`). Remplacé par
+  des variantes translucides cohérentes avec le reste du design system
+  (`bg-emerald-500/15` + `ring-1`).
+
+### Toujours ouvert (documenté, pas traité dans cette passe)
+
+- Une troisième palette de couleurs, locale à `components/ui/Button.tsx`,
+  coexiste encore avec `lib/design/colorScheme.ts` — à unifier dans une
+  passe dédiée au design system complet (`@theme` Tailwind v4 dans
+  `globals.css`, actuellement vide au-delà de l'import Tailwind).
+- Espacements et typographie : aucune échelle centralisée, encore basée sur
+  des classes Tailwind ad hoc partout.
+
+### Vérifié
+
+`npm run lint` : 0 erreur, 107 avertissements (inchangé). `npx vitest run` :
+5/5. `npm install` : sans régression. `tsc --noEmit` complet non exécuté dans
+cet environnement (blocage réseau Prisma déjà documenté en Part 3/4) — à
+vérifier côté utilisateur avant de push, comme pour les passes précédentes.
