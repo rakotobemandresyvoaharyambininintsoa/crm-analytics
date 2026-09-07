@@ -99,6 +99,7 @@ export default function FactureTable({ factures }: any) {
                 <td>
                   {f.statut === "Retard" && (
                     <button
+                      type="button"
                       onClick={() => genererRelance(f.id, f.numero)}
                       className="inline-flex items-center gap-1.5 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 ring-1 ring-violet-500/30 px-3 py-1.5 text-xs font-medium text-violet-300 transition-colors"
                     >
@@ -124,7 +125,7 @@ export default function FactureTable({ factures }: any) {
                 <Sparkles className="h-4 w-4 text-violet-400" />
                 Email de relance — Facture {factureNumero}
               </h3>
-              <button onClick={() => setPanneauOuvert(false)} className="text-white/40 hover:text-white transition-colors">
+              <button type="button" onClick={() => setPanneauOuvert(false)} className="text-white/40 hover:text-white transition-colors">
                 <X className="h-4 w-4" />
               </button>
             </div>
@@ -142,6 +143,7 @@ export default function FactureTable({ factures }: any) {
 
             {!chargement && email && (
               <button
+                type="button"
                 onClick={copier}
                 className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 ring-1 ring-violet-500/30 px-4 py-2.5 text-sm font-medium text-violet-300 transition-colors"
               >
