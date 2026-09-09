@@ -9,11 +9,9 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["**/*.test.ts"],
+    include: ["**/*.test.ts", "**/*.test.tsx"],
     exclude: ["node_modules/**"],
-    // Set before any test module (including its top-level code) runs — required
-    // because lib/auth.ts intentionally throws at import time if JWT_SECRET is
-    // missing/too short (see lib/auth.ts comment).
+    setupFiles: ["./vitest.setup.ts"],
     env: {
       JWT_SECRET: "test-only-secret-key-at-least-16-chars-long",
     },
