@@ -1,3 +1,4 @@
+cat > .github/workflows/ci.yml << 'EOF'
 name: CI
 
 on:
@@ -19,6 +20,8 @@ jobs:
       FIREWORKS_MODE: "mock"
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -39,11 +42,19 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Run tests
-        run: npm test
+      - name: Run tests with coverage
+        run: npm run test:coverage
 
       - name: Run DB migrations
         run: npx --yes --ignore-scripts prisma@7.8.0 migrate deploy
 
       - name: Build
         run: npm run build
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        working-directory: .
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+EOF
