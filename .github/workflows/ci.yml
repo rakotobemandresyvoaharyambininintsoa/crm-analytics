@@ -53,25 +53,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Check Sonar token
-        shell: bash
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          echo "Token length: ${#SONAR_TOKEN}"
-
-          if [[ "$SONAR_TOKEN" == *$'\n'* ]]; then
-            echo "ERROR: SONAR_TOKEN contains LF/newline"
-            exit 1
-          fi
-
-          if [[ "$SONAR_TOKEN" == *$'\r'* ]]; then
-            echo "ERROR: SONAR_TOKEN contains CR/carriage return"
-            exit 1
-          fi
-
-          echo "SONAR_TOKEN has no newline characters"
-
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v4
         env:
