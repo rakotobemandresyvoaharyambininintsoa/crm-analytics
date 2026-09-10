@@ -7,13 +7,23 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./"),
     },
   },
+
   test: {
     environment: "node",
+
     include: ["**/*.test.ts", "**/*.test.tsx"],
+
     exclude: ["node_modules/**"],
+
     setupFiles: ["./vitest.setup.ts"],
+
     env: {
       JWT_SECRET: "test-only-secret-key-at-least-16-chars-long",
+    },
+
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "json", "html", "lcov"],
     },
   },
 });
