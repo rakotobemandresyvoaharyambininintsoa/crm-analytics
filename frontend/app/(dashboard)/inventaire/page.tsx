@@ -42,8 +42,6 @@ export default function InventaireDashboard() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  
-
   useEffect(() => {
     async function charger() {
     try {
@@ -78,8 +76,6 @@ export default function InventaireDashboard() {
     charger();
   }, []);
 
-  
-
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -94,7 +90,7 @@ export default function InventaireDashboard() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
+
         <div className="mb-10 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
@@ -119,7 +115,6 @@ export default function InventaireDashboard() {
           </Link>
         </div>
 
-        {/* KPI cards */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
           <Card titre="En cours" valeur={data.enCours} icon={ClipboardList} accent="blue" />
           <Card titre="Terminés" valeur={data.termines} icon={CheckCircle2} accent="emerald" />
@@ -144,7 +139,7 @@ export default function InventaireDashboard() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          {/* Evolution des écarts */}
+
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-6">
               <BarChart3 className="h-5 w-5 text-violet-400" />
@@ -205,7 +200,6 @@ export default function InventaireDashboard() {
             )}
           </div>
 
-          {/* Dernier inventaire */}
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-6">
               <History className="h-5 w-5 text-violet-400" />
@@ -260,7 +254,6 @@ export default function InventaireDashboard() {
           </div>
         </div>
 
-        {/* Sessions en cours */}
         <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 mb-8 overflow-auto">
           <div className="flex items-center gap-2 mb-5">
             <ClipboardList className="h-5 w-5 text-violet-400" />
@@ -273,7 +266,7 @@ export default function InventaireDashboard() {
             <EmptyState
               icon={ClipboardList}
               titre="Aucune session d'inventaire pour le moment"
-            
+
               action={{ label: "Nouvelle session", onClick: () => (window.location.href = "/inventaire/nouveau") }}
             />
           ) : (
@@ -326,7 +319,6 @@ export default function InventaireDashboard() {
           )}
         </div>
 
-        {/* Menu rapide */}
         <div className="grid md:grid-cols-4 gap-4">
           <Menu href="/inventaire/nouveau" icon={Plus} titre="Nouvelle session" accent="violet" />
           <Menu href="/inventaire/historique" icon={History} titre="Historique" accent="sky" />

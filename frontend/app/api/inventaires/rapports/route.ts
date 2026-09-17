@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
 
-// GET /api/inventaires/rapports — rapports d'analyse (pertes, gains, précision...)
 export async function GET() {
   try {
     await requireRole(["ADMIN", "MAGASINIER"]);
@@ -35,7 +34,6 @@ export async function GET() {
       ? Math.round((conformes.length / lignes.length) * 100)
       : 100;
 
-    // Évolution mensuelle
     const evolutionMap = new Map<string, number>();
     lignes.forEach((l) => {
       if (!l.ecart) return;
@@ -57,7 +55,6 @@ export async function GET() {
       { label: "Conformes", valeur: conformes.length },
     ];
 
-    // Performance par responsable
     const parResponsable = new Map<string, { total: number; ok: number }>();
     lignes.forEach((l) => {
       const nom = l.session?.responsable?.nom || "Non assigné";

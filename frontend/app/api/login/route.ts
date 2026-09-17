@@ -5,8 +5,6 @@ import { signSession } from "@/lib/auth";
 import { checkRateLimit, getClientKey } from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
-  // Anti-bruteforce : 5 tentatives par minute par IP, blocage 5 minutes
-  // au-delà. Empêche un script de tester des mots de passe en boucle.
   const clientKey = getClientKey(request);
   const rateLimit = checkRateLimit(`login:${clientKey}`, 5, 60_000, 5 * 60_000);
 
@@ -56,8 +54,6 @@ export async function POST(request: Request) {
     );
   }
 
-  // Le token contient les infos utiles ET signées : impossible à falsifier
-  // sans connaître JWT_SECRET.
   const token = await signSession({
     id: user.id,
     nom: user.nom,
@@ -72,14 +68,12 @@ export async function POST(request: Request) {
     role: user.role,
   });
 
- 
-  
   response.cookies.set("crm_session", token, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
     path: "/",
-    maxAge: 60 * 60 * 8, // 8h, aligné sur l'expiration du JWT
+    maxAge: 60 * 60 * 8,
   });
 
   return response;

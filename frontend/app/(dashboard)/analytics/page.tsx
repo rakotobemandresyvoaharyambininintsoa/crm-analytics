@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma"; // ⚠️ Ajustez si nécessaire
+import { prisma } from "@/lib/prisma";
 import { BarChart3, Users, Receipt, Package, TrendingUp } from "lucide-react";
 
 async function getKPIs() {

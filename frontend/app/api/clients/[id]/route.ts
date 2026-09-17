@@ -3,12 +3,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
 
-
-
-// =========================
-// GET : Un client
-// =========================
-
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -69,12 +63,6 @@ export async function GET(
   }
 
 }
-
-
-
-// =========================
-// PUT : Modifier
-// =========================
 
 export async function PUT(
   request: Request,
@@ -139,12 +127,6 @@ export async function PUT(
 
 }
 
-
-
-// =========================
-// DELETE : Supprimer
-// =========================
-
 export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -187,4 +169,3 @@ export async function DELETE(
   }
 
 }
-

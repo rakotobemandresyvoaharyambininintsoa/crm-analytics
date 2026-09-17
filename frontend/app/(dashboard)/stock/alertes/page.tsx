@@ -6,8 +6,6 @@ import { AlertTriangle, ShoppingCart, CheckCircle2 } from "lucide-react";
 export default function Alertes() {
   const [produits, setProduits] = useState<any[]>([]);
 
-  
-
   useEffect(() => {
     async function charger() {
     const res = await fetch("/api/produits");
@@ -18,8 +16,6 @@ export default function Alertes() {
     charger();
   }, []);
 
-  
-
   const alertes = produits
     .filter((p) => p.quantite <= p.seuilAlerte)
     .sort((a, b) => a.quantite - b.quantite);
@@ -27,7 +23,7 @@ export default function Alertes() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
+
         <div className="mb-10 flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
             <AlertTriangle className="h-5 w-5 text-white" />
@@ -79,5 +75,3 @@ export default function Alertes() {
     </div>
   );
 }
-
-

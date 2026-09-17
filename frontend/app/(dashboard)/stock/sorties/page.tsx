@@ -50,7 +50,7 @@ export default function Sorties() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
+
         <div className="mb-10 flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
             <ArrowUpFromLine className="h-5 w-5 text-white" />
@@ -112,5 +112,3 @@ export default function Sorties() {
     </div>
   );
 }
-
-

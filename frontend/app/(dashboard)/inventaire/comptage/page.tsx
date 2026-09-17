@@ -27,8 +27,6 @@ export default function Comptage() {
   const [enregistrement, setEnregistrement] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  
-
   useEffect(() => {
     async function charger() {
     try {
@@ -44,8 +42,6 @@ export default function Comptage() {
 
     charger();
   }, []);
-
-  
 
   function changerCompte(ligneId: number, value: string) {
     setComptes({
@@ -120,7 +116,7 @@ export default function Comptage() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-6xl">
-        {/* Header */}
+
         <div className="mb-8 flex items-center gap-4">
           <button type="button"
             onClick={() => router.push(`/inventaire/${id}`)}
@@ -141,7 +137,6 @@ export default function Comptage() {
           </div>
         </div>
 
-        {/* Scanner + recherche */}
         <div className="grid md:grid-cols-2 gap-4 mb-6">
           <div className="relative">
             <ScanLine className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
@@ -161,7 +156,6 @@ export default function Comptage() {
           />
         </div>
 
-        {/* Liste des produits */}
         <div className="space-y-3 mb-8">
           {liste.map((l) => {
             const compte = comptes[l.id];
@@ -270,4 +264,3 @@ export default function Comptage() {
     </div>
   );
 }
-

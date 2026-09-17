@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
 
-// GET /api/inventaires/parametres — récupère les paramètres (singleton)
 export async function GET() {
   try {
     await requireRole(["ADMIN"]);
@@ -27,7 +26,6 @@ export async function GET() {
   }
 }
 
-// PUT /api/inventaires/parametres — met à jour les paramètres
 export async function PUT(req: Request) {
   try {
     await requireRole(["ADMIN"]);

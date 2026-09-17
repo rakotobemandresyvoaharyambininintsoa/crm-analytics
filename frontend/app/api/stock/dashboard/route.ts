@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
 
-
 export async function GET(){
 
   try {
@@ -12,7 +11,6 @@ export async function GET(){
   }
 
   try {
-
 
     const produits =
     await prisma.produit.findMany({
@@ -29,9 +27,6 @@ export async function GET(){
       }
     });
 
-
-
-
     const mouvements =
     await prisma.mouvement.findMany({
 
@@ -45,20 +40,13 @@ export async function GET(){
 
     });
 
-
-
-
-
     const totalProduits =
     produits.length;
-
-
-
 
     const valeurStock =
     produits.reduce(
       (a,p)=>
-      a + 
+      a +
       (
         p.quantite *
         p.prixVente
@@ -66,20 +54,11 @@ export async function GET(){
       0
     );
 
-
-
-
-
     const alertes =
     produits.filter(
       p=>
       p.quantite <= p.seuilAlerte
     ).length;
-
-
-
-
-
 
     const entrees =
     mouvements
@@ -92,11 +71,6 @@ export async function GET(){
       0
     );
 
-
-
-
-
-
     const sorties =
     mouvements
     .filter(
@@ -107,11 +81,6 @@ export async function GET(){
       a+m.quantite,
       0
     );
-
-
-
-
-
 
     return NextResponse.json({
 
@@ -127,14 +96,10 @@ export async function GET(){
 
     });
 
-
-
   }
   catch(error){
 
-
     console.error(error);
-
 
     return NextResponse.json(
       {
@@ -145,8 +110,6 @@ export async function GET(){
       }
     );
 
-
   }
 
-
-} 
+}

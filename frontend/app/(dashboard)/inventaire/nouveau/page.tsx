@@ -35,8 +35,6 @@ export default function NouvelleSession() {
     doubleComptage: false,
   });
 
-  
-
   useEffect(() => {
     async function chargerReferences() {
     try {
@@ -101,7 +99,7 @@ export default function NouvelleSession() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-3xl">
-        {/* Header */}
+
         <div className="mb-10 flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
             <ClipboardList className="h-5 w-5 text-white" />
@@ -117,7 +115,7 @@ export default function NouvelleSession() {
         </div>
 
         <div className="bg-white/[0.03] border border-white/10 rounded-xl p-8 space-y-6">
-          {/* Identification */}
+
           <div>
             <p className="text-xs font-medium uppercase tracking-wide text-white/40 mb-3">
               Identification
@@ -166,7 +164,6 @@ export default function NouvelleSession() {
             </div>
           </div>
 
-          {/* Localisation */}
           <div>
             <p className="text-xs font-medium uppercase tracking-wide text-white/40 mb-3">
               Localisation
@@ -203,7 +200,6 @@ export default function NouvelleSession() {
             </div>
           </div>
 
-          {/* Ã‰quipe */}
           <div>
             <p className="text-xs font-medium uppercase tracking-wide text-white/40 mb-3">
               Ã‰quipe
@@ -240,7 +236,6 @@ export default function NouvelleSession() {
             </div>
           </div>
 
-          {/* Options */}
           <div>
             <p className="text-xs font-medium uppercase tracking-wide text-white/40 mb-3">
               Options
@@ -258,7 +253,6 @@ export default function NouvelleSession() {
             </label>
           </div>
 
-          {/* Commentaire */}
           <div>
             <p className="text-xs font-medium uppercase tracking-wide text-white/40 mb-3">
               Commentaire
@@ -320,4 +314,3 @@ function Field({
     </div>
   );
 }
-

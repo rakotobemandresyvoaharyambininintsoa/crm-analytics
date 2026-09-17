@@ -9,8 +9,6 @@ import Pipeline from "@/components/opportunites/Pipeline";
 export default function Opportunites() {
   const [data, setData] = useState<any[]>([]);
 
-  
-
   async function rechargerApresAction() {
     const res = await fetch("/api/opportunites");
     setData(await res.json());
@@ -42,7 +40,7 @@ export default function Opportunites() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-7xl space-y-8">
-        {/* Header */}
+
         <div className="flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
             <Target className="h-5 w-5 text-white" />
@@ -64,4 +62,3 @@ export default function Opportunites() {
     </div>
   );
 }
-

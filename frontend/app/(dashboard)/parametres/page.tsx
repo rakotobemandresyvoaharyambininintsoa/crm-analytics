@@ -4,7 +4,7 @@ export default function Parametres() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
+
         <div className="mb-10 flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
             <SlidersHorizontal className="h-5 w-5 text-white" />
@@ -20,7 +20,7 @@ export default function Parametres() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* PROFIL ENTREPRISE */}
+
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-5">
               <Building2 className="h-5 w-5 text-violet-400" />
@@ -52,7 +52,6 @@ export default function Parametres() {
             </button>
           </div>
 
-          {/* PREFERENCES */}
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-5">
               <Bell className="h-5 w-5 text-violet-400" />
@@ -77,7 +76,6 @@ export default function Parametres() {
             </div>
           </div>
 
-          {/* SYSTEME CRM */}
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 md:col-span-2">
             <div className="flex items-center gap-2 mb-5">
               <SlidersHorizontal className="h-5 w-5 text-violet-400" />
@@ -113,5 +111,3 @@ export default function Parametres() {
     </div>
   );
 }
-
-

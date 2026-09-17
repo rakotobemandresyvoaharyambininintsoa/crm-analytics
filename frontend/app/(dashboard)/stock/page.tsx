@@ -19,8 +19,6 @@ export default function StockDashboard() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  
-
   useEffect(() => {
     async function charger() {
     try {
@@ -54,8 +52,6 @@ export default function StockDashboard() {
     charger();
   }, []);
 
-  
-
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -70,7 +66,7 @@ export default function StockDashboard() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
+
         <div className="mb-10 flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
             <Boxes className="h-5 w-5 text-white" />
@@ -85,7 +81,6 @@ export default function StockDashboard() {
           </div>
         </div>
 
-        {/* KPI cards */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
           <Card titre="Produits" valeur={data.totalProduits} icon={Package} accent="violet" />
           <Card
@@ -99,7 +94,7 @@ export default function StockDashboard() {
           <Card titre="Sorties" valeur={data.sorties} icon={ArrowUpFromLine} accent="amber" />
         </div>
         <StockAI />
-        {/* Menu */}
+
         <div className="grid md:grid-cols-3 gap-4">
           <Menu href="/stock/produits" icon={Package} titre="Produits" accent="violet" />
           <Menu href="/stock/entrees" icon={ArrowDownToLine} titre="Entrées" accent="sky" />
@@ -171,4 +166,3 @@ function Menu({
     </Link>
   );
 }
-

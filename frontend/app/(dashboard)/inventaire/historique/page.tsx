@@ -23,8 +23,6 @@ export default function Historique() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  
-
   useEffect(() => {
     async function charger() {
     try {
@@ -41,8 +39,6 @@ export default function Historique() {
     charger();
   }, []);
 
-  
-
   const liste = sessions.filter(
     (s) =>
       s.nom.toLowerCase().includes(recherche.toLowerCase()) ||
@@ -55,7 +51,7 @@ export default function Historique() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
+
         <div className="mb-8 flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
             <History className="h-5 w-5 text-white" />

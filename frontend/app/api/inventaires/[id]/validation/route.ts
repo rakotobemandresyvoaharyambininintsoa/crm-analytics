@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
 
-// POST /api/inventaires/[id]/validation — verrouille la session et génère les ajustements
-// body: { signature }
 export async function POST(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -49,7 +47,6 @@ export async function POST(
       (l) => l.ecart && l.ecart !== 0
     );
 
-    // Génère les ajustements + met à jour le stock réel + trace l'audit
     for (const l of lignesAvecEcart) {
       const produit = await prisma.produit.findUnique({
         where: { id: l.produitId },

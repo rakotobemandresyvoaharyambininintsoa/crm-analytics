@@ -11,9 +11,6 @@ export const metadata = {
   description: "CRM Analytics",
 };
 
-// Layout racine — minimal par design. Il ne contient plus le Sidebar/Header :
-// chaque groupe de routes ((auth) et (dashboard)) définit sa propre coquille
-// visuelle, adaptée à son contexte (connecté ou non).
 export default function RootLayout({
   children,
 }: Readonly<{

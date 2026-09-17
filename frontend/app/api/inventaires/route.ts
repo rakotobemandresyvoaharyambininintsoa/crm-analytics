@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
 
-// GET /api/inventaires — liste toutes les sessions
 export async function GET() {
   try {
     await requireRole(["ADMIN", "MAGASINIER"]);
@@ -29,7 +28,6 @@ export async function GET() {
   }
 }
 
-// POST /api/inventaires — crée une nouvelle session (voir inventaire/nouveau)
 export async function POST(req: Request) {
   try {
     await requireRole(["ADMIN", "MAGASINIER"]);
@@ -63,7 +61,6 @@ export async function POST(req: Request) {
       },
     });
 
-    // Génère automatiquement une ligne de comptage pour chaque produit du catalogue
     const produits = await prisma.produit.findMany();
 
     if (produits.length > 0) {

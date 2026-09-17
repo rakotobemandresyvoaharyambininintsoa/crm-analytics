@@ -93,7 +93,7 @@ export default function Clients() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
+
         <div className="mb-10 flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
             <Users className="h-5 w-5 text-white" />
@@ -108,7 +108,7 @@ export default function Clients() {
           </div>
         </div>
         <ClientAI />
-        {/* KPI cards */}
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <Card titre="Clients" valeur={clients.length} icon={Users} accent="violet" />
           <Card
@@ -125,7 +125,6 @@ export default function Clients() {
           />
         </div>
 
-        {/* Ajouter client */}
         <div className="bg-white/[0.03] border border-white/10 p-6 rounded-xl mb-8">
           <div className="flex items-center gap-2 mb-5">
             <Plus className="h-5 w-5 text-violet-400" />
@@ -158,7 +157,6 @@ export default function Clients() {
           </button>
         </div>
 
-        {/* Recherche */}
         <div className="relative mb-6">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
           <input
@@ -169,7 +167,6 @@ export default function Clients() {
           />
         </div>
 
-        {/* Table */}
         <div className="bg-white/[0.03] border border-white/10 p-6 rounded-xl overflow-auto">
           <table className="w-full text-sm">
             <thead>
@@ -226,7 +223,6 @@ export default function Clients() {
           </table>
         </div>
 
-        {/* Modal modifier */}
         {selection && (
           <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
             <div className="bg-slate-950 border border-white/10 p-8 rounded-xl w-full max-w-md">
@@ -312,5 +308,3 @@ function Card({
     </div>
   );
 }
-
-

@@ -38,8 +38,6 @@ export default function Rapports() {
   });
   const [loading, setLoading] = useState(true);
 
-  
-
   useEffect(() => {
     async function charger() {
     try {
@@ -56,8 +54,6 @@ export default function Rapports() {
     charger();
   }, []);
 
-  
-
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -72,7 +68,7 @@ export default function Rapports() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
+
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
@@ -115,7 +111,6 @@ export default function Rapports() {
           </div>
         </div>
 
-        {/* KPI cards */}
         <div className="grid md:grid-cols-3 gap-4 mb-8">
           <Card
             titre="Valeur des pertes"
@@ -138,7 +133,7 @@ export default function Rapports() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          {/* Evolution des Ã©carts */}
+
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
             <h2 className="text-lg font-semibold text-white mb-6">
               Ã‰volution mensuelle des Ã©carts
@@ -188,7 +183,6 @@ export default function Rapports() {
             )}
           </div>
 
-          {/* RÃ©partition des Ã©carts */}
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
             <h2 className="text-lg font-semibold text-white mb-6">
               RÃ©partition des Ã©carts
@@ -229,7 +223,6 @@ export default function Rapports() {
           </div>
         </div>
 
-        {/* Performance des Ã©quipes */}
         <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
           <h2 className="text-lg font-semibold text-white mb-5">
             Performance des Ã©quipes
@@ -280,4 +273,3 @@ function Card({ titre, valeur, icon: Icon, accent }: any) {
     </div>
   );
 }
-

@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
 
-// GET /api/inventaires/[id] — détail d'une session avec ses lignes
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ id: string }> }

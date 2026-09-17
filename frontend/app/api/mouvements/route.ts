@@ -27,9 +27,7 @@ createdAt:"desc"
 
 });
 
-
 return NextResponse.json(mouvements);
-
 
 }
 
@@ -46,8 +44,6 @@ try {
 const body =
 await request.json();
 
-
-
 const produit =
 await prisma.produit.findUnique({
 
@@ -56,8 +52,6 @@ id:Number(body.produitId)
 }
 
 });
-
-
 
 if(!produit){
 
@@ -72,37 +66,22 @@ status:404
 
 }
 
-
-
-
 let nouvelleQuantite =
 produit.quantite;
 
-
-
 if(body.type==="ENTREE"){
-
 
 nouvelleQuantite +=
 Number(body.quantite);
 
-
 }
 
-
-
 if(body.type==="SORTIE"){
-
 
 nouvelleQuantite -=
 Number(body.quantite);
 
-
 }
-
-
-
-
 
 if(nouvelleQuantite < 0){
 
@@ -117,11 +96,6 @@ status:400
 
 }
 
-
-
-
-
-
 await prisma.produit.update({
 
 where:{
@@ -135,10 +109,6 @@ quantite:nouvelleQuantite
 }
 
 });
-
-
-
-
 
 const mouvement =
 await prisma.mouvement.create({
@@ -157,9 +127,6 @@ body.commentaire || null
 }
 
 });
-
-
-
 
 return NextResponse.json(mouvement);
 

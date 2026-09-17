@@ -4,10 +4,6 @@ import { requireRole } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { checkRateLimit, getClientKey } from "@/lib/rate-limit";
 
-// ✅ CORRIGÉ : GET ne fait plus que de la LECTURE (analyse de risque).
-// La génération d'email de relance reste une action volontaire, déclenchée
-// par le bouton "Relance IA" dans FactureTable (qui appelle déjà
-// /api/ai/actions/relance — pas besoin d'un 3e endpoint pour ça).
 export async function GET(
   request: Request,
   context: { params: Promise<{ id: string }> }
@@ -15,8 +11,6 @@ export async function GET(
   try {
     await requireRole(["ADMIN", "COMMERCIAL", "MAGASINIER"]);
 
-    // Limite plus haute que les autres : peut etre appele une fois par
-    // ligne dans un tableau de factures (plusieurs facturesId a la fois).
     const rateLimit = checkRateLimit(`ai:facture-detail:${getClientKey(request)}`, 40, 60_000, 2 * 60_000);
     if (!rateLimit.allowed) {
       return NextResponse.json(
@@ -32,8 +26,6 @@ export async function GET(
       return NextResponse.json({ error: "ID facture invalide" }, { status: 400 });
     }
 
-    // ✅ Garde-fou : pas d'analyse de risque de paiement pertinente
-    // sur une facture déjà payée ou annulée.
     const facture = await prisma.facture.findUnique({
       where: { id: factureId },
       select: { statut: true },
@@ -60,7 +52,6 @@ export async function GET(
     const message = error instanceof Error ? error.message : "Erreur inconnue";
     const status = message === "UNAUTHORIZED" ? 401 : message === "FORBIDDEN" ? 403 : 500;
 
-    // Message générique côté client — le détail technique reste dans les logs serveur
     return NextResponse.json(
       { error: "Impossible d'analyser cette facture pour le moment." },
       { status }

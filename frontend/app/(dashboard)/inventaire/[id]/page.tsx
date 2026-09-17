@@ -39,8 +39,6 @@ export default function InventaireSession() {
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  
-
   useEffect(() => {
     async function charger() {
     try {
@@ -56,8 +54,6 @@ export default function InventaireSession() {
 
     charger();
   }, []);
-
-  
 
   function genererPDF() {
     if (!session) return;
@@ -109,7 +105,7 @@ export default function InventaireSession() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-6xl">
-        {/* Header */}
+
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
@@ -158,7 +154,6 @@ export default function InventaireSession() {
           </div>
         </div>
 
-        {/* KPI cards */}
         <div className="grid grid-cols-3 gap-4 mb-8">
           <Card
             titre="Produits contrôlés"
@@ -181,7 +176,7 @@ export default function InventaireSession() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {/* Infos session */}
+
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 md:col-span-1">
             <h2 className="text-lg font-semibold text-white mb-5">
               Informations
@@ -201,7 +196,6 @@ export default function InventaireSession() {
             </div>
           </div>
 
-          {/* Lignes de comptage */}
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 md:col-span-2 overflow-auto">
             <h2 className="text-lg font-semibold text-white mb-5">
               Produits contrôlés
@@ -289,4 +283,3 @@ function InfoLigne({ icon: Icon, label, valeur }: any) {
     </div>
   );
 }
-

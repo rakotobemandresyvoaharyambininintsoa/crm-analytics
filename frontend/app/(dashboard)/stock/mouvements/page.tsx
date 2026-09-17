@@ -12,8 +12,6 @@ export default function Mouvements() {
   const [mouvements, setMouvements] = useState<any[]>([]);
   const [recherche, setRecherche] = useState("");
 
-  
-
   useEffect(() => {
     async function charger() {
     const res = await fetch("/api/mouvements");
@@ -24,8 +22,6 @@ export default function Mouvements() {
     charger();
   }, []);
 
-  
-
   const liste = mouvements.filter((m) =>
     m.produit?.nom?.toLowerCase().includes(recherche.toLowerCase())
   );
@@ -33,7 +29,7 @@ export default function Mouvements() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
+
         <div className="mb-10 flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
             <History className="h-5 w-5 text-white" />
@@ -48,7 +44,6 @@ export default function Mouvements() {
           </div>
         </div>
 
-        {/* Recherche */}
         <div className="relative mb-6">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
           <input
@@ -59,7 +54,6 @@ export default function Mouvements() {
           />
         </div>
 
-        {/* Table */}
         <div className="bg-white/[0.03] border border-white/10 p-6 rounded-xl overflow-auto">
           <table className="w-full text-sm">
             <thead>
@@ -108,4 +102,3 @@ export default function Mouvements() {
     </div>
   );
 }
-

@@ -11,7 +11,6 @@ import {
 import { requireRole } from "@/lib/auth";
 import { checkRateLimit, getClientKey } from "@/lib/rate-limit";
 
-
 export async function GET(request: Request) {
 
   try {
@@ -30,8 +29,6 @@ export async function GET(request: Request) {
       );
     }
 
-
-
     const [
       businessScore,
       resumeData,
@@ -41,25 +38,17 @@ export async function GET(request: Request) {
 
     ] = await Promise.all([
 
-
       calculerBusinessScore(),
-
 
       genererResumeExecutif(),
 
-
       genererActionsIA(),
-
 
       genererAnalyseStock(),
 
-
       genererAnalyseClients(),
 
-
     ]);
-
-
 
     return NextResponse.json({
 
@@ -75,24 +64,17 @@ export async function GET(request: Request) {
 
     });
 
-
-
   } catch (error) {
-
 
     console.error(
       "[AI Dashboard Summary] Erreur:",
       error
     );
 
-
-
     const message =
       error instanceof Error
         ? error.message
         : "Erreur inconnue";
-
-
 
     const status =
       message === "UNAUTHORIZED"
@@ -100,8 +82,6 @@ export async function GET(request: Request) {
         : message === "FORBIDDEN"
         ? 403
         : 500;
-
-
 
     return NextResponse.json(
 
@@ -115,7 +95,6 @@ export async function GET(request: Request) {
       }
 
     );
-
 
   }
 

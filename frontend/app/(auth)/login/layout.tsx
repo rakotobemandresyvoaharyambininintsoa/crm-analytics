@@ -1,6 +1,3 @@
-// app/(auth)/layout.tsx
-// Coquille dédiée aux pages non authentifiées (login, futur mot de passe oublié...).
-// Pas de Sidebar, pas de Header — juste un fond soigné derrière le formulaire.
 export default function AuthLayout({
   children,
 }: {
@@ -8,7 +5,7 @@ export default function AuthLayout({
 }) {
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950">
-      {/* Halo décoratif violet/bleu, purement esthétique */}
+
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"

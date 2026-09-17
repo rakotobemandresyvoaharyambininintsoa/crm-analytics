@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
 
-// GET /api/inventaires/historique — toutes les sessions avec compteurs
 export async function GET() {
   try {
     await requireRole(["ADMIN", "MAGASINIER"]);

@@ -17,8 +17,6 @@ export default function Parametres() {
     rappelsAutomatiques: false,
   });
 
-  
-
   useEffect(() => {
     async function charger() {
     try {
@@ -36,8 +34,6 @@ export default function Parametres() {
 
     charger();
   }, []);
-
-  
 
   function changer(e: any) {
     const { name, value, type, checked } = e.target;
@@ -78,7 +74,7 @@ export default function Parametres() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-3xl">
-        {/* Header */}
+
         <div className="mb-10 flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
             <SlidersHorizontal className="h-5 w-5 text-white" />
@@ -94,7 +90,7 @@ export default function Parametres() {
         </div>
 
         <div className="space-y-6">
-          {/* FrÃ©quence & tolÃ©rance */}
+
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
             <h2 className="text-lg font-semibold text-white mb-5">
               FrÃ©quence et tolÃ©rance
@@ -135,7 +131,6 @@ export default function Parametres() {
             </div>
           </div>
 
-          {/* ContrÃ´les */}
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
             <h2 className="text-lg font-semibold text-white mb-5">
               ContrÃ´les de qualitÃ©
@@ -163,7 +158,6 @@ export default function Parametres() {
             </div>
           </div>
 
-          {/* Notifications */}
           <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
             <h2 className="text-lg font-semibold text-white mb-5">
               Notifications
@@ -219,4 +213,3 @@ function Toggle({ name, checked, onChange, label }: any) {
     </label>
   );
 }
-

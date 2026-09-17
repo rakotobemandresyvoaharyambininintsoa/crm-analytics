@@ -25,8 +25,6 @@ export default function Dashboard() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  
-
   useEffect(() => {
     async function charger() {
     try {
@@ -43,8 +41,6 @@ export default function Dashboard() {
     charger();
   }, []);
 
-  
-
   if (loading) {
     return (
       <div className="flex justify-center items-center py-20">
@@ -58,7 +54,7 @@ export default function Dashboard() {
 
   return (
     <div className="max-w-7xl mx-auto">
-      {/* HEADER */}
+
       <div className="mb-10 flex items-center gap-4">
         <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
           <Rocket className="h-5 w-5 text-white" />
@@ -71,7 +67,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* KPI */}
       <div className="grid md:grid-cols-4 gap-4 mb-8">
         <StatCard
           titre="Clients"
@@ -115,7 +110,6 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* REVENUE + AI — AIInsights se charge tout seul, plus besoin de lui passer de données */}
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         <RevenueChart
           data={data.ventes ?? []}
@@ -125,13 +119,11 @@ export default function Dashboard() {
         <AIInsights />
       </div>
 
-      {/* STOCK + PRODUITS */}
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         <StockAlert produits={data.produitsAlertes ?? []} />
         <TopProducts produits={data.topProduits ?? []} />
       </div>
 
-      {/* FACTURES + ACTIVITES */}
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         <RecentInvoices invoices={data.recentInvoices ?? []} />
         <ActivityTimeline activities={data.activities ?? []} />

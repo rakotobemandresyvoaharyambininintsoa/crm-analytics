@@ -5,9 +5,6 @@ import { requireRole } from "@/lib/auth";
 
 const ROLES_VALIDES = ["ADMIN", "COMMERCIAL", "MAGASINIER", "USER"];
 
-// =====================
-// MODIFIER USER (ADMIN uniquement)
-// =====================
 export async function PUT(request: Request, context: any) {
   let session;
   try {
@@ -23,14 +20,10 @@ export async function PUT(request: Request, context: any) {
     nom: body.nom,
   };
 
-  // Rôle : jamais accepté tel quel depuis le client, on valide contre la
-  // liste blanche pour empêcher une élévation de privilèges arbitraire.
   if (body.role !== undefined) {
     if (!ROLES_VALIDES.includes(body.role)) {
       return NextResponse.json({ error: "Rôle invalide" }, { status: 400 });
     }
-    // Un admin ne peut pas se retirer son propre rôle admin par erreur via
-    // cet endpoint, pour éviter de se verrouiller hors du compte.
     if (id === session.id && body.role !== "ADMIN") {
       return NextResponse.json(
         { error: "Vous ne pouvez pas retirer votre propre rôle admin" },
@@ -69,9 +62,6 @@ export async function PUT(request: Request, context: any) {
   }
 }
 
-// =====================
-// ACTIVER / DESACTIVER (ADMIN uniquement)
-// =====================
 export async function PATCH(request: Request, context: any) {
   let session;
   try {
@@ -106,9 +96,6 @@ export async function PATCH(request: Request, context: any) {
   return NextResponse.json(updated);
 }
 
-// =====================
-// SUPPRIMER USER (ADMIN uniquement)
-// =====================
 export async function DELETE(request: Request, context: any) {
   let session;
   try {

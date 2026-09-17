@@ -5,9 +5,6 @@ import { requireRole } from "@/lib/auth";
 
 const ROLES_VALIDES = ["ADMIN", "COMMERCIAL", "MAGASINIER", "USER"];
 
-// ======================
-// GET - LISTE UTILISATEURS (ADMIN uniquement)
-// ======================
 export async function GET() {
   try {
     await requireRole(["ADMIN"]);
@@ -30,9 +27,6 @@ export async function GET() {
   return NextResponse.json(users);
 }
 
-// ======================
-// CREATE USER (ADMIN uniquement)
-// ======================
 export async function POST(request: Request) {
   try {
     await requireRole(["ADMIN"]);

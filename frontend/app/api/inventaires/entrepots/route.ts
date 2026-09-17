@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
 
-// GET /api/entrepots — liste des entrepôts/magasins (pour le formulaire de session)
 export async function GET() {
   try {
     await requireRole(["ADMIN", "MAGASINIER"]);
@@ -25,7 +24,6 @@ export async function GET() {
   }
 }
 
-// POST /api/entrepots — créer un entrepôt (utile pour tes Paramètres)
 export async function POST(req: Request) {
   try {
     await requireRole(["ADMIN", "MAGASINIER"]);

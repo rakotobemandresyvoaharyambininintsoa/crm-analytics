@@ -2,17 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
 
-/**
- * Dashboard KPI endpoint.
- *
- * IMPORTANT: every number returned here MUST be derived from real data.
- * Earlier versions of this route shipped hardcoded "evolution: 12",
- * "objectifCA: 10000000" and "prediction = montant * 1.12" values labelled
- * as AI output. None of that was real — it looked identical to the genuine
- * reasoning produced by lib/ai/insights.ts, which broke user trust once
- * compared side by side. Everything below is computed from Prisma data.
- */
-
 const debutMoisCourant = () => {
   const d = new Date();
   return new Date(d.getFullYear(), d.getMonth(), 1);
@@ -23,7 +12,6 @@ const debutMoisPrecedent = () => {
   return new Date(d.getFullYear(), d.getMonth() - 1, 1);
 };
 
-/** Évolution en % entre deux valeurs, sans jamais renvoyer Infinity/NaN. */
 function evolutionPct(actuel: number, precedent: number): number {
   if (precedent <= 0) return actuel > 0 ? 100 : 0;
   return Math.round(((actuel - precedent) / precedent) * 100);
@@ -91,7 +79,6 @@ export async function GET() {
         take: 5,
         include: { client: true },
       }),
-      // 6 derniers mois, pour calculer une tendance réelle (pas une constante).
       prisma.facture.findMany({
         where: {
           createdAt: {
@@ -123,9 +110,6 @@ export async function GET() {
       }),
     ]);
 
-    // ============================
-    // STOCK
-    // ============================
     const stock = produitsStock.reduce((total, p) => total + p.quantite, 0);
     const valeurStock = produitsStock.reduce(
       (total, p) => total + p.quantite * p.prixVente,
@@ -135,9 +119,6 @@ export async function GET() {
     const mouvementCeMois = mouvementsCeMois._sum.quantite ?? 0;
     const mouvementMoisDernier = mouvementsMoisDernier._sum.quantite ?? 0;
 
-    // ============================
-    // ALERTES STOCK
-    // ============================
     const produitsAlertes = produitsStock
       .filter((p) => p.quantite <= p.seuilAlerte)
       .map((p) => {
@@ -153,15 +134,10 @@ export async function GET() {
           nom: p.nom,
           quantite: p.quantite,
           categorie: p.categorieId ? "Catégorie assignée" : "Non définie",
-          // Vente moyenne réelle du mois en cours pour ce produit,
-          // pas la constante "5" appliquée à tous les produits.
           venteMoyenne: quantiteVendue,
         };
       });
 
-    // ============================
-    // TOP PRODUITS — quantité, revenu et tendance réels
-    // ============================
     type ProduitAgg = {
       id: number;
       nom: string;
@@ -205,9 +181,6 @@ export async function GET() {
         };
       });
 
-    // ============================
-    // REVENUS + PROJECTION (tendance réelle, pas ×1.12 fixe)
-    // ============================
     const totauxParMois = new Map<string, number>();
     for (const f of facturesHistorique) {
       const cle = `${f.createdAt.getFullYear()}-${f.createdAt.getMonth()}`;
@@ -218,9 +191,6 @@ export async function GET() {
       ([a], [b]) => (a > b ? 1 : -1)
     );
 
-    // Taux de croissance moyen observé sur l'historique réel (borné entre
-    // -30% et +30% pour éviter qu'un seul mois exceptionnel ne fasse dérailler
-    // la projection).
     let tauxCroissanceMoyen = 0;
     if (moisTries.length >= 2) {
       const variations: number[] = [];
@@ -242,16 +212,9 @@ export async function GET() {
       .map((f) => ({
         mois: f.createdAt.toLocaleString("fr-FR", { month: "short" }),
         ca: f.montant,
-        // Projection = tendance réelle observée sur l'historique de facturation,
-        // pas un multiplicateur inventé. À 0 mouvement historique, la
-        // projection retombe simplement sur la valeur actuelle (pas de "+12%"
-        // gratuit).
         prediction: Math.round(f.montant * (1 + tauxCroissanceMoyen)),
       }));
 
-    // ============================
-    // FACTURES
-    // ============================
     const recentInvoices = facturesRecentes.map((f) => ({
       id: f.id,
       client: f.client?.nom ?? "Client inconnu",
@@ -260,9 +223,6 @@ export async function GET() {
       date: f.createdAt.toLocaleDateString("fr-FR"),
     }));
 
-    // ============================
-    // ACTIVITES
-    // ============================
     const activities = activites.map((a) => ({
       id: a.id,
       type: a.type.includes("vente")
@@ -275,12 +235,6 @@ export async function GET() {
       date: a.date.toLocaleDateString("fr-FR"),
     }));
 
-    // ============================
-    // OBJECTIF DE CA — dérivé de l'historique réel, pas une constante
-    // ============================
-    // Moyenne des 3 derniers mois avec facturation, +15% comme cible de
-    // croissance raisonnable. Si aucun historique n'existe encore, on retombe
-    // sur le CA du mois en cours (pas sur "10 000 000" arbitraire).
     const derniersMois = moisTries.slice(-3).map(([, total]) => total);
     const moyenneRecente =
       derniersMois.length > 0
@@ -288,9 +242,6 @@ export async function GET() {
         : (facturesCeMois._sum.montant ?? 0);
     const objectifCA = Math.round(moyenneRecente * 1.15);
 
-    // ============================
-    // ÉVOLUTIONS (mois courant vs mois précédent) — réelles
-    // ============================
     const evolutions = {
       clients: evolutionPct(clientsCeMois, clientsMoisDernier),
       opportunites: evolutionPct(opportunitesCeMois, opportunitesMoisDernier),
@@ -301,9 +252,6 @@ export async function GET() {
       stock: evolutionPct(mouvementCeMois, mouvementMoisDernier),
     };
 
-    // ============================
-    // SCORE IA — composite simple mais basé uniquement sur des faits réels
-    // ============================
     let businessScore = 50;
     if (clients > 10) businessScore += 10;
     if (factures > 10) businessScore += 10;
@@ -313,10 +261,6 @@ export async function GET() {
     if (evolutions.factures < 0) businessScore -= 5;
     businessScore = Math.max(0, Math.min(100, businessScore));
 
-    // ============================
-    // TEXTES D'INSIGHT — générés à partir des faits calculés ci-dessus,
-    // pas de phrase figée indépendante des données.
-    // ============================
     const insights = {
       clients:
         evolutions.clients >= 0

@@ -25,8 +25,6 @@ export default function Rapports() {
     produits: [],
   });
 
-  
-
   useEffect(() => {
     async function charger() {
     const res = await fetch("/api/rapports");
@@ -37,12 +35,10 @@ export default function Rapports() {
     charger();
   }, []);
 
-  
-
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
+
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
@@ -81,7 +77,6 @@ export default function Rapports() {
           </div>
         </div>
 
-        {/* KPI cards */}
         <div className="grid md:grid-cols-3 gap-4 mb-8">
           <Card
             titre="Chiffre d'affaires"
@@ -104,7 +99,7 @@ export default function Rapports() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Evolution CA */}
+
           <div className="bg-white/[0.03] border border-white/10 p-6 rounded-xl">
             <div className="flex items-center gap-2 mb-6">
               <TrendingUp className="h-5 w-5 text-violet-400" />
@@ -116,7 +111,6 @@ export default function Rapports() {
             <EvolutionChart data={rapport.topClients} />
           </div>
 
-          {/* Top clients */}
           <div className="bg-white/[0.03] border border-white/10 p-6 rounded-xl">
             <div className="flex items-center gap-2 mb-5">
               <Trophy className="h-5 w-5 text-amber-400" />
@@ -143,7 +137,6 @@ export default function Rapports() {
             </div>
           </div>
 
-          {/* Etat stock */}
           <div className="bg-white/[0.03] border border-white/10 p-6 rounded-xl md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <Boxes className="h-5 w-5 text-sky-400" />
@@ -201,5 +194,3 @@ function Card({
     </div>
   );
 }
-
-

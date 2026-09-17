@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
 
-// GET /api/inventaires/dashboard — statistiques du tableau de bord
 export async function GET() {
   try {
     await requireRole(["ADMIN", "MAGASINIER"]);
@@ -37,7 +36,6 @@ export async function GET() {
       0
     );
 
-    // Évolution mensuelle des écarts (6 derniers mois)
     const evolutionMap = new Map<string, number>();
 
     lignesEcart.forEach((l) => {

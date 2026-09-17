@@ -26,8 +26,6 @@ export default function FactureDetail() {
 
   const [facture, setFacture] = useState<any>(null);
 
-  
-
   useEffect(() => {
     async function charger() {
     const res = await fetch(`/api/factures/${id}`);
@@ -37,8 +35,6 @@ export default function FactureDetail() {
 
     charger();
   }, []);
-
-  
 
   function genererPDF() {
     const doc = new jsPDF();
@@ -81,7 +77,7 @@ export default function FactureDetail() {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mx-auto max-w-2xl">
-        {/* Header */}
+
         <div className="mb-10 flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-500/20">
             <Receipt className="h-5 w-5 text-white" />
@@ -94,7 +90,6 @@ export default function FactureDetail() {
           </div>
         </div>
 
-        {/* Card */}
         <div className="bg-white/[0.03] border border-white/10 p-8 rounded-xl">
           <div className="flex items-center justify-between mb-6">
             <span className="text-xs font-medium uppercase tracking-wide text-white/40">
@@ -159,5 +154,3 @@ function Ligne({
     </div>
   );
 }
-
-

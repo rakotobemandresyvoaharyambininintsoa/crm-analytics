@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/auth";
 
-// GET /api/inventaires/[id]/lignes — lignes de comptage pour l'écran de comptage
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -41,8 +40,6 @@ export async function GET(
   }
 }
 
-// PUT /api/inventaires/[id]/lignes — enregistre les quantités comptées
-// body: { lignes: [{ ligneId, stockCompte, commentaire }] }
 export async function PUT(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -91,7 +88,6 @@ export async function PUT(
       });
     }
 
-    // Passe la session en "En cours" si elle était en Brouillon
     await prisma.inventaireSession.updateMany({
       where: { id: sessionId, statut: "BROUILLON" },
       data: { statut: "EN_COURS" },
